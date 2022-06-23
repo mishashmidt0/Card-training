@@ -1,12 +1,10 @@
 import React from 'react';
 
-
-export const App = () => {
+export const Error = () => {
     return (
-        <div className="App">
-
+        <div>
+            Error
         </div>
     );
-}
-
+};
 
