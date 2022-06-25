@@ -1,17 +1,18 @@
-import {Dispatch} from "redux";
+import { Dispatch } from "redux";
 
+const initialState = {};
 
-const initialState = {}
-
-
-export const registerReducer = (state: loginStateType = initialState, action: any) => {
-    switch (action.type) {
-        case "auth":
-            return {...state, isAuth: action.value}
-        default:
-            return state
-    }
-}
+export const registerReducer = (
+  state: loginStateType = initialState,
+  action: any
+) => {
+  switch (action.type) {
+    case "auth":
+      return { ...state, isAuth: action.value };
+    default:
+      return state;
+  }
+};
 
 // action
 // const login = (value: boolean) => ({
@@ -33,6 +34,5 @@ export const registerReducer = (state: loginStateType = initialState, action: an
 // }
 
 // type
-export
-type loginStateType = {}
+export type loginStateType = {};
 // type actionType = ReturnType<typeof login>

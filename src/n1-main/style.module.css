@@ -1,23 +1,23 @@
 .headerContainer {
-    background-color: rgba(118, 229, 187, 0.5);
+  background-color: rgba(118, 229, 187, 0.5);
 }
 
 .headerContainer ul {
-    display: flex;
-    gap: 30px;
-    font-weight: 500;
-    font-size: 18px;
-    padding: 20px;
+  display: flex;
+  gap: 30px;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 20px;
 }
 
 .headerContainer ul li a {
-    color: black;
+  color: black;
 }
 
 .headerContainer ul li a:hover {
-    color: #cb3232;
+  color: #cb3232;
 }
 
 .headerContainer ul li a:active {
-    color: black;
+  color: black;
 }
