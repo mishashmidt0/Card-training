@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 const instace = axios.create({
-  baseURL: "https://neko-back.herokuapp.com/2.0",
+  baseURL: 'https://neko-back.herokuapp.com/2.0',
 });
 
 export type dataType = {
@@ -12,7 +12,7 @@ export type dataType = {
 
 export const forgotApi = {
   async sendPassword(data: dataType) {
-    const res = instace.post("/auth/login", data);
+    const res = instace.post('/auth/login', data);
     return res;
   },
 };
