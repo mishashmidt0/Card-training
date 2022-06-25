@@ -1,5 +1,5 @@
-import { Dispatch } from "redux";
-import { dataType, loginApi } from "./loginApi";
+import { Dispatch } from 'redux';
+import { dataType, loginApi } from './loginApi';
 
 const initialState = {
   isAuth: false,
@@ -7,10 +7,10 @@ const initialState = {
 
 export const loginReducer = (
   state: loginStateType = initialState,
-  action: actionType
+  action: actionType,
 ) => {
   switch (action.type) {
-    case "auth":
+    case 'auth':
       return { ...state, isAuth: action.value };
     default:
       return state;
@@ -20,21 +20,21 @@ export const loginReducer = (
 // action
 const login = (value: boolean) =>
   ({
-    type: "auth",
+    type: 'auth',
     value,
   } as const);
 
 // thunk
 
 export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
-  loginApi.login(data).then((res) => {
+  loginApi.login(data).then(res => {
     try {
       console.log(res);
       dispatch(login(res.data.value));
     } catch (e: any) {
       const err = e.responce
         ? e.responce.data.error
-        : e.message + "more details in the console";
+        : e.message + 'more details in the console';
     }
   });
 };

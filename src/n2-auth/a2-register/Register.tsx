@@ -1,21 +1,19 @@
-import React from "react";
-import { Formik } from "formik";
-import s from "./registerStyle.module.css";
+import React from 'react';
+import { Formik } from 'formik';
+import s from './registerStyle.module.css';
 
 export const Register = () => {
   return (
     <div className={s.registerContainer}>
       <h1>Регистрация</h1>
       <Formik
-        initialValues={{ email: "", password: "", repeatPassword: "" }}
-        validate={(values) => {
+        initialValues={{ email: '', password: '', repeatPassword: '' }}
+        validate={values => {
           const errors: any = {};
           if (!values.email) {
-            errors.email = "Required";
-          } else if (
-            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
-            errors.email = "Invalid email address";
+            errors.email = 'Required';
+          } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+            errors.email = 'Invalid email address';
           }
           return errors;
         }}
@@ -41,7 +39,7 @@ export const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
-              placeholder={"Эл. почта или имя пользователя"}
+              placeholder={'Эл. почта или имя пользователя'}
             />
             {errors.email && touched.email && errors.email}
 
@@ -51,7 +49,7 @@ export const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              placeholder={"Пароль"}
+              placeholder={'Пароль'}
             />
             <input
               type="password"
@@ -59,7 +57,7 @@ export const Register = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.repeatPassword}
-              placeholder={"Повторите пароль"}
+              placeholder={'Повторите пароль'}
             />
 
             {errors.password && touched.password && errors.password}

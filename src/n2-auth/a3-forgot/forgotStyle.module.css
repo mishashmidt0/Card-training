@@ -18,8 +18,8 @@
   justify-content: space-around;
 }
 
-.form input[type="email"],
-.form input[type="password"] {
+.form input[type='email'],
+.form input[type='password'] {
   width: 250px;
   height: 40px;
   border: black solid 1px;

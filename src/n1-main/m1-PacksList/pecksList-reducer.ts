@@ -1,13 +1,10 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 
 const initialState = {};
 
-export const packsListReducer = (
-  state: loginStateType = initialState,
-  action: any
-) => {
+export const packsListReducer = (state: loginStateType = initialState, action: any) => {
   switch (action.type) {
-    case "auth":
+    case 'auth':
       return { ...state, isAuth: action.value };
     default:
       return state;
