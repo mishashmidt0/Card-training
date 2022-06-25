@@ -15,6 +15,8 @@ export enum TitleFormik {
   password = 'password',
   passwordTitle = 'password',
   rememberMe = 'rememberMe',
+  initEmail = 'nya-admin@nya.nya',
+  initPassword = '1qazxcvBG',
 }
 
 export const FormikComponent = () => {
@@ -23,7 +25,7 @@ export const FormikComponent = () => {
 
   return (
     <Formik
-      initialValues={{ email: 'nya-admin@nya.nya', password: '1qazxcvBG', rememberMe: false }}
+      initialValues={{ email: TitleFormik.initEmail, password: TitleFormik.initPassword, rememberMe: false }}
 
       validate={values => validate(values)}
 

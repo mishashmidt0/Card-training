@@ -8,6 +8,7 @@ import { Profile } from './m2-Profile/Profile';
 import { PecksList } from './m1-PacksList/PecksList';
 import { Header } from './m3-header/Header';
 import s from './appStyle.module.css';
+import { Snackbars } from './m4-components/Snackbar/Snackbar';
 
 export const App = () => {
   return (
@@ -22,6 +23,7 @@ export const App = () => {
           <Route path={'/forgot'} element={<Forgot />} />
           <Route path={'/*'} element={<Error />} />
         </Routes>
+        <Snackbars />
       </div>
     </BrowserRouter>
   );
