@@ -1,38 +1,40 @@
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
+import { registerApi, RegisterParamsType } from './registerApi';
 
-const initialState = {};
 
-export const registerReducer = (
-  state: loginStateType = initialState,
-  action: any
-) => {
+const initialState = {
+  isRegistered: false,
+};
+type InitialStateType = typeof initialState
+
+export const registerReducer = (state: InitialStateType = initialState, action: RegisterActionsType): InitialStateType => {
   switch (action.type) {
-    case "auth":
-      return { ...state, isAuth: action.value };
+    case 'register/SET-IS-REGISTERED':
+      return { ...state, isRegistered: action.value };
     default:
       return state;
   }
 };
 
-// action
-// const login = (value: boolean) => ({
-//     type: "auth",
-//     value
-// } as const)
+// actions
+export const setIsRegisteredAC = (value: boolean) => ({ type: 'register/SET-IS-REGISTERED', value } as const);
 
-// thunk
+// thunks
+export const registerTC = (data: RegisterParamsType) => (dispatch: Dispatch<RegisterActionsType>) => {
+  registerApi.registerUser(data)
+    .then(res => {
+      if (res.error) {
+        dispatch(setIsRegisteredAC(false));
+      } else {
+        dispatch(setIsRegisteredAC(true));
+      }
+    })
+    .catch(error => {
+      dispatch(setIsRegisteredAC(false));
+      alert(error.response.data.error + ' If you don\'t remember your password go to \'forgot\'');
+    });
 
-// export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
-//     loginApi.login(data).then(res => {
-//         try {
-//             console.log(res)
-//             dispatch(login(res.data.value))
-//         } catch (e: any) {
-//             const err = e.responce ? e.responce.data.error : (e.message + "more details in the console")
-//         }
-//     })
-// }
+};
 
-// type
-export type loginStateType = {};
-// type actionType = ReturnType<typeof login>
+// types
+export type RegisterActionsType = ReturnType<typeof setIsRegisteredAC>

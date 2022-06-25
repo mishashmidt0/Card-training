@@ -1,18 +1,21 @@
-import axios from "axios";
+import axios from 'axios';
 
-const instace = axios.create({
-  baseURL: "https://neko-back.herokuapp.com/2.0",
+export const instance = axios.create({
+  baseURL: 'http://localhost:7542/2.0/',
+  withCredentials: true,
 });
 
-export type dataType = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-};
 
 export const registerApi = {
-  async addUser(data: dataType) {
-    const res = instace.post("/auth/login", data);
-    return res;
+  registerUser(data: RegisterParamsType) {
+    return instance.post<RegisterParamsType, ResponseRegisterType>('auth/register', data);
   },
 };
+
+export type RegisterParamsType = {
+  email: string
+  password: string
+}
+export type ResponseRegisterType = {
+  error?: string
+}
