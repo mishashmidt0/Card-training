@@ -22,12 +22,8 @@ export const setIsRegisteredAC = (value: boolean) => ({ type: 'register/SET-IS-R
 // thunks
 export const registerTC = (data: RegisterParamsType) => (dispatch: Dispatch<RegisterActionsType>) => {
   registerApi.registerUser(data)
-    .then(res => {
-      if (res.error) {
-        dispatch(setIsRegisteredAC(false));
-      } else {
+    .then(() => {
         dispatch(setIsRegisteredAC(true));
-      }
     })
     .catch(error => {
       dispatch(setIsRegisteredAC(false));

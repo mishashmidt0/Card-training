@@ -9,7 +9,7 @@ import { Link, Navigate } from 'react-router-dom';
 
 export const Register = () => {
 
-  const register = useSelector<AppRootStateType>(state => state.register.isRegistered);
+  const register = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered);
   const dispatch = useTypedDispatch();
 
   if (register) {
@@ -86,8 +86,7 @@ export const Register = () => {
                 value={values.repeatPassword}
                 placeholder={'Confirm password'}
               />
-              {errors.repeatPassword && touched.repeatPassword &&
-              <div style={{ color: 'red' }}>{errors.repeatPassword}</div>}
+              {errors.repeatPassword && touched.repeatPassword && <div style={{ color: 'red' }}>{errors.repeatPassword}</div>}
               <button type='submit' disabled={isSubmitting}>
                 REGISTER
               </button>
