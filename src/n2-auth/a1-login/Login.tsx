@@ -8,7 +8,6 @@ import {Link} from "react-router-dom";
 
 export const Login = () => {
     const dispatch = useDispatch<Dispatch<any>>();
-
     return (
         <div className={s.loginContainer}>
             <h1>Игра по карточкам</h1>

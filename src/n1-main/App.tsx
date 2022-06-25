@@ -6,7 +6,7 @@ import { Forgot } from "../n2-auth/a3-forgot/Forgot";
 import { Error } from "../n3-error/Error";
 import { Profile } from "./m2-Profile/Profile";
 import { PecksList } from "./m1-PacksList/PecksList";
-import { Header } from "./Header";
+import { Header } from "./m3-header/Header";
 
 export const App = () => {
   return (

@@ -1,0 +1,26 @@
+.headerContainer {
+    background-color: white;
+}
+
+
+.toolbarContainer a {
+    color: black;
+}
+
+.toolbarContainer a:hover {
+    color: #3b61df;
+}
+
+.toolbarContainer a:active {
+    color: black;
+}
+
+.toolbarContainer {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.toolbarContainer div {
+    display: flex;
+}
