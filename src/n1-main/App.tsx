@@ -7,11 +7,12 @@ import { Error } from '../n3-error/Error';
 import { Profile } from './m2-Profile/Profile';
 import { PecksList } from './m1-PacksList/PecksList';
 import { Header } from './m3-header/Header';
+import s from './appStyle.module.css';
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <div className="App">
+      <div className={s.App}>
         <Header />
         <Routes>
           <Route path={'/'} element={<Profile />} />

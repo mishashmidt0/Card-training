@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
+import s from '../loginStyle.module.css';
 
-export const ErrorMessage = () => {
-  return <div></div>;
+type ErrorMessageType = {
+  message: string | undefined,
+  blur: boolean | undefined
+}
+export const ErrorMessage: FC<ErrorMessageType> = ({ message, blur }) => {
+
+  return <div className={`${s.errorMessage} ${!!message && blur ? s.errorMessageActive : ''}`}>{message}</div>;
 };

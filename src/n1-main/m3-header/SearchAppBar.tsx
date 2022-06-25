@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import s from './style.module.css';
+import s from './headerStyle.module.css';
 import { Search, SearchIconWrapper, StyledInputBase } from './utils_SearchAppBar';
 
 export default function SearchAppBar() {

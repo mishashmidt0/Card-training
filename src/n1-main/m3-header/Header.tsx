@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './style.module.css';
+import s from './headerStyle.module.css';
 import SearchAppBar from './SearchAppBar';
 
 export const Header = () => {
