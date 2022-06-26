@@ -41,7 +41,8 @@ export const showAnswer = (message: string, status: statusType) =>
 export const closeAnswer = () => ({ type: ActionType.close } as const);
 
 // thunk
-export const initializeAppTC = () => (dispatch: Dispatch) => {};
+export const initializeAppTC = () => (dispatch: Dispatch) => {
+};
 
 // type
 export type statusType = Status.warning | Status.info | Status.error | Status.success;
@@ -55,4 +56,5 @@ export type appStateType = {
 };
 export type showAnswerType = ReturnType<typeof showAnswer>;
 export type closeAnswerType = ReturnType<typeof closeAnswer>;
+
 export type AppActionsType = showAnswerType | closeAnswerType;
