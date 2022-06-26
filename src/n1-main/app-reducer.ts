@@ -10,7 +10,7 @@ export enum Value {
   close = 'close',
 }
 
-export enum Cover {
+export enum Status {
   success = 'success',
   warning = 'warning',
   info = 'info',
@@ -19,9 +19,9 @@ export enum Cover {
 
 const initialState: appStateType = {
   snackbar: {
-    value: Value.close,
+    isShow: false,
     message: '',
-    cover: Cover.success,
+    status: Status.success,
   },
 
 };
@@ -30,16 +30,16 @@ export const appReducer = (app: appStateType = initialState, action: AppActionsT
 
   switch (action.type) {
     case ActionType.show:
-      return { ...app, snackbar: action.snackbar };
+      return { ...app, snackbar: { ...action.snackbar, isShow: true } };
     case ActionType.close:
-      return { ...app, snackbar: { ...app.snackbar, value: Value.close } };
+      return { ...app, snackbar: { ...app.snackbar, isShow: false } };
     default:
       return app;
   }
 };
 
 // action
-export const showAnswer = (value: statusType, message: string, cover: coverType) => ({ type: ActionType.show, snackbar: { value, message, cover } } as const);
+export const showAnswer = (message: string, status: statusType) => ({ type: ActionType.show, snackbar: { message, status } } as const);
 export const closeAnswer = () => ({ type: ActionType.close } as const);
 
 
@@ -49,12 +49,11 @@ export const initializeAppTC = () => (dispatch: Dispatch) => {
 };
 
 // type
-export type statusType = Value.show | Value.close
-export type coverType = Cover.warning | Cover.info | Cover.error | Cover.success
+export type statusType = Status.warning | Status.info | Status.error | Status.success
 export type snackbarType = {
-  value: statusType,
+  isShow: boolean,
   message: string,
-  cover: coverType
+  status: statusType
 }
 export type appStateType = {
   snackbar: snackbarType

@@ -25,8 +25,8 @@ export function Snackbars() {
   };
 
   return (
-    <Snackbar open={snackbar.value === 'show'} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-      <Alert onClose={handleClose} severity={snackbar.cover} sx={{ width: '100%' }}>
+    <Snackbar open={snackbar.isShow} autoHideDuration={3000} onClose={handleClose} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+      <Alert onClose={handleClose} severity={snackbar.status} sx={{ width: '100%' }}>
         {snackbar.message}
       </Alert>
     </Snackbar>

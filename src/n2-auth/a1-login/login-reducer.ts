@@ -1,6 +1,6 @@
 import { dataType, loginApi } from './loginApi';
 import { TypedDispatch } from '../../n10-bll/redux';
-import { Cover, showAnswer, Value } from '../../n1-main/app-reducer';
+import { showAnswer, Status } from '../../n1-main/app-reducer';
 
 const initialState = {
   isAuth: false,
@@ -40,13 +40,16 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
       console.log(res);
 
       dispatch(login(res.data.value));
-      dispatch(showAnswer(Value.show, Title.message, Cover.success));
+      dispatch(showAnswer(Title.message, Status.success));
     } catch (e: any) {
+      debugger
       const err = e.responce
         ? e.responce.data.error
         : e.message + Title.error;
-      console.log(err);
+      dispatch(showAnswer(err, Status.error));
     }
+  }).catch(err => {
+    dispatch(showAnswer(err.response.data.error, Status.error));
   });
 };
 
