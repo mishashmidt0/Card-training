@@ -20,10 +20,11 @@ const initialState: appStateType = {
     message: '',
     status: Status.success,
   },
-
 };
-export const appReducer = (app: appStateType = initialState, action: AppActionsType): appStateType => {
-
+export const appReducer = (
+  app: appStateType = initialState,
+  action: AppActionsType,
+): appStateType => {
   switch (action.type) {
     case ActionType.show:
       return { ...app, snackbar: { ...action.snackbar, isShow: true } };
@@ -35,32 +36,24 @@ export const appReducer = (app: appStateType = initialState, action: AppActionsT
 };
 
 // action
-export const showAnswer = (message: string, status: statusType) => ({ type: ActionType.show, snackbar: { message, status } } as const);
+export const showAnswer = (message: string, status: statusType) =>
+  ({ type: ActionType.show, snackbar: { message, status } } as const);
 export const closeAnswer = () => ({ type: ActionType.close } as const);
 
-
 // thunk
-export const initializeAppTC = () => (dispatch: Dispatch) => {
-
-};
+export const initializeAppTC = () => (dispatch: Dispatch) => {};
 
 // type
-export type statusType = Status.warning | Status.info | Status.error | Status.success
+export type statusType = Status.warning | Status.info | Status.error | Status.success;
 export type snackbarType = {
-  isShow: boolean,
-  message: string,
-  status: statusType
-}
+  isShow: boolean;
+  message: string;
+  status: statusType;
+};
 export type appStateType = {
-  snackbar: snackbarType
-}
-export type showAnswerType = ReturnType<typeof showAnswer>
-export type closeAnswerType = ReturnType<typeof closeAnswer>
-export type AppActionsType =
-  | showAnswerType
-  | closeAnswerType
+  snackbar: snackbarType;
+};
+export type showAnswerType = ReturnType<typeof showAnswer>;
+export type closeAnswerType = ReturnType<typeof closeAnswer>;
 
-
-
-
-
+export type AppActionsType = showAnswerType | closeAnswerType;

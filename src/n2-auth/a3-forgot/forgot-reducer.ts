@@ -1,35 +1,41 @@
-import { Dispatch } from 'redux';
+import { TypedDispatch } from '../../n10-bll/redux';
+import { forgotApi } from './forgotApi';
+import { showAnswer, Status } from '../../n1-main/app-reducer';
 
-const initialState = {};
+const initialState = {
+  isSendMessageToEmail: false,
+};
+type InitialStateType = typeof initialState;
 
-export const forgotReducer = (state: loginStateType = initialState, action: any) => {
+export const forgotReducer = (
+  state: InitialStateType = initialState,
+  action: ForgotPasswordActionsType,
+): InitialStateType => {
   switch (action.type) {
-    case 'auth':
-      return { ...state, isAuth: action.value };
+    case 'forgot/SET-IS-SEND-MESSAGE':
+      return { ...state, isSendMessageToEmail: action.value };
     default:
       return state;
   }
 };
 
-// action
-// const login = (value: boolean) => ({
-//     type: "auth",
-//     value
-// } as const)
+// actions
+export const setIsForgotPasswordAC = (value: boolean) =>
+  ({ type: 'forgot/SET-IS-SEND-MESSAGE', value } as const);
 
-// thunk
+// thunks
+export const forgotPasswordTC = (email: string) => (dispatch: TypedDispatch) => {
+  forgotApi
+    .forgotPassword(email)
+    .then(() => {
+      dispatch(setIsForgotPasswordAC(true));
+      dispatch(showAnswer(`Check email: ${email}`, Status.success));
+    })
+    .catch(error => {
+      dispatch(setIsForgotPasswordAC(false));
+      dispatch(showAnswer(error.response.data.error, Status.error));
+    });
+};
 
-// export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
-//     loginApi.login(data).then(res => {
-//         try {
-//             console.log(res)
-//             dispatch(login(res.data.value))
-//         } catch (e: any) {
-//             const err = e.responce ? e.responce.data.error : (e.message + "more details in the console")
-//         }
-//     })
-// }
-
-// type
-export type loginStateType = {};
-// type actionType = ReturnType<typeof login>
+// types
+export type ForgotPasswordActionsType = ReturnType<typeof setIsForgotPasswordAC>;

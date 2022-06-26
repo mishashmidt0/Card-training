@@ -15,6 +15,8 @@ export enum TitleFormik {
   password = 'password',
   passwordTitle = 'password',
   rememberMe = 'rememberMe',
+  initEmail = 'nya-admin@nya.nya',
+  initPassword = '1qazxcvBG',
 }
 
 export const FormikComponent = () => {
@@ -23,8 +25,8 @@ export const FormikComponent = () => {
   return (
     <Formik
       initialValues={{
-        email: 'nya-admin@nya.nya',
-        password: '1qazxcvBG',
+        email: TitleFormik.initEmail,
+        password: TitleFormik.initPassword,
         rememberMe: false,
       }}
       validate={values => validate(values)}
@@ -53,7 +55,7 @@ export const FormikComponent = () => {
             error={!!errors.email}
           />
 
-          <ErrorMessage message={errors.email} blur={touched.email} />
+          <ErrorMessage message={errors.email} />
 
           <SuperInput
             title={TitleFormik.passwordTitle}
@@ -63,7 +65,7 @@ export const FormikComponent = () => {
             value={values.password}
             error={!!errors.password}
           />
-          <ErrorMessage message={errors.password} blur={touched.password} />
+          <ErrorMessage message={errors.password} />
 
           <LoginFooter
             value={values.rememberMe}
