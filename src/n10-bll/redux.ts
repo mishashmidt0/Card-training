@@ -5,7 +5,7 @@ import {
   RegisterActionsType,
   registerReducer,
 } from '../n2-auth/a2-register/register-reducer';
-import { forgotReducer } from '../n2-auth/a3-forgot/forgot-reducer';
+import { ForgotPasswordActionsType, forgotReducer } from '../n2-auth/a3-forgot/forgot-reducer';
 import { profileReducer } from '../n1-main/m2-Profile/profile-reducer';
 import { packsListReducer } from '../n1-main/m1-PacksList/pecksList-reducer';
 import { useDispatch } from 'react-redux';
@@ -26,7 +26,8 @@ export type AppRootStateType = ReturnType<typeof reducers>;
 export type AllActionType =
   | RegisterActionsType
   | LoginActionsType
-  | AppActionsType; /*| ProfileActionsType*/
+  | AppActionsType
+  | ForgotPasswordActionsType; /*| ProfileActionsType*/
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   AppRootStateType,
