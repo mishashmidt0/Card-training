@@ -5,12 +5,16 @@ import { Link } from 'react-router-dom';
 import { TitleFormik } from './Formik';
 
 type LoginFooterType = {
-  value: boolean,
-  handleChange: any
-  isSubmitting: boolean
-}
+  value: boolean;
+  handleChange: any;
+  isSubmitting: boolean;
+};
 
-export const LoginFooter: FC<LoginFooterType> = ({ value, handleChange, isSubmitting }) => {
+export const LoginFooter: FC<LoginFooterType> = ({
+  value,
+  handleChange,
+  isSubmitting,
+}) => {
   enum Title {
     checkbox = 'remember me',
     button = 'Log in',
@@ -19,22 +23,22 @@ export const LoginFooter: FC<LoginFooterType> = ({ value, handleChange, isSubmit
 
   return (
     <div className={s.containerFooter}>
-
       <div>
         <FormControlLabel
           control={<Checkbox checked={value} />}
           label={Title.checkbox}
           name={TitleFormik.rememberMe}
           onChange={handleChange}
-
         />
 
-        <Link to={'/forgot'} className={s.forgot}>{Title.forgot}</Link>
+        <Link to={'/forgot'} className={s.forgot}>
+          {Title.forgot}
+        </Link>
       </div>
 
-      <Button variant='contained' type='submit' disabled={isSubmitting}>{Title.button}</Button>
+      <Button variant="contained" type="submit" disabled={isSubmitting}>
+        {Title.button}
+      </Button>
     </div>
-
   );
 };
-
