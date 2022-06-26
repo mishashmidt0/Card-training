@@ -16,7 +16,7 @@ export const SuperInput: FC<SuperInputType> = React.memo(
       <div>
         <TextField
           label={title}
-          variant="standard"
+          variant='standard'
           type={name}
           name={name}
           onChange={handleChange}

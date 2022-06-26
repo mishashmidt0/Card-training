@@ -3,11 +3,10 @@ import s from '../loginStyle.module.css';
 
 type ErrorMessageType = {
   message: string | undefined;
-  blur: boolean | undefined;
 };
-export const ErrorMessage: FC<ErrorMessageType> = ({ message, blur }) => {
+export const ErrorMessage: FC<ErrorMessageType> = ({ message }) => {
   return (
-    <div className={`${s.errorMessage} ${!!message && blur ? s.errorMessageActive : ''}`}>
+    <div className={`${s.errorMessage} ${!!message ? s.errorMessageActive : ''}`}>
       {message}
     </div>
   );

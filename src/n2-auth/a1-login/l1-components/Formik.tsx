@@ -37,14 +37,14 @@ export const FormikComponent = () => {
       }}
     >
       {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-      }) => (
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
         <form onSubmit={handleSubmit} className={s.form}>
           <SuperInput
             title={TitleFormik.emailTitle}
@@ -55,7 +55,7 @@ export const FormikComponent = () => {
             error={!!errors.email}
           />
 
-          <ErrorMessage message={errors.email} blur={touched.email} />
+          <ErrorMessage message={errors.email} />
 
           <SuperInput
             title={TitleFormik.passwordTitle}
@@ -65,7 +65,7 @@ export const FormikComponent = () => {
             value={values.password}
             error={!!errors.password}
           />
-          <ErrorMessage message={errors.password} blur={touched.password} />
+          <ErrorMessage message={errors.password} />
 
           <LoginFooter
             value={values.rememberMe}
