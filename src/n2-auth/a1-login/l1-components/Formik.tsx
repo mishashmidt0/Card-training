@@ -37,14 +37,14 @@ export const FormikComponent = () => {
       }}
     >
       {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+      }) => (
         <form onSubmit={handleSubmit} className={s.form}>
           <SuperInput
             title={TitleFormik.emailTitle}

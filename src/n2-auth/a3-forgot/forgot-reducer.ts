@@ -2,13 +2,15 @@ import { TypedDispatch } from '../../n10-bll/redux';
 import { forgotApi } from './forgotApi';
 import { showAnswer, Status } from '../../n1-main/app-reducer';
 
-
 const initialState = {
   isSendMessageToEmail: false,
 };
-type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState;
 
-export const forgotReducer = (state: InitialStateType = initialState, action: ForgotPasswordActionsType): InitialStateType => {
+export const forgotReducer = (
+  state: InitialStateType = initialState,
+  action: ForgotPasswordActionsType,
+): InitialStateType => {
   switch (action.type) {
     case 'forgot/SET-IS-SEND-MESSAGE':
       return { ...state, isSendMessageToEmail: action.value };
@@ -18,21 +20,22 @@ export const forgotReducer = (state: InitialStateType = initialState, action: Fo
 };
 
 // actions
-export const setIsForgotPasswordAC = (value: boolean) => ({ type: 'forgot/SET-IS-SEND-MESSAGE', value } as const);
+export const setIsForgotPasswordAC = (value: boolean) =>
+  ({ type: 'forgot/SET-IS-SEND-MESSAGE', value } as const);
 
 // thunks
 export const forgotPasswordTC = (email: string) => (dispatch: TypedDispatch) => {
-  forgotApi.forgotPassword(email)
+  forgotApi
+    .forgotPassword(email)
     .then(() => {
       dispatch(setIsForgotPasswordAC(true));
-      dispatch(showAnswer(`Check email: ${email}`, Status.success))
+      dispatch(showAnswer(`Check email: ${email}`, Status.success));
     })
     .catch(error => {
       dispatch(setIsForgotPasswordAC(false));
-      dispatch(showAnswer(error.response.data.error, Status.error))
+      dispatch(showAnswer(error.response.data.error, Status.error));
     });
-
 };
 
 // types
-export type ForgotPasswordActionsType = ReturnType<typeof setIsForgotPasswordAC>
+export type ForgotPasswordActionsType = ReturnType<typeof setIsForgotPasswordAC>;

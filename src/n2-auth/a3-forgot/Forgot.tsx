@@ -7,12 +7,13 @@ import { AppRootStateType, useTypedDispatch } from '../../n10-bll/redux';
 import { Navigate } from 'react-router-dom';
 
 export const Forgot = () => {
-
-  const isSendMessageToEmail = useSelector<AppRootStateType>(state => state.forgot.isSendMessageToEmail);
+  const isSendMessageToEmail = useSelector<AppRootStateType>(
+    state => state.forgot.isSendMessageToEmail,
+  );
   const dispatch = useTypedDispatch();
 
   if (isSendMessageToEmail) {
-    return <Navigate to='/login' />;
+    return <Navigate to="/login" />;
   } else {
     return (
       <div className={s.forgotContainer}>
@@ -34,28 +35,30 @@ export const Forgot = () => {
           }}
         >
           {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-            }) => (
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+          }) => (
             <form onSubmit={handleSubmit} className={s.form}>
               <input
-                type='email'
-                name='email'
+                type="email"
+                name="email"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
                 placeholder={'Email'}
               />
-              {errors.email && touched.email && <div style={{ color: 'red' }}>{errors.email}</div>}
+              {errors.email && touched.email && (
+                <div style={{ color: 'red' }}>{errors.email}</div>
+              )}
               <div>
                 Enter your email address and we will send you further instructions
               </div>
-              <button type='submit' disabled={isSubmitting}>
+              <button type="submit" disabled={isSubmitting}>
                 Send Instructions
               </button>
             </form>
