@@ -1,9 +1,11 @@
 import { Dispatch } from 'redux';
+
 //enum
 enum ActionType {
   show = 'SHOW',
   close = 'CLOSE',
 }
+
 export enum Status {
   success = 'success',
   warning = 'warning',
@@ -54,7 +56,6 @@ export type appStateType = {
 }
 export type showAnswerType = ReturnType<typeof showAnswer>
 export type closeAnswerType = ReturnType<typeof closeAnswer>
-
 export type AppActionsType =
   | showAnswerType
   | closeAnswerType

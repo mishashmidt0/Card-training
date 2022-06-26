@@ -3,14 +3,14 @@ import MuiAlert from '@mui/material/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { AlertProps, Snackbar } from '@mui/material';
 import { closeAnswer, snackbarType } from '../../app-reducer';
-import { AppRootStateType } from '../../../n10-bll/redux';
+import { AppRootStateType, useTypedDispatch } from '../../../n10-bll/redux';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
 });
 
 export function Snackbars() {
-  const dispatch = useDispatch();
+  const dispatch = useTypedDispatch();
   const snackbar = useSelector<AppRootStateType, snackbarType>(
     state => state.app.snackbar,
   );

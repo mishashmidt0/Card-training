@@ -2,19 +2,20 @@ import { dataType, loginApi } from './loginApi';
 import { TypedDispatch } from '../../n10-bll/redux';
 import { showAnswer, Status } from '../../n1-main/app-reducer';
 
-const initialState = {
-  isAuth: false,
-};
-
+//enum
 enum Title {
   message = 'authorization was successful',
-  error = 'more details in the console',
+  error = ' more details in the console',
 }
 
 enum Type {
   login = 'login',
 }
 
+//init && reducer
+const initialState = {
+  isAuth: false,
+};
 export const loginReducer = (
   state: loginStateType = initialState,
   action: LoginActionsType,
@@ -35,24 +36,16 @@ const login = (value: boolean) =>
   } as const);
 
 // thunk
-
 export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
   loginApi
     .login(data)
     .then(res => {
-      try {
-        console.log(res);
-
-        dispatch(login(res.data.value));
-        dispatch(showAnswer(Title.message, Status.success));
-      } catch (e: any) {
-        debugger;
-        const err = e.responce ? e.responce.data.error : e.message + Title.error;
-        dispatch(showAnswer(err, Status.error));
-      }
+      dispatch(login(res.data.value));
+      dispatch(showAnswer(Title.message, Status.success));
     })
-    .catch(err => {
-      dispatch(showAnswer(err.response.data.error, Status.error));
+    .catch(e => {
+      const err = e.response ? e.response.data.error : e.message + Title.error;
+      dispatch(showAnswer(err, Status.error));
     });
 };
 
