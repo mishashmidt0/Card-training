@@ -1,12 +1,21 @@
 import React from 'react';
 import s from './loginStyle.module.css';
-import { FormikComponent } from './l1-components/Formik';
+import {FormikComponent} from './l1-components/Formik';
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from '../../n10-bll/redux';
+import {Navigate} from 'react-router-dom';
 
 export const Login = () => {
-  return (
-    <div className={s.loginContainer}>
-      <h1>Log in</h1>
-      <FormikComponent />
-    </div>
-  );
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
+
+    if (isLoggedIn) {
+        return <Navigate to="/profile"/>;
+    }
+
+    return (
+        <div className={s.loginContainer}>
+            <h1>Log in</h1>
+            <FormikComponent/>
+        </div>
+    );
 };
