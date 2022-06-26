@@ -23,7 +23,7 @@ export const setIsRegisteredAC = (value: boolean) => ({ type: 'register/SET-IS-R
 export const registerTC = (data: RegisterParamsType) => (dispatch: Dispatch<RegisterActionsType>) => {
   registerApi.registerUser(data)
     .then(() => {
-        dispatch(setIsRegisteredAC(true));
+      dispatch(setIsRegisteredAC(true));
     })
     .catch(error => {
       dispatch(setIsRegisteredAC(false));
