@@ -16,7 +16,9 @@ enum Type {
 }
 
 export const loginReducer = (
-  state: loginStateType = initialState, action: LoginActionsType): loginStateType => {
+  state: loginStateType = initialState,
+  action: LoginActionsType,
+): loginStateType => {
   switch (action.type) {
     case Type.login:
       return { ...state, isAuth: action.value };
@@ -35,24 +37,24 @@ const login = (value: boolean) =>
 // thunk
 
 export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
-  loginApi.login(data).then(res => {
-    try {
-      console.log(res);
+  loginApi
+    .login(data)
+    .then(res => {
+      try {
+        console.log(res);
 
-      dispatch(login(res.data.value));
-      dispatch(showAnswer(Title.message, Status.success));
-    } catch (e: any) {
-      debugger
-      const err = e.responce
-        ? e.responce.data.error
-        : e.message + Title.error;
-      dispatch(showAnswer(err, Status.error));
-    }
-  }).catch(err => {
-    dispatch(showAnswer(err.response.data.error, Status.error));
-  });
+        dispatch(login(res.data.value));
+        dispatch(showAnswer(Title.message, Status.success));
+      } catch (e: any) {
+        debugger;
+        const err = e.responce ? e.responce.data.error : e.message + Title.error;
+        dispatch(showAnswer(err, Status.error));
+      }
+    })
+    .catch(err => {
+      dispatch(showAnswer(err.response.data.error, Status.error));
+    });
 };
-
 
 // type
 export type loginStateType = {
