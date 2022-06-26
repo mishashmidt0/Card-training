@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instace = axios.create({
   baseURL: 'http://localhost:7542/2.0',
-  withCredentials: true
+  withCredentials: true,
 });
 
 export type dataType = {

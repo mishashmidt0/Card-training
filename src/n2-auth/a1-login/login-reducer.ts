@@ -36,7 +36,6 @@ export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
       console.log(res);
 
       dispatch(login(true));
-
     } catch (e: any) {
       const err = e.responce
         ? e.responce.data.error
@@ -45,7 +44,6 @@ export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
     }
   });
 };
-
 
 // type
 export type loginStateType = {

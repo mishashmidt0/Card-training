@@ -20,13 +20,14 @@ export enum TitleFormik {
 export const FormikComponent = () => {
   const dispatch = useDispatch<Dispatch<any>>();
 
-
   return (
     <Formik
-      initialValues={{ email: 'nya-admin@nya.nya', password: '1qazxcvBG', rememberMe: false }}
-
+      initialValues={{
+        email: 'nya-admin@nya.nya',
+        password: '1qazxcvBG',
+        rememberMe: false,
+      }}
       validate={values => validate(values)}
-
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
 
@@ -34,16 +35,15 @@ export const FormikComponent = () => {
       }}
     >
       {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+      }) => (
         <form onSubmit={handleSubmit} className={s.form}>
-
           <SuperInput
             title={TitleFormik.emailTitle}
             name={TitleFormik.email}
@@ -65,7 +65,11 @@ export const FormikComponent = () => {
           />
           <ErrorMessage message={errors.password} blur={touched.password} />
 
-          <LoginFooter value={values.rememberMe} handleChange={handleChange} isSubmitting={isSubmitting} />
+          <LoginFooter
+            value={values.rememberMe}
+            handleChange={handleChange}
+            isSubmitting={isSubmitting}
+          />
         </form>
       )}
     </Formik>

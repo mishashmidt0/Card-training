@@ -7,7 +7,7 @@ type SuperInputType = {
   handleBlur: any;
   handleChange: any;
   value: any;
-  error: boolean
+  error: boolean;
 };
 
 export const SuperInput: FC<SuperInputType> = React.memo(
@@ -16,7 +16,7 @@ export const SuperInput: FC<SuperInputType> = React.memo(
       <div>
         <TextField
           label={title}
-          variant='standard'
+          variant="standard"
           type={name}
           name={name}
           onChange={handleChange}
