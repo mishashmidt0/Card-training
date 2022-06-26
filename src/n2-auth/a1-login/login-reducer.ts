@@ -22,7 +22,7 @@ export const loginReducer = (
 };
 
 // action
-const login = (value: boolean) =>
+export const login = (value: boolean) =>
   ({
     type: Type.login,
     value,
@@ -35,7 +35,7 @@ export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
     try {
       console.log(res);
 
-      dispatch(login(res.data.value));
+      dispatch(login(true));
 
     } catch (e: any) {
       const err = e.responce

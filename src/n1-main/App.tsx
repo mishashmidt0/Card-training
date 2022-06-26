@@ -15,7 +15,7 @@ export const App = () => {
       <div className={s.App}>
         <Header />
         <Routes>
-          <Route path={'/'} element={<Profile />} />
+          <Route path={'/profile'} element={<Profile />} />
           <Route path={'/list'} element={<PecksList />} />
           <Route path={'/login'} element={<Login />} />
           <Route path={'/register'} element={<Register />} />
