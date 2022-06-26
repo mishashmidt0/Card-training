@@ -1,10 +1,11 @@
 import { dataType, loginApi } from './loginApi';
 import { TypedDispatch } from '../../n10-bll/redux';
-import { showAnswer, Status } from '../../n1-main/app-reducer';
+import { handleNetworkLoginError, handleServerLogin } from './utils/handle-login-utils';
 
 //enum
-enum Title {
+export enum loginReducerTitle {
   message = 'authorization was successful',
+  messageError = 'some error',
   error = ' more details in the console',
 }
 
@@ -13,8 +14,9 @@ enum Type {
 }
 
 //init && reducer
-const initialState = {
+const initialState: loginStateType = {
   isAuth: false,
+  isShowPassword: false,
 };
 export const loginReducer = (
   state: loginStateType = initialState,
@@ -29,7 +31,13 @@ export const loginReducer = (
 };
 
 // action
-const login = (value: boolean) =>
+export const login = (value: boolean) =>
+  ({
+    type: Type.login,
+    value,
+  } as const);
+
+export const isShowPassword = (value: boolean) =>
   ({
     type: Type.login,
     value,
@@ -40,17 +48,16 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
   loginApi
     .login(data)
     .then(res => {
-      dispatch(login(res.data.value));
-      dispatch(showAnswer(Title.message, Status.success));
+      handleServerLogin(res.statusText, dispatch);
     })
     .catch(e => {
-      const err = e.response ? e.response.data.error : e.message + Title.error;
-      dispatch(showAnswer(err, Status.error));
+      handleNetworkLoginError(e, dispatch);
     });
 };
 
 // type
 export type loginStateType = {
   isAuth: boolean;
+  isShowPassword: boolean;
 };
 export type LoginActionsType = ReturnType<typeof login>;
