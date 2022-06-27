@@ -1,14 +1,15 @@
 import React from 'react';
 import { Formik } from 'formik';
-import s from './registerStyle.module.css';
-import { registerTC } from './register-reducer';
-import { useTypedDispatch } from '../../n10-bll/redux';
+import s from './RegisterFormStyle.module.css';
+import { registerTC } from '../register-reducer';
+import { useAppSelector, useTypedDispatch } from '../../../n10-bll/redux';
 import { Link } from 'react-router-dom';
-import { SuperInput } from '../a1-login/l1-components/SuperInput';
+import { SuperInput } from '../../a1-login/l1-components/SuperInput';
 import { Button } from '@mui/material';
 
 export const RegisterForm = () => {
   const dispatch = useTypedDispatch();
+  const loading = useAppSelector(state => state.app.loading);
 
   return (
     <Formik
@@ -18,9 +19,7 @@ export const RegisterForm = () => {
         repeatPassword: '',
       }}
       validate={values => {
-        const errors: Partial<
-          Omit<{ email: string; password: string; repeatPassword: string }, 'captcha'>
-        > = {};
+        const errors: Partial<Omit<{ email: string; password: string; repeatPassword: string }, 'captcha'>> = {};
         if (!values.email) {
           errors.email = 'Required';
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -41,16 +40,8 @@ export const RegisterForm = () => {
         dispatch(registerTC({ email: values.email, password: values.password }));
       }}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        //handleBlur,
-        handleSubmit,
-        isSubmitting,
-      }) => (
-        <form onSubmit={handleSubmit} className={s.form}>
+      {({ values, errors, handleChange, handleSubmit }) => (
+        <form onSubmit={handleSubmit} className={s.formContainer}>
           <SuperInput
             title={'Email'}
             name={'email'}
@@ -59,9 +50,6 @@ export const RegisterForm = () => {
             value={values.email}
             error={errors.email}
           />
-          {errors.email && touched.email && (
-            <div style={{ color: 'red' }}>{errors.email}</div>
-          )}
           <SuperInput
             title={'Password'}
             name={'password'}
@@ -70,9 +58,6 @@ export const RegisterForm = () => {
             value={values.password}
             error={errors.password}
           />
-          {errors.password && touched.password && (
-            <div style={{ color: 'red' }}>{errors.password}</div>
-          )}
           <SuperInput
             title={'Confirm password'}
             name={'repeatPassword'}
@@ -81,14 +66,15 @@ export const RegisterForm = () => {
             value={values.repeatPassword}
             error={errors.repeatPassword}
           />
-          {errors.repeatPassword && touched.repeatPassword && (
-            <div style={{ color: 'red' }}>{errors.repeatPassword}</div>
-          )}
-          <Button variant='contained' type='submit' disabled={isSubmitting}>
+          <Button variant='contained' type='submit' disabled={loading} className={s.button}>
             REGISTER
           </Button>
-          Already have an account?
-          <Link to={'/login'}>Sing In</Link>
+          <div className={s.description}>
+            Already have an account?
+          </div>
+          <div className={s.link}>
+            <Link to={'/login'}>Sing In</Link>
+          </div>
         </form>
       )}
     </Formik>

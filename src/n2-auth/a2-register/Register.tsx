@@ -1,12 +1,11 @@
 import React from 'react';
-import s from './registerStyle.module.css';
-import { AppRootStateType } from '../../n10-bll/redux';
-import { useSelector } from 'react-redux';
+import s from './RegisterStyle.module.css';
+import { useAppSelector } from '../../n10-bll/redux';
 import { Navigate } from 'react-router-dom';
-import { RegisterForm } from './RegisterForm';
+import { RegisterForm } from './RegisterForm/RegisterForm';
 
 export const Register = () => {
-  const register = useSelector<AppRootStateType>(state => state.register.isRegistered);
+  const register = useAppSelector(state => state.register.isRegistered);
 
   if (register) return <Navigate to="/login" />;
   return (
