@@ -4,7 +4,9 @@ import { Formik } from 'formik';
 import { validate } from './helpers/util-newPassword-Form';
 import { SuperInput } from '../../a1-login/l1-components/SuperInput';
 import Button from '@mui/material/Button';
-import { useAppSelector } from '../../../n10-bll/redux';
+import { useAppSelector, useTypedDispatch } from '../../../n10-bll/redux';
+import { createNewPassword } from '../newPassword-reducer';
+import { useParams } from 'react-router-dom';
 
 
 export enum TitleFormik {
@@ -16,6 +18,8 @@ export enum TitleFormik {
 
 export const NewPasswordFormikComponent = () => {
   const loading = useAppSelector(state => state.app.loading);
+  const dispatch = useTypedDispatch();
+  const { token } = useParams();
 
   return (
     <Formik
@@ -26,6 +30,9 @@ export const NewPasswordFormikComponent = () => {
       validate={values => validate(values)}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
+
+        console.log(values.password + '  ' + token);
+        dispatch(createNewPassword({ password: values.password, resetPasswordToken: token as string }));
       }}
     >
       {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (

@@ -25,7 +25,6 @@ export const getProfileAC = (profile: ProfileStateType) =>
   } as const);
 
 // thunk
-
 export const initializeAppTC = () => (dispatch: Dispatch) => {
   profileApi.me().then(res => {
     dispatch(getProfileAC(res));
