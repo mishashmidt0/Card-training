@@ -12,13 +12,11 @@ export enum loginReducerTitle {
 
 enum Type {
   login = 'LOGIN/LOGIN',
-  isShowPassword = 'LOGIN/SHOW-PASSWORD',
 }
 
 //init && reducer
 const initialState: loginStateType = {
   isAuth: false,
-  isShowPassword: false,
 };
 export const loginReducer = (
   state: loginStateType = initialState,
@@ -27,8 +25,6 @@ export const loginReducer = (
   switch (action.type) {
     case Type.login:
       return { ...state, isAuth: action.value };
-    case Type.isShowPassword:
-      return { ...state, isShowPassword: action.value };
     default:
       return state;
   }
@@ -38,12 +34,6 @@ export const loginReducer = (
 export const login = (value: boolean) =>
   ({
     type: Type.login,
-    value,
-  } as const);
-
-export const changeShowPassword = (value: boolean) =>
-  ({
-    type: Type.isShowPassword,
     value,
   } as const);
 
@@ -66,8 +56,6 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
 // type
 export type loginStateType = {
   isAuth: boolean;
-  isShowPassword: boolean;
 };
 export type LoginActionsType =
   | ReturnType<typeof login>
-  | ReturnType<typeof changeShowPassword>;

@@ -17,7 +17,7 @@ type SuperInputType = {
 export const SuperInput: FC<SuperInputType> = React.memo(
   ({ title, type, name, handleChange, value, error }) => {
     const loading = useAppSelector(state => state.app.loading);
-    const isShowPassword = useAppSelector(state => state.login.isShowPassword);
+    const [isShowPassword, setIsShowPass] = useState<boolean>(false)
 
     let floatingType = type;
     if (isShowPassword && type === TitleFormik.password) {
@@ -27,7 +27,7 @@ export const SuperInput: FC<SuperInputType> = React.memo(
     const [err, setErr] = useState<boolean>(false);
     const isError = useCallback(() => {
       setErr(!!error);
-    }, [value]);
+    }, [error]);
 
     return (
       <div>
@@ -43,7 +43,7 @@ export const SuperInput: FC<SuperInputType> = React.memo(
           error={err}
           disabled={loading}
         />
-        {type === TitleFormik.password && <Eye />}
+        {type === TitleFormik.password && <Eye setIsShowPass={setIsShowPass} isShowPassword={isShowPassword}/>}
 
         <ErrorMessage message={error} isActive={err} />
       </div>
