@@ -1,14 +1,13 @@
 import React from 'react';
 import { Formik } from 'formik';
-import s from './registerStyle.module.css';
-import { registerTC } from './register-reducer';
-import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
+import s from './RegisterFormStyle.module.css';
+import { registerTC } from '../register-reducer';
+import { useAppSelector, useTypedDispatch } from '../../../n10-bll/redux';
 import { Link } from 'react-router-dom';
-import { SuperInput } from '../a1-login/l1-components/SuperInput';
+import { SuperInput } from '../../a1-login/l1-components/SuperInput';
 import { Button } from '@mui/material';
 
 export const RegisterForm = () => {
-
   const dispatch = useTypedDispatch();
   const loading = useAppSelector(state => state.app.loading);
 
@@ -41,13 +40,8 @@ export const RegisterForm = () => {
         dispatch(registerTC({ email: values.email, password: values.password }));
       }}
     >
-      {({
-          values,
-          errors,
-          handleChange,
-          handleSubmit,
-        }) => (
-        <form onSubmit={handleSubmit} className={s.form}>
+      {({ values, errors, handleChange, handleSubmit }) => (
+        <form onSubmit={handleSubmit} className={s.formContainer}>
           <SuperInput
             title={'Email'}
             name={'email'}
@@ -72,14 +66,17 @@ export const RegisterForm = () => {
             value={values.repeatPassword}
             error={errors.repeatPassword}
           />
-          <Button variant="contained" type="submit" disabled={loading}>
+          <Button variant='contained' type='submit' disabled={loading} className={s.button}>
             REGISTER
           </Button>
-          Already have an account?
-          <Link to={'/login'}>Sing In</Link>
+          <div className={s.description}>
+            Already have an account?
+          </div>
+          <div className={s.link}>
+            <Link to={'/login'}>Sing In</Link>
+          </div>
         </form>
       )}
     </Formik>
   );
 };
-

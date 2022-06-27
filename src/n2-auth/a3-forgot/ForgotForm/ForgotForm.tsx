@@ -1,14 +1,12 @@
 import React from 'react';
 import { Formik } from 'formik';
-import s from './forgotStyle.module.css';
-import { forgotPasswordTC } from './forgot-reducer';
-import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
-import { SuperInput } from '../a1-login/l1-components/SuperInput';
+import s from './ForgotFormStyle.module.css';
+import { forgotPasswordTC } from '../forgot-reducer';
+import { useAppSelector, useTypedDispatch } from '../../../n10-bll/redux';
+import { SuperInput } from '../../a1-login/l1-components/SuperInput';
 import { Button } from '@mui/material';
 
-
 export const ForgotForm = () => {
-
   const dispatch = useTypedDispatch();
   const loading = useAppSelector(state => state.app.loading);
 
@@ -29,13 +27,8 @@ export const ForgotForm = () => {
         dispatch(forgotPasswordTC(values.email));
       }}
     >
-      {({
-          values,
-          errors,
-          handleChange,
-          handleSubmit,
-        }) => (
-        <form onSubmit={handleSubmit} className={s.form}>
+      {({ values, errors, handleChange, handleSubmit }) => (
+        <form onSubmit={handleSubmit} className={s.forgotFormContainer}>
           <SuperInput
             title={'Email'}
             name={'email'}
@@ -55,4 +48,3 @@ export const ForgotForm = () => {
     </Formik>
   );
 };
-

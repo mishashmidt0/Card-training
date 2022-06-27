@@ -1,8 +1,8 @@
 import React from 'react';
-import s from './registerStyle.module.css';
+import s from './RegisterStyle.module.css';
 import { useAppSelector } from '../../n10-bll/redux';
 import { Navigate } from 'react-router-dom';
-import { RegisterForm } from './RegisterForm';
+import { RegisterForm } from './RegisterForm/RegisterForm';
 
 export const Register = () => {
   const register = useAppSelector(state => state.register.isRegistered);
