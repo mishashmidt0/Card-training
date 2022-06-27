@@ -83,7 +83,7 @@ export const RegisterForm = () => {
           {errors.repeatPassword && touched.repeatPassword && (
             <div style={{ color: 'red' }}>{errors.repeatPassword}</div>
           )}
-          <Button variant="contained" type="submit" disabled={isSubmitting}>
+          <Button variant='contained' type='submit' disabled={isSubmitting}>
             REGISTER
           </Button>
           Already have an account?
