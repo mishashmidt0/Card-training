@@ -6,9 +6,7 @@ import { useTypedDispatch } from '../../n10-bll/redux';
 import { SuperInput } from '../a1-login/l1-components/SuperInput';
 import { Button } from '@mui/material';
 
-
 export const ForgotForm = () => {
-
   const dispatch = useTypedDispatch();
 
   return (
@@ -29,14 +27,14 @@ export const ForgotForm = () => {
       }}
     >
       {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          //handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
+        values,
+        errors,
+        touched,
+        handleChange,
+        //handleBlur,
+        handleSubmit,
+        isSubmitting,
+      }) => (
         <form onSubmit={handleSubmit} className={s.form}>
           <SuperInput
             title={'Email'}
@@ -60,4 +58,3 @@ export const ForgotForm = () => {
     </Formik>
   );
 };
-

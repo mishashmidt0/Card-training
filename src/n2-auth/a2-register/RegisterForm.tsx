@@ -8,7 +8,6 @@ import { SuperInput } from '../a1-login/l1-components/SuperInput';
 import { Button } from '@mui/material';
 
 export const RegisterForm = () => {
-
   const dispatch = useTypedDispatch();
 
   return (
@@ -19,7 +18,9 @@ export const RegisterForm = () => {
         repeatPassword: '',
       }}
       validate={values => {
-        const errors: Partial<Omit<{ email: string; password: string; repeatPassword: string }, 'captcha'>> = {};
+        const errors: Partial<
+          Omit<{ email: string; password: string; repeatPassword: string }, 'captcha'>
+        > = {};
         if (!values.email) {
           errors.email = 'Required';
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -41,14 +42,14 @@ export const RegisterForm = () => {
       }}
     >
       {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          //handleBlur,
-          handleSubmit,
-          isSubmitting,
-        }) => (
+        values,
+        errors,
+        touched,
+        handleChange,
+        //handleBlur,
+        handleSubmit,
+        isSubmitting,
+      }) => (
         <form onSubmit={handleSubmit} className={s.form}>
           <SuperInput
             title={'Email'}
@@ -93,4 +94,3 @@ export const RegisterForm = () => {
     </Formik>
   );
 };
-

@@ -9,6 +9,7 @@ import { PecksList } from './m1-PacksList/PecksList';
 import { Header } from './m3-header/Header';
 import s from './appStyle.module.css';
 import { Snackbars } from './m4-components/Snackbar/Snackbar';
+import { NewPassword } from '../n2-auth/a4-newPassword/NewPassword';
 
 export const App = () => {
   return (
@@ -22,6 +23,7 @@ export const App = () => {
           <Route path={'/login'} element={<Login />} />
           <Route path={'/register'} element={<Register />} />
           <Route path={'/forgot'} element={<Forgot />} />
+          <Route path={'/set-new-password'} element={<NewPassword />} />
           <Route path={'/*'} element={<Error />} />
         </Routes>
         <Snackbars />

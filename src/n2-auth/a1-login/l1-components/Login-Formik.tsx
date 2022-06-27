@@ -2,11 +2,10 @@ import React from 'react';
 import { loginTC } from '../login-reducer';
 import s from '../loginStyle.module.css';
 import { Formik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
 import { validate } from './helpers/util-FuncForm';
 import { SuperInput } from './SuperInput';
 import { LoginFooter } from './LoginFooter';
+import { useTypedDispatch } from '../../../n10-bll/redux';
 
 export enum TitleFormik {
   email = 'email',
@@ -19,8 +18,8 @@ export enum TitleFormik {
   text = 'text',
 }
 
-export const FormikComponent = () => {
-  const dispatch = useDispatch<Dispatch<any>>();
+export const LoginFormikComponent = () => {
+  const dispatch = useTypedDispatch();
 
   return (
     <Formik
