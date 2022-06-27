@@ -19,7 +19,7 @@ export enum TitleFormik {
   text = 'text',
 }
 
-export const FormikComponent = () => {
+export const LoginFormikComponent = () => {
   const dispatch = useDispatch<Dispatch<any>>();
 
   return (
