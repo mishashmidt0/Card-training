@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
 import s from '../loginStyle.module.css';
-import { Button, Checkbox, FormControlLabel } from '@mui/material';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { Link } from 'react-router-dom';
 import { TitleFormik } from './Formik';
+import { useAppSelector } from '../../../n10-bll/redux';
 
 type LoginFooterType = {
   value: boolean;
   handleChange: any;
-  isSubmitting: boolean;
 };
 
-export const LoginFooter: FC<LoginFooterType> = ({
-  value,
-  handleChange,
-  isSubmitting,
-}) => {
+export const LoginFooter: FC<LoginFooterType> = ({ value, handleChange }) => {
+  const loading = useAppSelector(state => state.app.loading);
+
   enum Title {
     checkbox = 'remember me',
     button = 'Log in',
@@ -29,6 +29,7 @@ export const LoginFooter: FC<LoginFooterType> = ({
           label={Title.checkbox}
           name={TitleFormik.rememberMe}
           onChange={handleChange}
+          disabled={loading}
         />
 
         <Link to={'/forgot'} className={s.forgot}>
@@ -36,7 +37,7 @@ export const LoginFooter: FC<LoginFooterType> = ({
         </Link>
       </div>
 
-      <Button variant="contained" type="submit" disabled={isSubmitting}>
+      <Button variant="contained" type="submit" disabled={loading}>
         {Title.button}
       </Button>
     </div>

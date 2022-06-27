@@ -1,6 +1,7 @@
 import { dataType, loginApi } from './loginApi';
 import { TypedDispatch } from '../../n10-bll/redux';
 import { handleNetworkLoginError, handleServerLogin } from './utils/handle-login-utils';
+import { loading } from '../../n1-main/app-reducer';
 
 //enum
 export enum loginReducerTitle {
@@ -10,7 +11,8 @@ export enum loginReducerTitle {
 }
 
 enum Type {
-  login = 'login',
+  login = 'LOGIN/LOGIN',
+  isShowPassword = 'LOGIN/SHOW-PASSWORD',
 }
 
 //init && reducer
@@ -25,6 +27,8 @@ export const loginReducer = (
   switch (action.type) {
     case Type.login:
       return { ...state, isAuth: action.value };
+    case Type.isShowPassword:
+      return { ...state, isShowPassword: action.value };
     default:
       return state;
   }
@@ -37,14 +41,15 @@ export const login = (value: boolean) =>
     value,
   } as const);
 
-export const isShowPassword = (value: boolean) =>
+export const changeShowPassword = (value: boolean) =>
   ({
-    type: Type.login,
+    type: Type.isShowPassword,
     value,
   } as const);
 
 // thunk
 export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
+  dispatch(loading(true));
   loginApi
     .login(data)
     .then(res => {
@@ -52,6 +57,9 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
     })
     .catch(e => {
       handleNetworkLoginError(e, dispatch);
+    })
+    .finally(() => {
+      dispatch(loading(false));
     });
 };
 
@@ -60,4 +68,6 @@ export type loginStateType = {
   isAuth: boolean;
   isShowPassword: boolean;
 };
-export type LoginActionsType = ReturnType<typeof login>;
+export type LoginActionsType =
+  | ReturnType<typeof login>
+  | ReturnType<typeof changeShowPassword>;

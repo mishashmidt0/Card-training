@@ -2,8 +2,9 @@ import { Dispatch } from 'redux';
 
 //enum
 enum ActionType {
-  show = 'SHOW',
-  close = 'CLOSE',
+  show = 'APP/SHOW',
+  close = 'APP/CLOSE',
+  load = 'APP/LOADING',
 }
 
 export enum Status {
@@ -20,6 +21,7 @@ const initialState: appStateType = {
     message: '',
     status: Status.success,
   },
+  loading: false,
 };
 export const appReducer = (
   app: appStateType = initialState,
@@ -30,6 +32,8 @@ export const appReducer = (
       return { ...app, snackbar: { ...action.snackbar, isShow: true } };
     case ActionType.close:
       return { ...app, snackbar: { ...app.snackbar, isShow: false } };
+    case ActionType.load:
+      return { ...app, loading: action.value };
     default:
       return app;
   }
@@ -39,6 +43,7 @@ export const appReducer = (
 export const showAnswer = (message: string, status: statusType) =>
   ({ type: ActionType.show, snackbar: { message, status } } as const);
 export const closeAnswer = () => ({ type: ActionType.close } as const);
+export const loading = (value: boolean) => ({ type: ActionType.load, value } as const);
 
 // thunk
 export const initializeAppTC = () => (dispatch: Dispatch) => {};
@@ -52,8 +57,10 @@ export type snackbarType = {
 };
 export type appStateType = {
   snackbar: snackbarType;
+  loading: boolean;
 };
 export type showAnswerType = ReturnType<typeof showAnswer>;
 export type closeAnswerType = ReturnType<typeof closeAnswer>;
+export type loadingType = ReturnType<typeof loading>;
 
-export type AppActionsType = showAnswerType | closeAnswerType;
+export type AppActionsType = showAnswerType | closeAnswerType | loadingType;

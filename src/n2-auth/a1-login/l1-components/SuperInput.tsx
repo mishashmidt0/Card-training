@@ -1,29 +1,51 @@
-import React, { FC } from 'react';
-import { TextField } from '@mui/material';
+import React, { FC, useCallback, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import { useAppSelector } from '../../../n10-bll/redux';
+import { ErrorMessage } from './ErrorMessage';
+import { Eye } from './Eye';
+import { TitleFormik } from './Formik';
 
 type SuperInputType = {
   title: string;
   name: string;
-  handleBlur: any;
+  type: string;
   handleChange: any;
   value: any;
-  error: boolean;
+  error: any;
 };
 
 export const SuperInput: FC<SuperInputType> = React.memo(
-  ({ title, name, handleBlur, handleChange, value, error }) => {
+  ({ title, type, name, handleChange, value, error }) => {
+    const loading = useAppSelector(state => state.app.loading);
+    const isShowPassword = useAppSelector(state => state.login.isShowPassword);
+
+    let floatingType = type;
+    if (isShowPassword && type === TitleFormik.password) {
+      floatingType = TitleFormik.text;
+    }
+
+    const [err, setErr] = useState<boolean>(false);
+    const isError = useCallback(() => {
+      setErr(!!error);
+    }, [value]);
+
     return (
       <div>
         <TextField
           label={title}
           variant="standard"
-          type={name}
+          type={floatingType}
           name={name}
           onChange={handleChange}
-          onBlur={handleBlur}
+          onBlur={isError}
+          onFocus={() => setErr(false)}
           value={value}
-          error={error}
+          error={err}
+          disabled={loading}
         />
+        {type === TitleFormik.password && <Eye />}
+
+        <ErrorMessage message={error} isActive={err} />
       </div>
     );
   },

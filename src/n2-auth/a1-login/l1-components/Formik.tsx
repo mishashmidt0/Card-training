@@ -7,7 +7,6 @@ import { Dispatch } from 'redux';
 import { validate } from './helpers/util-FuncForm';
 import { SuperInput } from './SuperInput';
 import { LoginFooter } from './LoginFooter';
-import { ErrorMessage } from './ErrorMessage';
 
 export enum TitleFormik {
   email = 'email',
@@ -15,8 +14,9 @@ export enum TitleFormik {
   password = 'password',
   passwordTitle = 'password',
   rememberMe = 'rememberMe',
-  initEmail = 'nya-admin@nya.nya',
-  initPassword = '1qazxcvBG',
+  initEmail = '',
+  initPassword = '',
+  text = 'text',
 }
 
 export const FormikComponent = () => {
@@ -36,42 +36,25 @@ export const FormikComponent = () => {
         dispatch(loginTC(values));
       }}
     >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-      }) => (
+      {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit} className={s.form}>
           <SuperInput
             title={TitleFormik.emailTitle}
             name={TitleFormik.email}
-            handleBlur={handleBlur}
+            type={TitleFormik.email}
             handleChange={handleChange}
             value={values.email}
-            error={!!errors.email}
+            error={errors.email}
           />
-
-          <ErrorMessage message={errors.email} />
-
           <SuperInput
             title={TitleFormik.passwordTitle}
             name={TitleFormik.password}
-            handleBlur={handleBlur}
+            type={TitleFormik.password}
             handleChange={handleChange}
             value={values.password}
-            error={!!errors.password}
+            error={errors.password}
           />
-          <ErrorMessage message={errors.password} />
-
-          <LoginFooter
-            value={values.rememberMe}
-            handleChange={handleChange}
-            isSubmitting={isSubmitting}
-          />
+          <LoginFooter value={values.rememberMe} handleChange={handleChange} />
         </form>
       )}
     </Formik>

@@ -12,8 +12,7 @@ export type dataType = {
 };
 
 export const loginApi = {
-  async login(data: dataType) {
-    const res = instace.post('auth/login', data);
-    return res;
+  login(data: dataType) {
+    return instace.post('auth/login', data);
   },
 };

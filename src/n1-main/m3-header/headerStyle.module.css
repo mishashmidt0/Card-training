@@ -26,3 +26,9 @@
 .toolbarContainer div {
   display: flex;
 }
+
+.linear {
+  position: fixed;
+  width: 100%;
+  height: 4px;
+}

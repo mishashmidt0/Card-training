@@ -45,3 +45,9 @@
   color: red;
   opacity: 1;
 }
+
+.eye {
+  position: relative;
+  bottom: 15px;
+  left: 170px;
+}
