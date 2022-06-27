@@ -80,14 +80,6 @@ export const RegisterForm = () => {
             value={values.repeatPassword}
             error={!!errors.repeatPassword}
           />
-          {/*<input
-            type='password'
-            name='repeatPassword'
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.repeatPassword}
-            placeholder={'Confirm password'}
-          />*/}
           {errors.repeatPassword && touched.repeatPassword && (
             <div style={{ color: 'red' }}>{errors.repeatPassword}</div>
           )}
