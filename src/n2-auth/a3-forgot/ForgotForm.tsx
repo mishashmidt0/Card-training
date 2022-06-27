@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import s from './forgotStyle.module.css';
 import { forgotPasswordTC } from './forgot-reducer';
-import { useTypedDispatch } from '../../n10-bll/redux';
+import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
 import { SuperInput } from '../a1-login/l1-components/SuperInput';
 import { Button } from '@mui/material';
 
@@ -10,6 +10,7 @@ import { Button } from '@mui/material';
 export const ForgotForm = () => {
 
   const dispatch = useTypedDispatch();
+  const loading = useAppSelector(state => state.app.loading);
 
   return (
     <Formik
@@ -31,11 +32,8 @@ export const ForgotForm = () => {
       {({
           values,
           errors,
-          touched,
           handleChange,
-          //handleBlur,
           handleSubmit,
-          isSubmitting,
         }) => (
         <form onSubmit={handleSubmit} className={s.form}>
           <SuperInput
@@ -46,13 +44,10 @@ export const ForgotForm = () => {
             value={values.email}
             error={errors.email}
           />
-          {errors.email && touched.email && (
-            <div style={{ color: 'red' }}>{errors.email}</div>
-          )}
           <div className={s.form_description}>
             Enter your email address and we will send you further instructions
           </div>
-          <Button variant="contained" type="submit" disabled={isSubmitting}>
+          <Button variant="contained" type="submit" disabled={loading}>
             Send Instructions
           </Button>
         </form>

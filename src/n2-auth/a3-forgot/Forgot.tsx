@@ -1,12 +1,11 @@
 import React from 'react';
 import s from './forgotStyle.module.css';
-import { useSelector } from 'react-redux';
-import { AppRootStateType } from '../../n10-bll/redux';
+import { useAppSelector } from '../../n10-bll/redux';
 import { Navigate } from 'react-router-dom';
 import { ForgotForm } from './ForgotForm';
 
 export const Forgot = () => {
-  const isSendMessageToEmail = useSelector<AppRootStateType>(
+  const isSendMessageToEmail = useAppSelector(
     state => state.forgot.isSendMessageToEmail,
   );
 

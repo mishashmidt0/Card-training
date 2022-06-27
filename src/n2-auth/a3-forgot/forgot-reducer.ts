@@ -1,6 +1,6 @@
 import { TypedDispatch } from '../../n10-bll/redux';
 import { forgotApi } from './forgotApi';
-import { showAnswer, Status } from '../../n1-main/app-reducer';
+import { loading, showAnswer, Status } from '../../n1-main/app-reducer';
 
 const initialState = {
   isSendMessageToEmail: false,
@@ -25,6 +25,7 @@ export const setIsForgotPasswordAC = (value: boolean) =>
 
 // thunks
 export const forgotPasswordTC = (email: string) => (dispatch: TypedDispatch) => {
+  dispatch(loading(true));
   forgotApi
     .forgotPassword(email)
     .then(() => {
@@ -34,6 +35,9 @@ export const forgotPasswordTC = (email: string) => (dispatch: TypedDispatch) => 
     .catch(error => {
       dispatch(setIsForgotPasswordAC(false));
       dispatch(showAnswer(error.response.data.error, Status.error));
+    })
+    .finally(() => {
+      dispatch(loading(false));
     });
 };
 

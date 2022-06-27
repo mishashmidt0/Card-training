@@ -1,5 +1,5 @@
 import { registerApi, RegisterParamsType } from './registerApi';
-import { showAnswer, Status } from '../../n1-main/app-reducer';
+import { loading, showAnswer, Status } from '../../n1-main/app-reducer';
 import { TypedDispatch } from '../../n10-bll/redux';
 
 const initialState = {
@@ -25,6 +25,7 @@ export const setIsRegisteredAC = (value: boolean) =>
 
 // thunks
 export const registerTC = (data: RegisterParamsType) => (dispatch: TypedDispatch) => {
+  dispatch(loading(true));
   registerApi
     .registerUser(data)
     .then(() => {
@@ -40,7 +41,10 @@ export const registerTC = (data: RegisterParamsType) => (dispatch: TypedDispatch
           Status.error,
         ),
       );
-    });
+    })
+    .finally(() => {
+      dispatch(loading(false));
+    })
 };
 
 // types
