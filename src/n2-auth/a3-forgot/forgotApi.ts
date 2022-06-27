@@ -22,10 +22,12 @@ export const forgotApi = {
   },
 
   createNewPassword(newPassword: newPasswordType) {
-    return instance.post<newPasswordType, ResponseNewPassword>('auth/set-new-password', newPassword);
+    return instance.post<newPasswordType, ResponseNewPassword>(
+      'auth/set-new-password',
+      newPassword,
+    );
   },
 };
-
 
 //type
 export type ForgotPasswordParamsType = {
@@ -38,10 +40,10 @@ export type ResponseRegisterType = {
   error: string;
 };
 export type newPasswordType = {
-  password: string
-  resetPasswordToken: string
-}
+  password: string;
+  resetPasswordToken: string;
+};
 export type ResponseNewPassword = {
-  info: string
+  info: string;
   error: string;
-}
+};

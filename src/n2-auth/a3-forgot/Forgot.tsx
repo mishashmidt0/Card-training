@@ -10,7 +10,7 @@ export const Forgot = () => {
     state => state.forgot.isSendMessageToEmail,
   );
 
-  if (isSendMessageToEmail) return <Navigate to='/login' />;
+  if (isSendMessageToEmail) return <Navigate to="/login" />;
   return (
     <div className={s.forgotContainer}>
       <h1>Forgot your password?</h1>
@@ -18,4 +18,3 @@ export const Forgot = () => {
     </div>
   );
 };
-

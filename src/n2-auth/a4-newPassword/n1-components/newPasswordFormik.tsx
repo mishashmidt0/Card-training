@@ -8,12 +8,11 @@ import { useAppSelector, useTypedDispatch } from '../../../n10-bll/redux';
 import { createNewPassword } from '../newPassword-reducer';
 import { useParams } from 'react-router-dom';
 
-
 export enum TitleFormik {
   password = 'password',
   passwordTitle = 'password',
   initPassword = '',
-  button = 'create new password'
+  button = 'create new password',
 }
 
 export const NewPasswordFormikComponent = () => {
@@ -32,7 +31,12 @@ export const NewPasswordFormikComponent = () => {
         setSubmitting(false);
 
         console.log(values.password + '  ' + token);
-        dispatch(createNewPassword({ password: values.password, resetPasswordToken: token as string }));
+        dispatch(
+          createNewPassword({
+            password: values.password,
+            resetPasswordToken: token as string,
+          }),
+        );
       }}
     >
       {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (
@@ -45,7 +49,7 @@ export const NewPasswordFormikComponent = () => {
             value={values.password}
             error={errors.password}
           />
-          <Button variant='contained' type='submit' disabled={loading}>
+          <Button variant="contained" type="submit" disabled={loading}>
             {TitleFormik.button}
           </Button>
         </form>
