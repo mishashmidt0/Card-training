@@ -45,7 +45,7 @@ export const RegisterForm = () => {
           errors,
           touched,
           handleChange,
-          handleBlur,
+          //handleBlur,
           handleSubmit,
           isSubmitting,
         }) => (
@@ -53,10 +53,10 @@ export const RegisterForm = () => {
           <SuperInput
             title={'Email'}
             name={'email'}
-            handleBlur={handleBlur}
+            type={'email'}
             handleChange={handleChange}
             value={values.email}
-            error={!!errors.email}
+            error={errors.email}
           />
           {errors.email && touched.email && (
             <div style={{ color: 'red' }}>{errors.email}</div>
@@ -64,10 +64,10 @@ export const RegisterForm = () => {
           <SuperInput
             title={'Password'}
             name={'password'}
-            handleBlur={handleBlur}
+            type={'password'}
             handleChange={handleChange}
             value={values.password}
-            error={!!errors.password}
+            error={errors.password}
           />
           {errors.password && touched.password && (
             <div style={{ color: 'red' }}>{errors.password}</div>
@@ -75,10 +75,10 @@ export const RegisterForm = () => {
           <SuperInput
             title={'Confirm password'}
             name={'repeatPassword'}
-            handleBlur={handleBlur}
+            type={'password'}
             handleChange={handleChange}
             value={values.repeatPassword}
-            error={!!errors.repeatPassword}
+            error={errors.repeatPassword}
           />
           {errors.repeatPassword && touched.repeatPassword && (
             <div style={{ color: 'red' }}>{errors.repeatPassword}</div>

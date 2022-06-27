@@ -33,7 +33,7 @@ export const ForgotForm = () => {
           errors,
           touched,
           handleChange,
-          handleBlur,
+          //handleBlur,
           handleSubmit,
           isSubmitting,
         }) => (
@@ -41,10 +41,10 @@ export const ForgotForm = () => {
           <SuperInput
             title={'Email'}
             name={'email'}
-            handleBlur={handleBlur}
+            type={'email'}
             handleChange={handleChange}
             value={values.email}
-            error={!!errors.email}
+            error={errors.email}
           />
           {errors.email && touched.email && (
             <div style={{ color: 'red' }}>{errors.email}</div>
