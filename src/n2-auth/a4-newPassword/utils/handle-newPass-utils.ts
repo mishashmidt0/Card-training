@@ -4,10 +4,11 @@ import { ResponseNewPassword } from '../../a3-forgot/forgotApi';
 import { changeIsCreate, newPassTitle } from '../newPassword-reducer';
 
 export const handleServerNewPass = (
-  res: ResponseNewPassword,
+  { data }: ResponseNewPassword,
   dispatch: TypedDispatch,
 ) => {
-  if (!!res.info) {
+
+  if (!!data.info) {
     dispatch(changeIsCreate(true));
     dispatch(showAnswer(newPassTitle.create, Status.success));
   } else {

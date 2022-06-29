@@ -1,6 +1,7 @@
 import { TypedDispatch } from '../../n10-bll/redux';
 import { forgotApi } from './forgotApi';
 import { loading, showAnswer, Status } from '../../n1-main/app-reducer';
+import { changeIsCreate } from '../a4-newPassword/newPassword-reducer';
 
 const initialState = {
   isSendMessageToEmail: false,
@@ -31,6 +32,7 @@ export const forgotPasswordTC = (email: string) => (dispatch: TypedDispatch) => 
     .then(() => {
       dispatch(setIsForgotPasswordAC(true));
       dispatch(showAnswer(`Check email: ${email}`, Status.success));
+      dispatch(changeIsCreate(false));
     })
     .catch(error => {
       dispatch(setIsForgotPasswordAC(false));

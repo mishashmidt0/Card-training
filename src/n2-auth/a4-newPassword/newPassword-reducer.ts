@@ -11,6 +11,7 @@ export enum newPassTitle {
   create = 'created new password!',
   err = 'somebody problem',
 }
+
 enum ActionType {
   newPass = 'NEWPASS/CREATE-NEW-PASS',
 }
@@ -25,6 +26,7 @@ export const newPasswordReducer = (
 ): createNewPasswordActionType => {
   switch (action.type) {
     case ActionType.newPass:
+      return { ...state, isCreate: action.value };
     default:
       return state;
   }

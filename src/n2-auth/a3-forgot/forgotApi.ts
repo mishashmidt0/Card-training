@@ -43,7 +43,10 @@ export type newPasswordType = {
   password: string;
   resetPasswordToken: string;
 };
-export type ResponseNewPassword = {
-  info: string;
-  error: string;
-};
+
+export interface ResponseNewPassword {
+  data: {
+    info: string;
+    error: string;
+  };
+}
