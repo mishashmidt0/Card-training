@@ -29,8 +29,6 @@ export const NewPasswordFormikComponent = () => {
       validate={values => validate(values)}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
-
-        console.log(values.password + '  ' + token);
         dispatch(
           createNewPassword({
             password: values.password,
@@ -39,7 +37,7 @@ export const NewPasswordFormikComponent = () => {
         );
       }}
     >
-      {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (
+      {({ values, errors, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit} className={s.form}>
           <SuperInput
             title={TitleFormik.passwordTitle}

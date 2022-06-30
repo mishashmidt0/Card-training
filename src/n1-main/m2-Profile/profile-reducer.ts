@@ -62,12 +62,8 @@ export const getUserProfileTC = () => (dispatch: TypedDispatch) => {
         dispatch(getProfileAC(res.data));
         dispatch(login(true));
     })
-        .catch(error => {
-            dispatch(showAnswer(error.response.data.error +
-                    "Getting data is failed",
-                    Status.error,
-                )
-            );
+        .catch(() => {
+
         })
         .finally(() => {
             dispatch(loading(false));
