@@ -49,24 +49,20 @@ export default function SearchAppBar() {
                             />
                         </Search>
 
-                        { isLoggedIn &&
+                        {isLoggedIn
+                            ?
                             <Button onClick={() => dispatch(logoutTC())} variant="text">
-                          {Title.logout}
-                        </Button>
+                                <Link to={'/login'}> {Title.logout}</Link>
+                            </Button>
+                            : <>
+                                <Button variant="text">
+                                    <Link to={'/login'}>{Title.login}</Link>
+                                </Button>
+                                <Button variant="text">
+                                    <Link to={'/register'}>{Title.register}</Link>
+                                </Button>
+                            </>
                         }
-
-                      { !isLoggedIn &&
-                          <>
-                            <Button variant="text">
-                              {' '}
-                              <Link to={'/login'}>{Title.login}</Link>
-                            </Button>
-                            <Button variant="text">
-                              {' '}
-                              <Link to={'/register'}>{Title.register}</Link>
-                            </Button>
-                          </>
-                          }
 
 
                     </div>
