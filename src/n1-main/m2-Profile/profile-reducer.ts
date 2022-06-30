@@ -1,8 +1,15 @@
 import {profileApi, ProfileDataType} from './profileApi';
 import {login} from '../../n2-auth/a1-login/login-reducer';
 import {TypedDispatch} from '../../n10-bll/redux';
-import {closeAnswerType, loading, loadingType, showAnswer, showAnswerType, Status} from "../app-reducer";
-import {setIsRegisteredAC} from "../../n2-auth/a2-register/register-reducer";
+import {
+    closeAnswerType,
+    loading,
+    loadingType,
+    setMainLoadingAC,
+    showAnswer,
+    showAnswerType,
+    Status
+} from "../app-reducer";
 
 //enum
 enum ActionType {
@@ -64,13 +71,14 @@ export const getUserProfileTC = () => (dispatch: TypedDispatch) => {
         })
         .finally(() => {
             dispatch(loading(false));
+            dispatch(setMainLoadingAC(true))
         });
 };
 
 export const logoutTC = () => (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     profileApi.logout()
-        .then(res => {
+        .then(() => {
         dispatch(login(false));
         dispatch(showAnswer('You have logged out successfully', Status.success));
     })

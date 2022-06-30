@@ -43,7 +43,8 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
   loginApi
     .login(data)
     .then(res => {
-      handleServerLogin(res.statusText, dispatch);
+      handleServerLogin(res, dispatch);
+
     })
     .catch(e => {
       handleNetworkLoginError(e, dispatch);
