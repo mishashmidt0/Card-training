@@ -1,0 +1,10 @@
+.profileContainer {
+    height: 100%;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+

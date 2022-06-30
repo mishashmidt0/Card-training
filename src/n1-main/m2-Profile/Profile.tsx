@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import {changeProfileTC, initializeAppTC, logoutTC} from './profile-reducer';
 import {Button} from '@mui/material';
 import {ProfileInfo} from "./profileInfo";
+import s from "./ProfileStyle.module.css";
 
 export const Profile = () => {
     const profile = useAppSelector(state => state.profile)
@@ -29,7 +30,7 @@ export const Profile = () => {
     }
 
     return (
-        <div>
+        <div className={s.profileContainer}>
             <ProfileInfo value={profile.profile?.name} onChange={onProfileNameChangeHandler}/>
             <img src={profile.profile?.avatar}/>
             <div>{profile.profile?.email}</div>
