@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { AppRootStateType, useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
 import { useSelector } from 'react-redux';
 import { changeProfileTC, ProfileStateType } from './profile-reducer';
-import { ProfileInfo } from './profileInfo';
+import { ProfileInfo } from './ProfileInfo';
 import s from './ProfileStyle.module.css';
 import ava from '../../assets/images/defaultAva.jpg';
 
