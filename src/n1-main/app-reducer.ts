@@ -48,7 +48,8 @@ export const showAnswer = (message: string, status: statusType) =>
   ({ type: ActionType.show, snackbar: { message, status } } as const);
 export const closeAnswer = () => ({ type: ActionType.close } as const);
 export const loading = (value: boolean) => ({ type: ActionType.load, value } as const);
-export const setMainLoadingAC = (value: boolean) => ({ type: ActionType.mainLoad, value } as const);
+export const setMainLoadingAC = (value: boolean) =>
+  ({ type: ActionType.mainLoad, value } as const);
 
 // thunk
 export const initializeAppTC = () => (dispatch: Dispatch) => {};
@@ -63,11 +64,15 @@ export type snackbarType = {
 export type appStateType = {
   snackbar: snackbarType;
   loading: boolean;
-  globalLoading: boolean
+  globalLoading: boolean;
 };
 export type showAnswerType = ReturnType<typeof showAnswer>;
 export type closeAnswerType = ReturnType<typeof closeAnswer>;
 export type loadingType = ReturnType<typeof loading>;
 export type setMainLoadingType = ReturnType<typeof setMainLoadingAC>;
 
-export type AppActionsType = showAnswerType | closeAnswerType | loadingType | setMainLoadingType;
+export type AppActionsType =
+  | showAnswerType
+  | closeAnswerType
+  | loadingType
+  | setMainLoadingType;

@@ -2,14 +2,14 @@ import React from 'react';
 import { loginTC } from '../login-reducer';
 import s from '../loginStyle.module.css';
 import { Formik } from 'formik';
-import { validate } from './helpers/util-FuncForm';
+import { validate } from './helpers/util-validate-FuncForm';
 import { SuperInput } from './SuperInput';
 import { LoginFooter } from './LoginFooter';
 import { useTypedDispatch } from '../../../n10-bll/redux';
 
 export enum TitleFormik {
   email = 'email',
-  emailTitle = 'email or name',
+  emailTitle = 'email',
   password = 'password',
   passwordTitle = 'password',
   rememberMe = 'rememberMe',

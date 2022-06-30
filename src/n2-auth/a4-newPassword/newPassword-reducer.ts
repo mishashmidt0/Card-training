@@ -11,7 +11,6 @@ export enum newPassTitle {
   create = 'created new password!',
   err = 'somebody problem',
 }
-
 enum ActionType {
   newPass = 'NEWPASS/CREATE-NEW-PASS',
 }

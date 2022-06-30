@@ -44,7 +44,6 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
     .login(data)
     .then(res => {
       handleServerLogin(res, dispatch);
-
     })
     .catch(e => {
       handleNetworkLoginError(e, dispatch);
@@ -58,5 +57,4 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
 export type loginStateType = {
   isAuth: boolean;
 };
-export type LoginActionsType =
-  | ReturnType<typeof login>
+export type LoginActionsType = ReturnType<typeof login>;

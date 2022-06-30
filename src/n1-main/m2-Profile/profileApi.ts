@@ -10,14 +10,18 @@ export type ProfileDataType = {
   avatar?: string;
 };
 
+enum Auth {
+  me = '/auth/me',
+}
+
 export const profileApi = {
   me() {
-    return instance.post('/auth/me', {});
+    return instance.post(Auth.me, {});
   },
   changeProfile(data: ProfileDataType) {
-    return instance.put('/auth/me', data);
+    return instance.put(Auth.me, data);
   },
   logout() {
-    return instance.delete('/auth/me', {});
+    return instance.delete(Auth.me, {});
   },
 };
