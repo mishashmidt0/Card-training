@@ -1,6 +1,7 @@
 import { profileApi, ProfileDataType } from './profileApi';
 import { login } from '../../n2-auth/a1-login/login-reducer';
 import { TypedDispatch } from '../../n10-bll/redux';
+import { setMainLoadingAC } from '../app-reducer';
 
 type InitialStateType = {
   profile: {} | ProfileStateType
@@ -40,10 +41,14 @@ export const changeProfileNameAC = (newName: string) =>
 
 // thunk
 export const getUserProfileTC = () => (dispatch: TypedDispatch) => {
-  profileApi.me().then(res => {
+  profileApi.me()
+    .then(res => {
     dispatch(getProfileAC(res.data));
     dispatch(login(true));
-  });
+  })
+    .finally(() => {
+      dispatch(setMainLoadingAC(true));
+    })
 };
 
 export const logoutTC = () => (dispatch: TypedDispatch) => {

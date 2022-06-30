@@ -5,6 +5,7 @@ enum ActionType {
   show = 'APP/SHOW',
   close = 'APP/CLOSE',
   load = 'APP/LOADING',
+  mainLoad = 'APP/MAIN-LOADING',
 }
 
 export enum Status {
@@ -22,6 +23,7 @@ const initialState: appStateType = {
     status: Status.success,
   },
   loading: false,
+  globalLoading: false,
 };
 export const appReducer = (
   app: appStateType = initialState,
@@ -34,6 +36,8 @@ export const appReducer = (
       return { ...app, snackbar: { ...app.snackbar, isShow: false } };
     case ActionType.load:
       return { ...app, loading: action.value };
+    case ActionType.mainLoad:
+      return { ...app, globalLoading: action.value };
     default:
       return app;
   }
@@ -44,6 +48,7 @@ export const showAnswer = (message: string, status: statusType) =>
   ({ type: ActionType.show, snackbar: { message, status } } as const);
 export const closeAnswer = () => ({ type: ActionType.close } as const);
 export const loading = (value: boolean) => ({ type: ActionType.load, value } as const);
+export const setMainLoadingAC = (value: boolean) => ({ type: ActionType.mainLoad, value } as const);
 
 // thunk
 export const initializeAppTC = () => (dispatch: Dispatch) => {};
@@ -58,9 +63,11 @@ export type snackbarType = {
 export type appStateType = {
   snackbar: snackbarType;
   loading: boolean;
+  globalLoading: boolean
 };
 export type showAnswerType = ReturnType<typeof showAnswer>;
 export type closeAnswerType = ReturnType<typeof closeAnswer>;
 export type loadingType = ReturnType<typeof loading>;
+export type setMainLoadingType = ReturnType<typeof setMainLoadingAC>;
 
-export type AppActionsType = showAnswerType | closeAnswerType | loadingType;
+export type AppActionsType = showAnswerType | closeAnswerType | loadingType | setMainLoadingType;
