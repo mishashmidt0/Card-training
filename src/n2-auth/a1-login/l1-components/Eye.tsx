@@ -7,14 +7,13 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import s from '../loginStyle.module.css';
 
 type EyePropsType = {
-  setIsShowPass: (isShowPassword: boolean) => void
-  isShowPassword: boolean
-}
+  setIsShowPass: (isShowPassword: boolean) => void;
+  isShowPassword: boolean;
+};
 
-export const Eye:FC<EyePropsType> = React.memo(({ setIsShowPass,isShowPassword } ) => {
-
+export const Eye: FC<EyePropsType> = React.memo(({ setIsShowPass, isShowPassword }) => {
   const handleClickShowPassword = useCallback(() => {
-    setIsShowPass(!isShowPassword)
+    setIsShowPass(!isShowPassword);
   }, [isShowPassword, setIsShowPass]);
 
   return (

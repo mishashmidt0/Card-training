@@ -7,12 +7,11 @@ import { Navigate } from 'react-router-dom';
 
 export const Login = () => {
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
-
   if (isLoggedIn) return <Navigate to="/profile" />;
 
   return (
     <div className={s.loginContainer}>
-      <h1>Log in</h1>
+      <h1>Sign In</h1>
       <LoginFormikComponent />
     </div>
   );

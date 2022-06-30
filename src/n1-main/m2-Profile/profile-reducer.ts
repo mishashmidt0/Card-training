@@ -1,138 +1,131 @@
-import {profileApi, ProfileDataType} from './profileApi';
-import {login} from '../../n2-auth/a1-login/login-reducer';
-import {TypedDispatch} from '../../n10-bll/redux';
+import { profileApi, ProfileDataType } from './profileApi';
+import { login, loginReducerTitle } from '../../n2-auth/a1-login/login-reducer';
+import { TypedDispatch } from '../../n10-bll/redux';
 import {
-    closeAnswerType,
-    loading,
-    loadingType,
-    setMainLoadingAC,
-    showAnswer,
-    showAnswerType,
-    Status
-} from "../app-reducer";
+  closeAnswerType,
+  loading,
+  loadingType,
+  setMainLoadingAC,
+  showAnswer,
+  showAnswerType,
+  Status,
+} from '../app-reducer';
 
 //enum
 enum ActionType {
-    getProfile = 'PROFILE/GET-PROFILE',
-    changeProfileName = 'PROFILE/CHANGE-PROFILE-NAME',
-}
-
-
-type InitialStateType = {
-    profile: {} | ProfileStateType
+  getProfile = 'PROFILE/GET-PROFILE',
+  changeProfileName = 'PROFILE/CHANGE-PROFILE-NAME',
 }
 
 const initialState: InitialStateType = {
-    profile: {},
+  profile: {},
 };
 
 export const profileReducer = (
-    state: InitialStateType = initialState,
-    action: ProfileActionsType,
+  state: InitialStateType = initialState,
+  action: ProfileActionsType,
 ): InitialStateType => {
-    switch (action.type) {
-        case ActionType.getProfile:
-            return {...state, profile: action.profile};
-        case ActionType.changeProfileName:
-            return {...state, profile: {...state.profile, name: action.newName}};
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case ActionType.getProfile:
+      return { ...state, profile: action.profile };
+    case ActionType.changeProfileName:
+      return { ...state, profile: { ...state.profile, name: action.newName } };
+    default:
+      return state;
+  }
 };
 
 // actions
-
 export const getProfileAC = (profile: ProfileStateType) =>
-    ({
-        type: ActionType.getProfile,
-        profile,
-    } as const);
-
+  ({
+    type: ActionType.getProfile,
+    profile,
+  } as const);
 export const changeProfileNameAC = (newName: string) =>
-    ({
-        type: ActionType.changeProfileName,
-        newName,
-    } as const);
+  ({
+    type: ActionType.changeProfileName,
+    newName,
+  } as const);
 
 // thunk
 export const getUserProfileTC = () => (dispatch: TypedDispatch) => {
-    dispatch(loading(true));
-    profileApi.me()
-        .then(res => {
-        dispatch(getProfileAC(res.data));
-        dispatch(login(true));
+  dispatch(loading(true));
+  profileApi
+    .me()
+    .then(res => {
+      dispatch(getProfileAC(res.data));
+      dispatch(login(true));
     })
-        .catch(() => {
-
-        })
-        .finally(() => {
-            dispatch(loading(false));
-            dispatch(setMainLoadingAC(true))
-        });
+    .catch(e => {
+      const err = e.response
+        ? e.response.data.error
+        : e.message + loginReducerTitle.error;
+      dispatch(showAnswer(err, Status.info));
+    })
+    .finally(() => {
+      dispatch(loading(false));
+      dispatch(setMainLoadingAC(true));
+    });
 };
 
 export const logoutTC = () => (dispatch: TypedDispatch) => {
-    dispatch(loading(true));
-    profileApi.logout()
-        .then(() => {
-        dispatch(login(false));
-        dispatch(showAnswer('You have logged out successfully', Status.success));
+  dispatch(loading(true));
+  profileApi
+    .logout()
+    .then(() => {
+      dispatch(login(false));
+      dispatch(showAnswer('You have logged out successfully', Status.success));
     })
-        .catch(error => {
-            dispatch(showAnswer(error.response.data.error +
-                    "Logout is failed",
-                    Status.error,
-                )
-            );
-        })
-        .finally(() => {
-            dispatch(loading(false));
-        });
+    .catch(error => {
+      dispatch(showAnswer(error.response.data.error + 'Logout is failed', Status.error));
+    })
+    .finally(() => {
+      dispatch(loading(false));
+    });
 };
 
-export const changeProfileTC =
-    (data: ProfileDataType) => (dispatch: TypedDispatch) => {
-        dispatch(loading(true));
-        profileApi.changeProfile(data)
-            .then(res => {
-                dispatch(changeProfileNameAC(res.data.updatedUser.name));
-                dispatch(showAnswer('Profile has been successfully changed', Status.success));
-            })
-            .catch(error => {
-                dispatch(showAnswer(error.response.data.error +
-                        "Changing is failed",
-                        Status.error,
-                    )
-                );
-            })
-            .finally(() => {
-                dispatch(loading(false));
-            });
-    };
+export const changeProfileTC = (data: ProfileDataType) => (dispatch: TypedDispatch) => {
+  dispatch(loading(true));
+  profileApi
+    .changeProfile(data)
+    .then(res => {
+      dispatch(changeProfileNameAC(res.data.updatedUser.name));
+      dispatch(showAnswer('Profile has been successfully changed', Status.success));
+    })
+    .catch(error => {
+      dispatch(
+        showAnswer(error.response.data.error + 'Changing is failed', Status.error),
+      );
+    })
+    .finally(() => {
+      dispatch(loading(false));
+    });
+};
 
 // type
+type InitialStateType = {
+  profile: {} | ProfileStateType;
+};
 export type ProfileStateType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number;
-    created: string;
-    updated: string;
-    isAdmin: boolean;
-    verified: boolean; // подтвердил ли почту
-    rememberMe: boolean;
-    error?: string;
-}
-    ;
-
+  _id: string;
+  email: string;
+  name: string;
+  avatar?: string;
+  publicCardPacksCount: number;
+  created: string;
+  updated: string;
+  isAdmin: boolean;
+  verified: boolean; // подтвердил ли почту
+  rememberMe: boolean;
+  error?: string;
+};
 export type ProfileActionsType =
-    GetProfileActionType
-    | ChangeProfileNameActionType
-    | ReturnType<typeof login>
-    | loadingType
-    | showAnswerType
-    | closeAnswerType;
+  | GetProfileActionType
+  | ChangeProfileNameActionType
+  | ReturnType<typeof login>
+  | loadingType
+  | showAnswerType
+  | closeAnswerType;
 
 type GetProfileActionType = ReturnType<typeof getProfileAC>;
 type ChangeProfileNameActionType = ReturnType<typeof changeProfileNameAC>;

@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './headerStyle.module.css';
-import SearchAppBar from './SearchAppBar';
+import SearchAppBar from './components/SearchAppBar';
 import { Linear } from './Linear';
 
 export const Header = () => {
