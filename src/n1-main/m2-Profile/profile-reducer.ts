@@ -4,11 +4,11 @@ import {login} from '../../n2-auth/a1-login/login-reducer';
 import {TypedDispatch} from "../../n10-bll/redux";
 
 type InitialStateType = {
-    profile: null | ProfileStateType
+    profile: {} | ProfileStateType
 }
 
 const initialState: InitialStateType = {
-    profile: null
+    profile: {}
 };
 
 export const profileReducer = (
@@ -18,6 +18,8 @@ export const profileReducer = (
     switch (action.type) {
         case 'PROFILE/GET-PROFILE':
             return {...state, profile: action.profile};
+        case "PROFILE/CHANGE-PROFILE-NAME":
+            return {...state, profile: {...state.profile, name:action.newName}};
         default:
             return state;
     }
@@ -29,6 +31,12 @@ export const getProfileAC = (profile: ProfileStateType) =>
     ({
         type: 'PROFILE/GET-PROFILE',
         profile,
+    } as const);
+
+export const changeProfileNameAC = (newName: string) =>
+    ({
+        type: 'PROFILE/CHANGE-PROFILE-NAME',
+        newName,
     } as const);
 
 // thunk
@@ -47,7 +55,8 @@ export const logoutTC = () => (dispatch: TypedDispatch) => {
 export const changeProfileTC =
     (data: ProfileDataType) => (dispatch: TypedDispatch) => {
         profileApi.changeProfile(data).then(res => {
-            dispatch(getProfileAC(res.data));
+            debugger
+            dispatch(changeProfileNameAC(res.data.updatedUser.name));
         });
     };
 
@@ -67,6 +76,7 @@ export type ProfileStateType = {
 }
 ;
 
-export type ProfileActionsType = GetProfileActionType | ReturnType<typeof login>;
+export type ProfileActionsType = GetProfileActionType | ChangeProfileNameActionType | ReturnType<typeof login>;
 
 type GetProfileActionType = ReturnType<typeof getProfileAC>;
+type ChangeProfileNameActionType = ReturnType<typeof changeProfileNameAC>;

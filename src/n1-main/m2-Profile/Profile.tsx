@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Navigate} from 'react-router-dom';
 import {AppRootStateType, useAppSelector, useTypedDispatch} from '../../n10-bll/redux';
 import {useSelector} from 'react-redux';
-import {changeProfileTC, initializeAppTC, logoutTC} from './profile-reducer';
+import {changeProfileTC, initializeAppTC, logoutTC, ProfileStateType} from './profile-reducer';
 import {Button} from '@mui/material';
 import {ProfileInfo} from "./profileInfo";
 import s from "./ProfileStyle.module.css";
 
 export const Profile = () => {
-    const profile = useAppSelector(state => state.profile)
+    const profile = useAppSelector(state => state.profile.profile) as ProfileStateType
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
     const dispatch = useTypedDispatch();
 
@@ -31,11 +31,10 @@ export const Profile = () => {
 
     return (
         <div className={s.profileContainer}>
-            <ProfileInfo value={profile.profile?.name} onChange={onProfileNameChangeHandler}/>
-            <img src={profile.profile?.avatar}/>
-            <div>{profile.profile?.email}</div>
-            <div>{profile.profile?.name}</div>
-            <div>{profile.profile?.publicCardPacksCount}</div>
+            <ProfileInfo value={profile.name} onChange={onProfileNameChangeHandler}/>
+            <div>email {profile.email}</div>
+            <div>name {profile.name}</div>
+            <div>count {profile.publicCardPacksCount}</div>
 
             <Button onClick={() => dispatch(logoutTC())} color="inherit">
                 Log out
