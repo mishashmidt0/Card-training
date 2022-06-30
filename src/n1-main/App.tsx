@@ -13,7 +13,7 @@ import { NewPassword } from '../n2-auth/a4-newPassword/NewPassword';
 import { getUserProfileTC } from './m2-Profile/profile-reducer';
 import { useSelector } from 'react-redux';
 import { AppRootStateType, useTypedDispatch } from '../n10-bll/redux';
-import { CircularProgress } from '@mui/material';
+import { GlobalLoadingComponent } from './m4-components/GlobalLoading/GlobalLoadingComponent';
 
 export const App = () => {
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
@@ -22,14 +22,15 @@ export const App = () => {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      dispatch(getUserProfileTC());
+      setTimeout(()=>{
+        dispatch(getUserProfileTC());
+      }, 1500)
     }
   }, []);
 
   if (!GlobalLoading) {
-    return <div
-      style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-      <CircularProgress color={'inherit'} size={150}/>
+    return <div>
+      <GlobalLoadingComponent/>
     </div>
   }
 

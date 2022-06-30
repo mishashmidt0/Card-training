@@ -2,6 +2,10 @@ import { registerApi, RegisterParamsType } from './registerApi';
 import { loading, showAnswer, Status } from '../../n1-main/app-reducer';
 import { TypedDispatch } from '../../n10-bll/redux';
 
+enum registerTypes {
+  setIsRegistered = 'register/SET-IS-REGISTERED',
+}
+
 const initialState = { isRegistered: false };
 type InitialStateType = typeof initialState;
 
@@ -10,7 +14,7 @@ export const registerReducer = (
   action: RegisterActionsType,
 ): InitialStateType => {
   switch (action.type) {
-    case 'register/SET-IS-REGISTERED':
+    case registerTypes.setIsRegistered:
       return { ...state, isRegistered: action.value };
     default:
       return state;
@@ -19,7 +23,7 @@ export const registerReducer = (
 
 // actions
 export const setIsRegisteredAC = (value: boolean) =>
-  ({ type: 'register/SET-IS-REGISTERED', value } as const);
+  ({ type: registerTypes.setIsRegistered, value } as const);
 // thunks
 export const registerTC = (data: RegisterParamsType) => (dispatch: TypedDispatch) => {
   dispatch(loading(true));

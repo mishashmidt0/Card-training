@@ -3,6 +3,10 @@ import { forgotApi } from './forgotApi';
 import { loading, showAnswer, Status } from '../../n1-main/app-reducer';
 import { changeIsCreate } from '../a4-newPassword/newPassword-reducer';
 
+enum forgotTypes {
+  setIsSendMessage = 'forgot/SET-IS-SEND-MESSAGE',
+}
+
 const initialState = {
   isSendMessageToEmail: false,
 };
@@ -13,7 +17,7 @@ export const forgotReducer = (
   action: ForgotPasswordActionsType,
 ): InitialStateType => {
   switch (action.type) {
-    case 'forgot/SET-IS-SEND-MESSAGE':
+    case forgotTypes.setIsSendMessage:
       return { ...state, isSendMessageToEmail: action.value };
     default:
       return state;
@@ -22,7 +26,7 @@ export const forgotReducer = (
 
 // actions
 export const setIsForgotPasswordAC = (value: boolean) =>
-  ({ type: 'forgot/SET-IS-SEND-MESSAGE', value } as const);
+  ({ type: forgotTypes.setIsSendMessage, value } as const);
 
 // thunks
 export const forgotPasswordTC = (email: string) => (dispatch: TypedDispatch) => {
