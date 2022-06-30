@@ -8,3 +8,24 @@
     background-color: white;
 }
 
+.avatarContainer{
+    margin: 15px;
+    width: 150px;
+    height: 150px;
+}
+
+.avatarContainer img{
+    width: 100%;
+}
+
+.description{
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.description div, span{
+    margin: 5px;
+}
