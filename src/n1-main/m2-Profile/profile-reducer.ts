@@ -1,66 +1,82 @@
-import { Dispatch } from 'redux';
-import { profileApi, ProfileDataType } from './profileApi';
-import { login } from '../../n2-auth/a1-login/login-reducer';
+import {Dispatch} from 'redux';
+import {profileApi, ProfileDataType} from './profileApi';
+import {login} from '../../n2-auth/a1-login/login-reducer';
+import {TypedDispatch} from "../../n10-bll/redux";
 
-const initialState: ProfileStateType = {};
+type InitialStateType = {
+    profile: {} | ProfileStateType
+}
+
+const initialState: InitialStateType = {
+    profile: {}
+};
 
 export const profileReducer = (
-  state: ProfileStateType = initialState,
-  action: ActionsType,
-): ProfileStateType => {
-  switch (action.type) {
-    case 'PROFILE/GET-PROFILE':
-      return { ...action.profile };
-    default:
-      return state;
-  }
+    state: InitialStateType = initialState,
+    action: ProfileActionsType,
+): InitialStateType => {
+    switch (action.type) {
+        case 'PROFILE/GET-PROFILE':
+            return {...state, profile: action.profile};
+        case "PROFILE/CHANGE-PROFILE-NAME":
+            return {...state, profile: {...state.profile, name:action.newName}};
+        default:
+            return state;
+    }
 };
 
 // actions
 
 export const getProfileAC = (profile: ProfileStateType) =>
-  ({
-    type: 'PROFILE/GET-PROFILE',
-    profile,
-  } as const);
+    ({
+        type: 'PROFILE/GET-PROFILE',
+        profile,
+    } as const);
+
+export const changeProfileNameAC = (newName: string) =>
+    ({
+        type: 'PROFILE/CHANGE-PROFILE-NAME',
+        newName,
+    } as const);
 
 // thunk
-export const initializeAppTC = () => (dispatch: Dispatch) => {
-  profileApi.me().then(res => {
-    dispatch(getProfileAC(res));
-  });
+export const initializeAppTC = () => (dispatch: TypedDispatch) => {
+    profileApi.me().then(res => {
+        dispatch(getProfileAC(res.data));
+    });
 };
 
-export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
-  profileApi.logout().then(res => {
-    dispatch(login(false));
-  });
+export const logoutTC = () => (dispatch: TypedDispatch) => {
+    profileApi.logout().then(res => {
+        dispatch(login(false));
+    });
 };
 
 export const changeProfileTC =
-  (data: ProfileDataType) => (dispatch: Dispatch<ActionsType>) => {
-    profileApi.changeProfile(data).then(res => {
-      dispatch(getProfileAC(res));
-    });
-  };
+    (data: ProfileDataType) => (dispatch: TypedDispatch) => {
+        profileApi.changeProfile(data).then(res => {
+            debugger
+            dispatch(changeProfileNameAC(res.data.updatedUser.name));
+        });
+    };
 
 // type
-export type ProfileStateType =
-  | {
-      _id: string | null;
-      email: string | null;
-      name: string | null;
-      avatar?: string | null;
-      publicCardPacksCount: number | null;
-      created: string;
-      updated: string;
-      isAdmin: boolean;
-      verified: boolean; // подтвердил ли почту
-      rememberMe: boolean;
-      error?: string;
-    }
-  | {};
+export type ProfileStateType = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number;
+    created: string;
+    updated: string;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+    error?: string;
+}
+;
 
-type ActionsType = GetProfileActionType | ReturnType<typeof login>;
+export type ProfileActionsType = GetProfileActionType | ChangeProfileNameActionType | ReturnType<typeof login>;
 
 type GetProfileActionType = ReturnType<typeof getProfileAC>;
+type ChangeProfileNameActionType = ReturnType<typeof changeProfileNameAC>;
