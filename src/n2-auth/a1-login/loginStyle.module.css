@@ -6,9 +6,12 @@
   align-items: center;
   justify-content: center;
   background-color: white;
+  gap: 25px;
 }
 
 .loginContainer h1 {
+  letter-spacing: 5px;
+  font-size: 20px;
   margin: 10px;
 }
 

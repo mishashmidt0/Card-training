@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .description {
   margin: 0 auto;
   padding: 10px 0 10px 0;
@@ -20,6 +21,8 @@
 
 .formContainer .button {
   margin: 10px 0;
+  width: 100px;
+  align-self: end;
 }
 
 .formContainer .button:hover {

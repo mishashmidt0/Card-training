@@ -7,7 +7,6 @@ export const handleServerNewPass = (
   { data }: ResponseNewPassword,
   dispatch: TypedDispatch,
 ) => {
-
   if (!!data.info) {
     dispatch(changeIsCreate(true));
     dispatch(showAnswer(newPassTitle.create, Status.success));

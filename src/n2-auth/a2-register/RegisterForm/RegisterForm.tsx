@@ -3,7 +3,6 @@ import { Formik } from 'formik';
 import s from './RegisterFormStyle.module.css';
 import { registerTC } from '../register-reducer';
 import { useAppSelector, useTypedDispatch } from '../../../n10-bll/redux';
-import { Link } from 'react-router-dom';
 import { SuperInput } from '../../a1-login/l1-components/SuperInput';
 import { Button } from '@mui/material';
 
@@ -19,7 +18,9 @@ export const RegisterForm = () => {
         repeatPassword: '',
       }}
       validate={values => {
-        const errors: Partial<Omit<{ email: string; password: string; repeatPassword: string }, 'captcha'>> = {};
+        const errors: Partial<
+          Omit<{ email: string; password: string; repeatPassword: string }, 'captcha'>
+        > = {};
         if (!values.email) {
           errors.email = 'Required';
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
@@ -43,7 +44,7 @@ export const RegisterForm = () => {
       {({ values, errors, handleChange, handleSubmit }) => (
         <form onSubmit={handleSubmit} className={s.formContainer}>
           <SuperInput
-            title={'Email'}
+            title={'email'}
             name={'email'}
             type={'email'}
             handleChange={handleChange}
@@ -51,7 +52,7 @@ export const RegisterForm = () => {
             error={errors.email}
           />
           <SuperInput
-            title={'Password'}
+            title={'password'}
             name={'password'}
             type={'password'}
             handleChange={handleChange}
@@ -59,22 +60,21 @@ export const RegisterForm = () => {
             error={errors.password}
           />
           <SuperInput
-            title={'Confirm password'}
+            title={'confirm password'}
             name={'repeatPassword'}
             type={'password'}
             handleChange={handleChange}
             value={values.repeatPassword}
             error={errors.repeatPassword}
           />
-          <Button variant='contained' type='submit' disabled={loading} className={s.button}>
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={loading}
+            className={s.button}
+          >
             REGISTER
           </Button>
-          <div className={s.description}>
-            Already have an account?
-          </div>
-          <div className={s.link}>
-            <Link to={'/login'}>Sing In</Link>
-          </div>
         </form>
       )}
     </Formik>
