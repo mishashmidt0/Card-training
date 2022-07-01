@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/Card-training/static/css/main.a7dff529.css",
-    "main.js": "/Card-training/static/js/main.b58287f0.js",
+    "main.css": "/Card-training/static/css/main.2bb7d528.css",
+    "main.js": "/Card-training/static/js/main.50c1e5cb.js",
     "static/js/787.28cb0dcd.chunk.js": "/Card-training/static/js/787.28cb0dcd.chunk.js",
     "static/media/ZSix.gif": "/Card-training/static/media/ZSix.6be24ee38dc1629b1c3c.gif",
+    "static/media/defaultAva.jpg": "/Card-training/static/media/defaultAva.9437550eec4e54627029.jpg",
     "static/media/404.png": "/Card-training/static/media/404.1062f5e41ef989b5973a.png",
     "index.html": "/Card-training/index.html",
-    "main.a7dff529.css.map": "/Card-training/static/css/main.a7dff529.css.map",
-    "main.b58287f0.js.map": "/Card-training/static/js/main.b58287f0.js.map",
+    "main.2bb7d528.css.map": "/Card-training/static/css/main.2bb7d528.css.map",
+    "main.50c1e5cb.js.map": "/Card-training/static/js/main.50c1e5cb.js.map",
     "787.28cb0dcd.chunk.js.map": "/Card-training/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a7dff529.css",
-    "static/js/main.b58287f0.js"
+    "static/css/main.2bb7d528.css",
+    "static/js/main.50c1e5cb.js"
   ]
 }
