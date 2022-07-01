@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { Header } from './m3-header/Header';
 import s from './appStyle.module.css';
 import { Snackbars } from './m4-components/Snackbar/Snackbar';
@@ -23,12 +23,12 @@ export const App = () => {
   return !GlobalLoading ? (
     <GlobalLoadingComponent />
   ) : (
-    <BrowserRouter>
+    <HashRouter>
       <div className={s.App}>
         <Header />
         <Navigate />
         <Snackbars />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
