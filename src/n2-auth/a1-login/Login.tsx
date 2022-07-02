@@ -1,13 +1,16 @@
 import React from 'react';
-import s from './LoginStyle.module.css';
-import { useSelector } from 'react-redux';
-import { AppRootStateType, useTypedDispatch } from '../../n10-bll/redux';
-import { Navigate } from 'react-router-dom';
+
 import { Formik } from 'formik';
+import { Navigate } from 'react-router-dom';
+
+import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
+import { ReturnComponentType } from '../../n4-types';
+
 import { validate } from './l1-components/helpers/util-validate-FuncForm';
-import { loginTC } from './login-reducer';
-import { SuperInput } from './l1-components/SuperInput';
 import { LoginFooter } from './l1-components/LoginFooter';
+import { SuperInput } from './l1-components/SuperInput';
+import { loginTC } from './login-reducer';
+import s from './LoginStyle.module.css';
 
 export enum TitleFormik {
   email = 'email',
@@ -20,13 +23,12 @@ export enum TitleFormik {
   text = 'text',
 }
 
-export const Login = () => {
-
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
+export const Login = (): ReturnComponentType => {
+  const isLoggedIn = useAppSelector(state => state.login.isAuth);
 
   const dispatch = useTypedDispatch();
 
-  if (isLoggedIn) return <Navigate to='/profile' />;
+  if (isLoggedIn) return <Navigate to="/profile" />;
 
   return (
     <div className={s.loginContainer}>

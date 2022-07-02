@@ -1,7 +1,10 @@
 import React from 'react';
+
+import { ReturnComponentType } from '../../../n4-types';
+
 import s from './GlobalLoadingComponent.module.css';
 
-export function GlobalLoadingComponent() {
+export const GlobalLoadingComponent = (): ReturnComponentType => {
   return (
     <div className={s.spinner}>
       <i>
@@ -306,4 +309,4 @@ export function GlobalLoadingComponent() {
       </i>
     </div>
   );
-}
+};

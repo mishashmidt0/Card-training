@@ -1,20 +1,21 @@
 import * as React from 'react';
-import MuiAlert from '@mui/material/Alert';
+
 import { AlertProps, Snackbar } from '@mui/material';
-import { closeAnswer } from '../app-reducer';
+import MuiAlert from '@mui/material/Alert';
+
 import { useAppSelector, useTypedDispatch } from '../../../n10-bll/redux';
+import { ReturnComponentType } from '../../../n4-types';
+import { closeAnswer } from '../app-reducer';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export function Snackbars() {
+export const Snackbars = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  const snackbar = useAppSelector(
-    state => state.app.snackbar,
-  );
+  const snackbar = useAppSelector(state => state.app.snackbar);
 
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string): void => {
     if (reason === 'clickaway') {
       return;
     }
@@ -33,4 +34,4 @@ export function Snackbars() {
       </Alert>
     </Snackbar>
   );
-}
+};

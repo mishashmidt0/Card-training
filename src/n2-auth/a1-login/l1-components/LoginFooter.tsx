@@ -1,18 +1,24 @@
 import React, { FC } from 'react';
-import s from '../LoginStyle.module.css';
+
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Link } from 'react-router-dom';
+
 import { useAppSelector } from '../../../n10-bll/redux';
+import { ReturnComponentType } from '../../../n4-types';
 import { TitleFormik } from '../Login';
+import s from '../LoginStyle.module.css';
 
 type LoginFooterType = {
   value: boolean;
   handleChange: any;
 };
 
-export const LoginFooter: FC<LoginFooterType> = ({ value, handleChange }) => {
+export const LoginFooter: FC<LoginFooterType> = ({
+  value,
+  handleChange,
+}: LoginFooterType): ReturnComponentType => {
   const loading = useAppSelector(state => state.app.loading);
 
   enum Title {
@@ -32,7 +38,7 @@ export const LoginFooter: FC<LoginFooterType> = ({ value, handleChange }) => {
           disabled={loading}
         />
 
-        <Link to={'/forgot'} className={s.forgot}>
+        <Link to="/forgot" className={s.forgot}>
           {Title.forgot}
         </Link>
       </div>

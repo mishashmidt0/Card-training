@@ -1,12 +1,16 @@
 import React from 'react';
-import s from './newPasswordStyle.module.css';
-import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
-import { Navigate, useParams } from 'react-router-dom';
-import { validate } from './helpers/util-newPassword-Form';
-import { createNewPassword } from './newPassword-reducer';
-import { SuperInput } from '../a1-login/l1-components/SuperInput';
+
 import Button from '@mui/material/Button';
 import { Formik } from 'formik';
+import { Navigate, useParams } from 'react-router-dom';
+
+import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
+import { ReturnComponentType } from '../../n4-types';
+import { SuperInput } from '../a1-login/l1-components/SuperInput';
+
+import { validate } from './helpers/util-newPassword-Form';
+import { createNewPassword } from './newPassword-reducer';
+import s from './newPasswordStyle.module.css';
 
 export enum TitleFormik {
   password = 'password',
@@ -15,14 +19,14 @@ export enum TitleFormik {
   button = 'create new password',
 }
 
-export const NewPassword = () => {
-
+export const NewPassword = (): ReturnComponentType => {
   const isCreate = useAppSelector(state => state.createPass.isCreate);
   const loading = useAppSelector(state => state.app.loading);
   const dispatch = useTypedDispatch();
   const { token } = useParams();
 
   if (isCreate) return <Navigate to="/login" />;
+
   return (
     <div className={s.newPasswordContainer}>
       <h1>Create new password</h1>

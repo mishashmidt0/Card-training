@@ -1,9 +1,13 @@
 import React, { FC, useCallback, useState } from 'react';
+
 import TextField from '@mui/material/TextField';
+
 import { useAppSelector } from '../../../n10-bll/redux';
+import { ReturnComponentType } from '../../../n4-types';
+import { TitleFormik } from '../Login';
+
 import { ErrorMessage } from './ErrorMessage';
 import { Eye } from './Eye';
-import { TitleFormik } from '../Login';
 
 type SuperInputType = {
   title: string;
@@ -15,11 +19,19 @@ type SuperInputType = {
 };
 
 export const SuperInput: FC<SuperInputType> = React.memo(
-  ({ title, type, name, handleChange, value, error }) => {
+  ({
+    title,
+    type,
+    name,
+    handleChange,
+    value,
+    error,
+  }: SuperInputType): ReturnComponentType => {
     const loading = useAppSelector(state => state.app.loading);
     const [isShowPassword, setIsShowPass] = useState<boolean>(false);
 
     let floatingType = type;
+
     if (isShowPassword && type === TitleFormik.password) {
       floatingType = TitleFormik.text;
     }

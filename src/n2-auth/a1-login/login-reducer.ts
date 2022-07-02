@@ -1,10 +1,11 @@
-import { dataType, loginApi } from './loginApi';
-import { TypedDispatch } from '../../n10-bll/redux';
-import { handleNetworkError } from '../a5-utils/handle-error-utils';
 import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
 import { getProfileAC } from '../../n1-main/m2-Profile/profile-reducer';
+import { TypedDispatch } from '../../n10-bll/redux';
+import { handleNetworkError } from '../a5-utils/handle-error-utils';
 
-//enum
+import { dataType, loginApi } from './loginApi';
+
+// enum
 export enum loginReducerTitle {
   message = 'authorization was successful',
   messageError = 'some error',
@@ -15,11 +16,13 @@ enum Type {
   login = 'LOGIN/LOGIN',
 }
 
-//init && reducer
+// init && reducer
 const initialState: loginStateType = {
   isAuth: false,
 };
+
 export const loginReducer = (
+  // eslint-disable-next-line default-param-last
   state: loginStateType = initialState,
   action: LoginActionsType,
 ): loginStateType => {

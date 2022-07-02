@@ -1,6 +1,5 @@
-import { profileApi, ProfileDataType } from './profileApi';
-import { login } from '../../n2-auth/a1-login/login-reducer';
 import { TypedDispatch } from '../../n10-bll/redux';
+import { login } from '../../n2-auth/a1-login/login-reducer';
 import {
   closeAnswerType,
   loading,
@@ -11,7 +10,9 @@ import {
   Status,
 } from '../m0-App/app-reducer';
 
-//enum
+import { profileApi, ProfileDataType } from './profileApi';
+
+// enum
 enum ActionType {
   getProfile = 'PROFILE/GET-PROFILE',
   changeProfileName = 'PROFILE/CHANGE-PROFILE-NAME',
@@ -22,6 +23,7 @@ const initialState: InitialStateType = {
 };
 
 export const profileReducer = (
+  // eslint-disable-next-line default-param-last
   state: InitialStateType = initialState,
   action: ProfileActionsType,
 ): InitialStateType => {
@@ -56,8 +58,7 @@ export const getUserProfileTC = () => (dispatch: TypedDispatch) => {
       dispatch(getProfileAC(res.data));
       dispatch(login(true));
     })
-    .catch(() => {
-    })
+    .catch(() => {})
     .finally(() => {
       dispatch(loading(false));
       dispatch(setGlobalLoadingAC(true));
@@ -73,7 +74,7 @@ export const logoutTC = () => (dispatch: TypedDispatch) => {
       dispatch(showAnswer('You have logged out successfully', Status.success));
     })
     .catch(error => {
-      dispatch(showAnswer(error.response.data.error + 'Logout is failed', Status.error));
+      dispatch(showAnswer(`${error.response.data.error}Logout is failed`, Status.error));
     })
     .finally(() => {
       dispatch(loading(false));
@@ -90,7 +91,7 @@ export const changeProfileTC = (data: ProfileDataType) => (dispatch: TypedDispat
     })
     .catch(error => {
       dispatch(
-        showAnswer(error.response.data.error + 'Changing is failed', Status.error),
+        showAnswer(`${error.response.data.error}Changing is failed`, Status.error),
       );
     })
     .finally(() => {

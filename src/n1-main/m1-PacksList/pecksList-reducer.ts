@@ -1,15 +1,13 @@
-import { Dispatch } from 'redux';
+export const initialState = {};
 
-const initialState = {};
-
-export const packsListReducer = (state: loginStateType = initialState, action: any) => {
-  switch (action.type) {
-    case 'auth':
-      return { ...state, isAuth: action.value };
-    default:
-      return state;
-  }
-};
+// export const packsListReducer = (state: loginStateType = initialState, action: any) => {
+//   switch (action.type) {
+//     case 'auth':
+//       return { ...state, isAuth: action.value };
+//     default:
+//       return state;
+//   }
+// };
 
 // action
 // const login = (value: boolean) => ({
@@ -31,5 +29,5 @@ export const packsListReducer = (state: loginStateType = initialState, action: a
 // }
 
 // type
-export type loginStateType = {};
+// export type loginStateType = {};
 // type actionType = ReturnType<typeof login>

@@ -1,10 +1,13 @@
 import React from 'react';
+
 import { Navigate } from 'react-router-dom';
 
-export const PecksList = () => {
+import { ReturnComponentType } from '../../n4-types';
+
+export const PecksList = (): ReturnComponentType => {
   return (
     <div>
-      <Navigate to="/login" replace={true} />
+      <Navigate to="/login" replace />
     </div>
   );
 };

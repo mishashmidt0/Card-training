@@ -1,7 +1,8 @@
-import { TypedDispatch } from '../../n10-bll/redux';
-import { forgotApi } from './forgotApi';
 import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
+import { TypedDispatch } from '../../n10-bll/redux';
 import { changeIsCreate } from '../a4-newPassword/newPassword-reducer';
+
+import { forgotApi } from './forgotApi';
 
 // enum
 enum forgotTypes {
@@ -12,7 +13,9 @@ enum forgotTypes {
 const initialState = {
   isSendMessageToEmail: false,
 };
+
 export const forgotReducer = (
+  // eslint-disable-next-line default-param-last
   state: InitialStateType = initialState,
   action: ForgotPasswordActionsType,
 ): InitialStateType => {
@@ -47,6 +50,6 @@ export const forgotPasswordTC = (email: string) => (dispatch: TypedDispatch) => 
     });
 };
 
-// types
+// n4-types
 export type ForgotPasswordActionsType = ReturnType<typeof setIsForgotPasswordAC>;
 type InitialStateType = typeof initialState;

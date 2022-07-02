@@ -1,4 +1,4 @@
-//enum
+// enum
 enum ActionType {
   show = 'APP/SHOW',
   close = 'APP/CLOSE',
@@ -13,7 +13,7 @@ export enum Status {
   error = 'error',
 }
 
-//init && reducer
+// init && reducer
 const initialState: appStateType = {
   snackbar: {
     isShow: false,
@@ -23,7 +23,9 @@ const initialState: appStateType = {
   loading: false,
   globalLoading: false,
 };
+
 export const appReducer = (
+  // eslint-disable-next-line default-param-last
   app: appStateType = initialState,
   action: AppActionsType,
 ): appStateType => {

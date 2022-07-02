@@ -15,6 +15,7 @@ export const forgotApi = {
                   Password recovery link: 
                 <a href='http://localhost:3000/set-new-password/$token$'>LINK</a></div>`,
     };
+
     return instance.post<ForgotPasswordParamsType, ResponseRegisterType>(
       'auth/forgot',
       data,
@@ -29,7 +30,7 @@ export const forgotApi = {
   },
 };
 
-//type
+// type
 export type ForgotPasswordParamsType = {
   email: string;
   from: string;

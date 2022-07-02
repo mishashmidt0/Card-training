@@ -1,5 +1,12 @@
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+
+import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
+import {
+  ProfileActionsType,
+  profileReducer,
+} from '../n1-main/m2-Profile/profile-reducer';
 import { LoginActionsType, loginReducer } from '../n2-auth/a1-login/login-reducer';
 import {
   RegisterActionsType,
@@ -10,13 +17,6 @@ import {
   forgotReducer,
 } from '../n2-auth/a3-forgot/forgot-reducer';
 import {
-  ProfileActionsType,
-  profileReducer,
-} from '../n1-main/m2-Profile/profile-reducer';
-import { packsListReducer } from '../n1-main/m1-PacksList/pecksList-reducer';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
-import {
   ActionCreateNewPass,
   newPasswordReducer,
 } from '../n2-auth/a4-newPassword/newPassword-reducer';
@@ -26,13 +26,13 @@ const reducers = combineReducers({
   register: registerReducer,
   forgot: forgotReducer,
   profile: profileReducer,
-  packsList: packsListReducer,
   app: appReducer,
   createPass: newPasswordReducer,
 });
+
 export const store = createStore(reducers, applyMiddleware(thunk));
 
-export type AppRootStateType = ReturnType<typeof reducers>;
+export type AppRootStateType = ReturnType<typeof store.getState>;
 
 export type AllActionType =
   | RegisterActionsType
@@ -41,6 +41,7 @@ export type AllActionType =
   | ActionCreateNewPass
   | ForgotPasswordActionsType
   | ProfileActionsType;
+
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
   AppRootStateType,
@@ -50,7 +51,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 
 export type AppDispatch = typeof store.dispatch;
 export type TypedDispatch = ThunkDispatch<AppRootStateType, any, AllActionType>;
-export const useTypedDispatch = () => useDispatch<TypedDispatch>();
+export const useTypedDispatch = (): TypedDispatch => useDispatch<TypedDispatch>();
+
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector;
-//@ts-ignore
+// @ts-ignore
 window.store = store;

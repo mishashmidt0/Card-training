@@ -1,11 +1,15 @@
 import React from 'react';
-import s from './HeaderStyle.module.css';
-import { Linear } from './components/Linear';
-import Box from '@mui/material/Box';
+
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import { ButtonMainLinks } from './components/ButtonMainLinks';
+
+import { ReturnComponentType } from '../../n4-types';
+
 import { ButtonAuthLinks } from './components/ButtonAuthLinks';
+import { ButtonMainLinks } from './components/ButtonMainLinks';
+import { Linear } from './components/Linear';
+import s from './HeaderStyle.module.css';
 
 export enum HeaderTitle {
   profile = 'Profile',
@@ -15,11 +19,11 @@ export enum HeaderTitle {
   logout = 'Sign Out',
 }
 
-export const Header = () => {
+export const Header = (): ReturnComponentType => {
   return (
     <div className={s.headerContainer}>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position='static' color={'transparent'}>
+        <AppBar position="static" color="transparent">
           <Toolbar className={s.toolbarContainer}>
             <ButtonMainLinks />
             <div>
