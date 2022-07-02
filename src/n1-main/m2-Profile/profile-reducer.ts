@@ -1,15 +1,15 @@
 import { profileApi, ProfileDataType } from './profileApi';
-import { login, loginReducerTitle } from '../../n2-auth/a1-login/login-reducer';
+import { login } from '../../n2-auth/a1-login/login-reducer';
 import { TypedDispatch } from '../../n10-bll/redux';
 import {
   closeAnswerType,
   loading,
   loadingType,
-  setMainLoadingAC,
+  setGlobalLoadingAC,
   showAnswer,
   showAnswerType,
   Status,
-} from '../app-reducer';
+} from '../m0-App/app-reducer';
 
 //enum
 enum ActionType {
@@ -56,15 +56,11 @@ export const getUserProfileTC = () => (dispatch: TypedDispatch) => {
       dispatch(getProfileAC(res.data));
       dispatch(login(true));
     })
-    .catch(e => {
-      const err = e.response
-        ? e.response.data.error
-        : e.message + loginReducerTitle.error;
-      dispatch(showAnswer(err, Status.info));
+    .catch(() => {
     })
     .finally(() => {
       dispatch(loading(false));
-      dispatch(setMainLoadingAC(true));
+      dispatch(setGlobalLoadingAC(true));
     });
 };
 

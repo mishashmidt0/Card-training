@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import s from '../loginStyle.module.css';
+import s from '../LoginStyle.module.css';
 
 type ErrorMessageType = {
   message: string | undefined;

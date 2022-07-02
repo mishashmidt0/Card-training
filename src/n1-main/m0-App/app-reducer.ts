@@ -1,5 +1,3 @@
-import { Dispatch } from 'redux';
-
 //enum
 enum ActionType {
   show = 'APP/SHOW',
@@ -48,11 +46,8 @@ export const showAnswer = (message: string, status: statusType) =>
   ({ type: ActionType.show, snackbar: { message, status } } as const);
 export const closeAnswer = () => ({ type: ActionType.close } as const);
 export const loading = (value: boolean) => ({ type: ActionType.load, value } as const);
-export const setMainLoadingAC = (value: boolean) =>
+export const setGlobalLoadingAC = (value: boolean) =>
   ({ type: ActionType.mainLoad, value } as const);
-
-// thunk
-export const initializeAppTC = () => (dispatch: Dispatch) => {};
 
 // type
 export type statusType = Status.warning | Status.info | Status.error | Status.success;
@@ -69,7 +64,7 @@ export type appStateType = {
 export type showAnswerType = ReturnType<typeof showAnswer>;
 export type closeAnswerType = ReturnType<typeof closeAnswer>;
 export type loadingType = ReturnType<typeof loading>;
-export type setMainLoadingType = ReturnType<typeof setMainLoadingAC>;
+export type setMainLoadingType = ReturnType<typeof setGlobalLoadingAC>;
 
 export type AppActionsType =
   | showAnswerType

@@ -1,10 +1,7 @@
 import { forgotApi, newPasswordType } from '../a3-forgot/forgotApi';
 import { TypedDispatch } from '../../n10-bll/redux';
-import { loading } from '../../n1-main/app-reducer';
-import {
-  handleNetworkNewPassError,
-  handleServerNewPass,
-} from './utils/handle-newPass-utils';
+import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
+import { handleNetworkError } from '../a5-utils/handle-error-utils';
 
 // enum
 export enum newPassTitle {
@@ -40,10 +37,14 @@ export const createNewPassword = (data: newPasswordType) => (dispatch: TypedDisp
   forgotApi
     .createNewPassword(data)
     .then(res => {
-      handleServerNewPass(res, dispatch);
-    })
+      if (!!res.data.info) {
+        dispatch(changeIsCreate(true));
+        dispatch(showAnswer(newPassTitle.create, Status.success));
+      } else {
+        dispatch(showAnswer(newPassTitle.err, Status.error));
+    }})
     .catch(e => {
-      handleNetworkNewPassError(e, dispatch);
+      handleNetworkError(e, dispatch);
     })
     .finally(() => {
       dispatch(loading(false));

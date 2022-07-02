@@ -1,5 +1,5 @@
 import { registerApi, RegisterParamsType } from './registerApi';
-import { loading, showAnswer, Status } from '../../n1-main/app-reducer';
+import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
 import { TypedDispatch } from '../../n10-bll/redux';
 
 enum registerTypes {

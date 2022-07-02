@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { HeaderTitle } from './SearchAppBar';
+import { HeaderTitle } from '../Header';
 
-export const ButtonProfileLink = () => {
+export const ButtonMainLinks = () => {
   return (
     <div>
       <Button variant="text">

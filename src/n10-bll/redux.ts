@@ -15,7 +15,7 @@ import {
 } from '../n1-main/m2-Profile/profile-reducer';
 import { packsListReducer } from '../n1-main/m1-PacksList/pecksList-reducer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { AppActionsType, appReducer } from '../n1-main/app-reducer';
+import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
 import {
   ActionCreateNewPass,
   newPasswordReducer,

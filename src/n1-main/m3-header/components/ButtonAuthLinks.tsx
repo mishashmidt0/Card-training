@@ -4,9 +4,10 @@ import { logoutTC } from '../../m2-Profile/profile-reducer';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { AppRootStateType, useTypedDispatch } from '../../../n10-bll/redux';
-import { HeaderTitle } from './SearchAppBar';
+import { HeaderTitle } from '../Header';
 
-export const ButtonLogLink = () => {
+
+export const ButtonAuthLinks = () => {
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
   const dispatch = useTypedDispatch();
 

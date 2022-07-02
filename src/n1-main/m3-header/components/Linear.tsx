@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
-import s from './headerStyle.module.css';
-import { useAppSelector } from '../../n10-bll/redux';
+import s from '../HeaderStyle.module.css';
+import { useAppSelector } from '../../../n10-bll/redux';
 
 export const Linear = () => {
   const isLoad = useAppSelector(state => state.app.loading);

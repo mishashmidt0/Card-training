@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import s from '../loginStyle.module.css';
+import s from '../LoginStyle.module.css';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Link } from 'react-router-dom';
-import { TitleFormik } from './Login-Formik';
 import { useAppSelector } from '../../../n10-bll/redux';
+import { TitleFormik } from '../Login';
 
 type LoginFooterType = {
   value: boolean;

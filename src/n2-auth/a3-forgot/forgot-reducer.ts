@@ -1,6 +1,6 @@
 import { TypedDispatch } from '../../n10-bll/redux';
 import { forgotApi } from './forgotApi';
-import { loading, showAnswer, Status } from '../../n1-main/app-reducer';
+import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
 import { changeIsCreate } from '../a4-newPassword/newPassword-reducer';
 
 // enum

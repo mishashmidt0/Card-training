@@ -1,7 +1,8 @@
 import { dataType, loginApi } from './loginApi';
 import { TypedDispatch } from '../../n10-bll/redux';
-import { handleNetworkLoginError, handleServerLogin } from './utils/handle-login-utils';
-import { loading } from '../../n1-main/app-reducer';
+import { handleNetworkError } from '../a5-utils/handle-error-utils';
+import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
+import { getProfileAC } from '../../n1-main/m2-Profile/profile-reducer';
 
 //enum
 export enum loginReducerTitle {
@@ -43,10 +44,16 @@ export const loginTC = (data: dataType) => (dispatch: TypedDispatch) => {
   loginApi
     .login(data)
     .then(res => {
-      handleServerLogin(res, dispatch);
+      if (res.statusText === 'OK') {
+        dispatch(login(true));
+        dispatch(showAnswer(loginReducerTitle.message, Status.success));
+        dispatch(getProfileAC(res.data));
+      } else {
+        dispatch(showAnswer(loginReducerTitle.messageError, Status.error));
+      }
     })
     .catch(e => {
-      handleNetworkLoginError(e, dispatch);
+      handleNetworkError(e, dispatch);
     })
     .finally(() => {
       dispatch(loading(false));
