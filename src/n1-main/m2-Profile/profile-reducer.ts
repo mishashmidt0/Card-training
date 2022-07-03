@@ -1,5 +1,5 @@
-import { TypedDispatch } from '../../n10-bll/redux';
 import { login } from '../../n2-auth/a1-login/login-reducer';
+import { TypedDispatch } from '../../n5-bll/redux';
 import {
   closeAnswerType,
   loading,

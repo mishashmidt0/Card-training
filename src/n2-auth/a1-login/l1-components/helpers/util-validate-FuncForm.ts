@@ -1,6 +1,8 @@
 import { FormikValues } from 'formik';
 
-export const validate = (values: FormikValues) => {
+import { minLength } from '../../../a5-constants/constants';
+
+export const validate = (values: FormikValues): {} => {
   const errors: any = {};
 
   if (!values.email) {
@@ -12,8 +14,9 @@ export const validate = (values: FormikValues) => {
   if (!values.password) {
     errors.password = 'password must be filled';
   }
-  if (!!values.password && values.password.length < 8) {
+  if (!!values.password && values.password.length < minLength) {
     errors.password = 'password less than 8 characters';
   }
+
   return errors;
 };

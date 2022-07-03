@@ -4,12 +4,12 @@ import Button from '@mui/material/Button';
 import { Formik } from 'formik';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
-import { ReturnComponentType } from '../../n4-types';
-import { SuperInput } from '../a1-login/l1-components/SuperInput';
+import { ReturnComponentType } from '../../../n4-types';
+import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
+import { SuperInput } from '../../a1-login/l1-components/SuperInput';
+import { createNewPassword } from '../forgot-reducer';
 
 import { validate } from './helpers/util-newPassword-Form';
-import { createNewPassword } from './newPassword-reducer';
 import s from './newPasswordStyle.module.css';
 
 export enum TitleFormik {
@@ -20,7 +20,7 @@ export enum TitleFormik {
 }
 
 export const NewPassword = (): ReturnComponentType => {
-  const isCreate = useAppSelector(state => state.createPass.isCreate);
+  const isCreate = useAppSelector(state => state.forgot.isCreate);
   const loading = useAppSelector(state => state.app.loading);
   const dispatch = useTypedDispatch();
   const { token } = useParams();

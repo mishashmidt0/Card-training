@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 
 import { showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
-import { TypedDispatch } from '../../n10-bll/redux';
+import { TypedDispatch } from '../../n5-bll/redux';
 import { loginReducerTitle } from '../a1-login/login-reducer';
 
 export const handleNetworkError = (

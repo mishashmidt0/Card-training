@@ -13,13 +13,9 @@ import {
   registerReducer,
 } from '../n2-auth/a2-register/register-reducer';
 import {
-  ForgotPasswordActionsType,
   forgotReducer,
+  ForgotPasswordActionsType,
 } from '../n2-auth/a3-forgot/forgot-reducer';
-import {
-  ActionCreateNewPass,
-  newPasswordReducer,
-} from '../n2-auth/a4-newPassword/newPassword-reducer';
 
 const reducers = combineReducers({
   login: loginReducer,
@@ -27,7 +23,6 @@ const reducers = combineReducers({
   forgot: forgotReducer,
   profile: profileReducer,
   app: appReducer,
-  createPass: newPasswordReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));
@@ -38,7 +33,6 @@ export type AllActionType =
   | RegisterActionsType
   | LoginActionsType
   | AppActionsType
-  | ActionCreateNewPass
   | ForgotPasswordActionsType
   | ProfileActionsType;
 

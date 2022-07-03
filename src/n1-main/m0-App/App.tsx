@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
 import { ReturnComponentType } from '../../n4-types';
+import { useAppSelector, useTypedDispatch } from '../../n5-bll/redux';
 import { getUserProfileTC } from '../m2-Profile/profile-reducer';
 import { Header } from '../m3-header/Header';
 
