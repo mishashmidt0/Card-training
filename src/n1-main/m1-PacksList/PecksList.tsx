@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { Navigate } from 'react-router-dom';
-
 import { ReturnComponentType } from '../../n4-types';
+
+import { CardDeck } from './CardDeck/CardDeck';
+import s from './PecksList.module.css';
 
 export const PecksList = (): ReturnComponentType => {
   return (
-    <div>
-      <Navigate to="/login" replace />
+    <div className={s.packListContainer}>
+      <CardDeck />
     </div>
   );
 };
