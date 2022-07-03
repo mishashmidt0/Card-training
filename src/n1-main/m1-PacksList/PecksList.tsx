@@ -2,13 +2,13 @@ import React from 'react';
 
 import { ReturnComponentType } from '../../n4-types';
 
-import { CardDeck } from './CardDeck/CardDeck';
+import { CardPack } from './CardPack/CardPack';
 import s from './PecksList.module.css';
 
 export const PecksList = (): ReturnComponentType => {
   return (
     <div className={s.packListContainer}>
-      <CardDeck />
+      <CardPack />
     </div>
   );
 };

@@ -4,6 +4,10 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
 import {
+  cardPackReducer,
+  CardsPacksActionsType,
+} from '../n1-main/m1-PacksList/CardPack/cardPack-reducer';
+import {
   ProfileActionsType,
   profileReducer,
 } from '../n1-main/m2-Profile/profile-reducer';
@@ -23,6 +27,7 @@ const reducers = combineReducers({
   forgot: forgotReducer,
   profile: profileReducer,
   app: appReducer,
+  cardsPacks: cardPackReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));
@@ -34,7 +39,8 @@ export type AllActionType =
   | LoginActionsType
   | AppActionsType
   | ForgotPasswordActionsType
-  | ProfileActionsType;
+  | ProfileActionsType
+  | CardsPacksActionsType;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
