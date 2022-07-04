@@ -1,6 +1,6 @@
 import { FormikValues } from 'formik';
 
-import { minLength } from '../../a6-constants/constants';
+import { minLength } from '../../../a5-constants/constants';
 
 export const validate = (values: FormikValues): Object => {
   const errors: any = {};

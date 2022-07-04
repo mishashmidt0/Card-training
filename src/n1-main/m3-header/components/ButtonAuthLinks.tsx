@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { Button } from '@mui/material';
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../n4-types';
-import { AppRootStateType, useTypedDispatch } from '../../../n5-bll/redux';
+import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
 import { logoutTC } from '../../m2-Profile/profile-reducer';
 import { HeaderTitle } from '../Header';
 
 export const ButtonAuthLinks = (): ReturnComponentType => {
-  const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isAuth);
+  const isLoggedIn = useAppSelector(state => state.login.isAuth);
+
   const dispatch = useTypedDispatch();
 
   return isLoggedIn ? (

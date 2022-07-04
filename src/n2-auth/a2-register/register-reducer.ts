@@ -1,5 +1,6 @@
 import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
 import { TypedDispatch } from '../../n5-bll/redux';
+import { handleNetworkError } from '../a4-utils/handle-error-utils';
 
 import { registerApi, RegisterParamsType } from './registerApi';
 
@@ -7,6 +8,7 @@ import { registerApi, RegisterParamsType } from './registerApi';
 enum registerTypes {
   setIsRegistered = 'register/SET-IS-REGISTERED',
 }
+
 // reducer
 const initialState = { isRegistered: false };
 
@@ -27,27 +29,19 @@ export const registerReducer = (
 export const setIsRegisteredAC = (value: boolean) =>
   ({ type: registerTypes.setIsRegistered, value } as const);
 // thunks
-export const registerTC = (data: RegisterParamsType) => (dispatch: TypedDispatch) => {
-  dispatch(loading(true));
-  registerApi
-    .registerUser(data)
-    .then(() => {
+export const registerTC =
+  (data: RegisterParamsType) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await registerApi.registerUser(data);
       dispatch(setIsRegisteredAC(true));
       dispatch(showAnswer('You have been successfully registered', Status.success));
-    })
-    .catch(error => {
-      dispatch(setIsRegisteredAC(false));
-      dispatch(
-        showAnswer(
-          `${error.response.data.error} If you don't remember your password go to 'forgot'`,
-          Status.error,
-        ),
-      );
-    })
-    .finally(() => {
+    } catch (error: any) {
+      handleNetworkError(error, dispatch);
+    } finally {
       dispatch(loading(false));
-    });
-};
+    }
+  };
 // n4-types
 export type RegisterActionsType = ReturnType<typeof setIsRegisteredAC>;
 type InitialStateType = typeof initialState;

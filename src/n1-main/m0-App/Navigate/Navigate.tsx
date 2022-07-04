@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Login } from '../../../n2-auth/a1-login/Login';
 import { Register } from '../../../n2-auth/a2-register/Register';
 import { Forgot } from '../../../n2-auth/a3-forgot/Forgot';
-import { NewPassword } from '../../../n2-auth/a4-newPassword/NewPassword';
+import { NewPassword } from '../../../n2-auth/a3-forgot/NewPassword/NewPassword';
 import { Error } from '../../../n3-error/Error';
 import { ReturnComponentType } from '../../../n4-types';
 import { PecksList } from '../../m1-PacksList/PecksList';
