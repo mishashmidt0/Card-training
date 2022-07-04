@@ -12,7 +12,8 @@ export const CardsPacks = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
 
   useEffect(() => {
-    dispatch(getCardsPacksTC());
+    // eslint-disable-next-line no-magic-numbers
+    dispatch(getCardsPacksTC(10, 1));
   }, [dispatch]);
 
   return (

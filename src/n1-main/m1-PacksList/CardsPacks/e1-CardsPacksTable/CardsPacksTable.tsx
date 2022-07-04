@@ -10,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector } from '../../../../n5-bll/redux';
+import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { CardPackType } from '../cardsPacksAPI';
 
 import s from './CardsPacksTable.module.css';
@@ -17,9 +18,8 @@ import s from './CardsPacksTable.module.css';
 export const CardsPacksTable = (): ReturnComponentType => {
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
 
-  // @ts-ignore
   // eslint-disable-next-line no-underscore-dangle
-  const userId = useAppSelector(state => state.profile.profile._id);
+  const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
 
   return (
     <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
