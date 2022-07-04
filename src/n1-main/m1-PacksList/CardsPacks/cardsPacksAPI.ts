@@ -6,8 +6,14 @@ export const instance = axios.create({
 });
 
 export const cardsPacksAPI = {
-  getAllCardPack() {
-    return instance.get<null, ResponseGetCardPack>('cards/pack');
+  getCardsPacks(pageCount?: number, newPage?: number) {
+    return instance.get<any, ResponseGetCardPack>('cards/pack', {
+      params: {
+        // eslint-disable-next-line no-magic-numbers
+        pageCount: pageCount || 10,
+        page: newPage || 1,
+      },
+    });
   },
 };
 
@@ -36,8 +42,6 @@ export type CardPackDataType = {
   minCardsCount: number;
   page: number; // выбранная страница
   pageCount: number; // количество элементов на странице
-  token: string;
-  tokenDeathTime: number;
 };
 
 type ResponseGetCardPack = {

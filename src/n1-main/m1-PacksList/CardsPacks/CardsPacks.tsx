@@ -3,8 +3,9 @@ import React, { useEffect } from 'react';
 import { ReturnComponentType } from '../../../n4-types';
 import { useTypedDispatch } from '../../../n5-bll/redux';
 
-import { CardPackTable } from './CardPack/CardPackTable';
 import { getCardsPacksTC } from './cardsPacks-reducer';
+import { CardsPacksTable } from './e1-CardsPacksTable/CardsPacksTable';
+import { CardsPacksPagination } from './e2-CardsPacksPagination/CardsPacksPagination';
 
 export const CardsPacks = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
@@ -15,7 +16,8 @@ export const CardsPacks = (): ReturnComponentType => {
 
   return (
     <div>
-      <CardPackTable />
+      <CardsPacksTable />
+      <CardsPacksPagination />
     </div>
   );
 };

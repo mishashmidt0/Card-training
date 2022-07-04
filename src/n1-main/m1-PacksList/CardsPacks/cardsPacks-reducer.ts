@@ -36,8 +36,6 @@ const initialState: CardPackDataType = {
   minCardsCount: 0,
   page: 1,
   pageCount: 4,
-  token: '20f16090-fb09-11ec-a77b-458deadef84b',
-  tokenDeathTime: 1657482516761,
 };
 
 export const cardsPacksReducer = (
@@ -57,18 +55,19 @@ export const cardsPacksReducer = (
 export const getCardsPacksAC = (cardsPacksData: CardPackDataType) =>
   ({ type: cardPackTypes.getCardsPacks, cardsPacksData } as const);
 // thunks
-export const getCardsPacksTC = () => async (dispatch: TypedDispatch) => {
-  dispatch(loading(true));
-  try {
-    const res = await cardsPacksAPI.getAllCardPack();
+export const getCardsPacksTC =
+  (pageCount?: number, newPage?: number) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      const res = await cardsPacksAPI.getCardsPacks(pageCount, newPage);
 
-    dispatch(getCardsPacksAC(res.data));
-  } catch (error: any) {
-    handleNetworkError(error, dispatch);
-  } finally {
-    dispatch(loading(false));
-  }
-};
+      dispatch(getCardsPacksAC(res.data));
+    } catch (error: any) {
+      handleNetworkError(error, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
 // n4-types
 export type CardsPacksActionsType = ReturnType<typeof getCardsPacksAC>;
 type InitialStateType = typeof initialState;

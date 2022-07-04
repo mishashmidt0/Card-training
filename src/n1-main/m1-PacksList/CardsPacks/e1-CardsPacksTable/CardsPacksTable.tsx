@@ -12,7 +12,7 @@ import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector } from '../../../../n5-bll/redux';
 import { CardPackType } from '../cardsPacksAPI';
 
-export const CardPackTable = (): ReturnComponentType => {
+export const CardsPacksTable = (): ReturnComponentType => {
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
 
   return (
@@ -29,20 +29,21 @@ export const CardPackTable = (): ReturnComponentType => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {cardsPacksData.cardPacks.map((row: CardPackType) => (
+            {cardsPacksData.cardPacks.map((cardPack: CardPackType) => (
               <TableRow
-                key={row.name}
+                /* eslint-disable-next-line no-underscore-dangle */
+                key={cardPack._id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {cardPack.name}
                 </TableCell>
-                <TableCell align="right">{row.cardsCount}</TableCell>
-                <TableCell align="right">{row.updated}</TableCell>
-                <TableCell align="right">{row.user_name}</TableCell>
+                <TableCell align="right">{cardPack.cardsCount}</TableCell>
+                <TableCell align="right">{cardPack.updated}</TableCell>
+                <TableCell align="right">{cardPack.user_name}</TableCell>
                 <TableCell align="right">
-                  <button type="button">Delete</button>
-                  <button type="button">Edit</button>
+                  <button type="button">Delete</button>---
+                  <button type="button">Edit</button>---
                   <button type="button">Learn</button>
                 </TableCell>
               </TableRow>
