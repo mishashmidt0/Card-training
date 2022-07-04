@@ -1,3 +1,5 @@
+import axios, { AxiosError } from 'axios';
+
 import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils';
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
@@ -62,8 +64,12 @@ export const getCardsPacksTC =
       const res = await cardsPacksAPI.getCardsPacks(pageCount, newPage);
 
       dispatch(getCardsPacksAC(res.data));
-    } catch (error: any) {
-      handleNetworkError(error, dispatch);
+    } catch (e) {
+      const err = e as Error | AxiosError<{ error: string }>;
+
+      if (axios.isAxiosError(err)) {
+        handleNetworkError(err, dispatch);
+      }
     } finally {
       dispatch(loading(false));
     }

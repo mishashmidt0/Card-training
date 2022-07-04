@@ -20,7 +20,7 @@ export const cardsPacksAPI = {
 export type CardPackType = {
   cardsCount: number;
   created: string;
-  deckCover: string | any;
+  deckCover: string;
   grade: number;
   more_id: string;
   name: string;

@@ -15,6 +15,10 @@ import { CardPackType } from '../cardsPacksAPI';
 export const CardsPacksTable = (): ReturnComponentType => {
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
 
+  // @ts-ignore
+  // eslint-disable-next-line no-underscore-dangle
+  const userId = useAppSelector(state => state.profile.profile._id);
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -42,8 +46,13 @@ export const CardsPacksTable = (): ReturnComponentType => {
                 <TableCell align="right">{cardPack.updated}</TableCell>
                 <TableCell align="right">{cardPack.user_name}</TableCell>
                 <TableCell align="right">
-                  <button type="button">Delete</button>---
-                  <button type="button">Edit</button>---
+                  {/* eslint-disable-next-line no-underscore-dangle */}
+                  {userId === cardPack._id || (
+                    <span>
+                      <button type="button">Delete</button>---
+                      <button type="button">Edit</button>---
+                    </span>
+                  )}
                   <button type="button">Learn</button>
                 </TableCell>
               </TableRow>
