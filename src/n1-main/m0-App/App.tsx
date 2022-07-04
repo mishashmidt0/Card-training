@@ -18,7 +18,7 @@ export const App = (): ReturnComponentType => {
 
   useEffect(() => {
     if (!isLoggedIn) dispatch(getUserProfileTC());
-  }, [dispatch, isLoggedIn]);
+  }, []);
 
   return !globalLoading ? (
     <GlobalLoadingComponent />

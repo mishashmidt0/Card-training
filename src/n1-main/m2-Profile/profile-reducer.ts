@@ -1,4 +1,5 @@
 import { login } from '../../n2-auth/a1-login/login-reducer';
+import { handleNetworkError } from '../../n2-auth/a4-utils/handle-error-utils';
 import { TypedDispatch } from '../../n5-bll/redux';
 import {
   closeAnswerType,
@@ -50,54 +51,51 @@ export const changeProfileNameAC = (newName: string) =>
   } as const);
 
 // thunk
-export const getUserProfileTC = () => (dispatch: TypedDispatch) => {
+export const getUserProfileTC = () => async (dispatch: TypedDispatch) => {
   dispatch(loading(true));
-  profileApi
-    .me()
-    .then(res => {
-      dispatch(getProfileAC(res.data));
-      dispatch(login(true));
-    })
-    .catch(() => {})
-    .finally(() => {
-      dispatch(loading(false));
-      dispatch(setGlobalLoadingAC(true));
-    });
+
+  try {
+    const res = await profileApi.me();
+
+    dispatch(getProfileAC(res.data));
+    dispatch(login(true));
+  } catch (error: any) {
+    handleNetworkError(error, dispatch);
+  } finally {
+    dispatch(loading(false));
+    dispatch(setGlobalLoadingAC(true));
+  }
 };
 
-export const logoutTC = () => (dispatch: TypedDispatch) => {
+export const logoutTC = () => async (dispatch: TypedDispatch) => {
   dispatch(loading(true));
-  profileApi
-    .logout()
-    .then(() => {
-      dispatch(login(false));
-      dispatch(showAnswer('You have logged out successfully', Status.success));
-    })
-    .catch(error => {
-      dispatch(showAnswer(`${error.response.data.error}Logout is failed`, Status.error));
-    })
-    .finally(() => {
-      dispatch(loading(false));
-    });
+
+  try {
+    await profileApi.logout();
+    dispatch(login(false));
+    dispatch(showAnswer('You have logged out successfully', Status.success));
+  } catch (error: any) {
+    handleNetworkError(error, dispatch);
+  } finally {
+    dispatch(loading(false));
+  }
 };
 
-export const changeProfileTC = (data: ProfileDataType) => (dispatch: TypedDispatch) => {
-  dispatch(loading(true));
-  profileApi
-    .changeProfile(data)
-    .then(res => {
+export const changeProfileTC =
+  (data: ProfileDataType) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+
+    try {
+      const res = await profileApi.changeProfile(data);
+
       dispatch(changeProfileNameAC(res.data.updatedUser.name));
       dispatch(showAnswer('Profile has been successfully changed', Status.success));
-    })
-    .catch(error => {
-      dispatch(
-        showAnswer(`${error.response.data.error}Changing is failed`, Status.error),
-      );
-    })
-    .finally(() => {
+    } catch (error: any) {
+      handleNetworkError(error, dispatch);
+    } finally {
       dispatch(loading(false));
-    });
-};
+    }
+  };
 
 // type
 type InitialStateType = {
