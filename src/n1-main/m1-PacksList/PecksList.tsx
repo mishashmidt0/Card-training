@@ -6,6 +6,8 @@ import { ReturnComponentType } from '../../n4-types';
 import { useAppSelector } from '../../n5-bll/redux';
 
 import { CardsPacks } from './CardsPacks/CardsPacks';
+import { Filter } from './p1-FilterComponent/Filter';
+import { Search } from './p2-SearchComponent/Search';
 import s from './PecksList.module.css';
 
 export const PecksList = (): ReturnComponentType => {
@@ -15,7 +17,11 @@ export const PecksList = (): ReturnComponentType => {
 
   return (
     <div className={s.packListContainer}>
-      <CardsPacks />
+      <Filter />
+      <div className={s.cardsContainer}>
+        <Search />
+        <CardsPacks />
+      </div>
     </div>
   );
 };

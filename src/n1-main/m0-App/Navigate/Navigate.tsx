@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Route, Routes } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Login } from '../../../n2-auth/a1-login/Login';
 import { Register } from '../../../n2-auth/a2-register/Register';
@@ -23,23 +22,17 @@ enum PATH {
   error = '/*',
 }
 
-const routes = [
-  { id: uuidv4(), path: PATH.main, component: <Profile /> },
-  { id: uuidv4(), path: PATH.profile, component: <Profile /> },
-  { id: uuidv4(), path: PATH.list, component: <PecksList /> },
-  { id: uuidv4(), path: PATH.login, component: <Login /> },
-  { id: uuidv4(), path: PATH.register, component: <Register /> },
-  { id: uuidv4(), path: PATH.forgot, component: <Forgot /> },
-  { id: uuidv4(), path: PATH.newPassword, component: <NewPassword /> },
-  { id: uuidv4(), path: PATH.error, component: <Error /> },
-];
-
 export const Navigate = (): ReturnComponentType => {
   return (
     <Routes>
-      {routes.map(route => (
-        <Route key={route.id} path={route.path} element={route.component} />
-      ))}
+      <Route path={PATH.main} element={<Profile />} />
+      <Route path={PATH.profile} element={<Profile />} />
+      <Route path={PATH.list} element={<PecksList />} />
+      <Route path={PATH.login} element={<Login />} />
+      <Route path={PATH.register} element={<Register />} />
+      <Route path={PATH.forgot} element={<Forgot />} />
+      <Route path={PATH.newPassword} element={<NewPassword />} />
+      <Route path={PATH.error} element={<Error />} />
     </Routes>
   );
 };

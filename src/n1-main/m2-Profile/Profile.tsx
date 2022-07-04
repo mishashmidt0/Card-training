@@ -2,10 +2,10 @@ import React from 'react';
 
 import { Navigate } from 'react-router-dom';
 
-import ava from '../../assets/images/defaultAva.jpg';
 import { ReturnComponentType } from '../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../n5-bll/redux';
 
+import ava from './p1-assets/images/defaultAva.jpg';
 import { changeProfileTC, ProfileStateType } from './profile-reducer';
 import { ProfileInfo } from './ProfileInfo';
 import s from './ProfileStyle.module.css';

@@ -6,13 +6,19 @@ export const instance = axios.create({
 });
 
 export const cardsPacksAPI = {
-  getCardsPacks(pageCount?: number, newPage?: number) {
+  getCardsPacks(pageCount?: number, newPage?: number, id?: string) {
     return instance.get<any, ResponseGetCardPack>('cards/pack', {
       params: {
         // eslint-disable-next-line no-magic-numbers
         pageCount: pageCount || 10,
         page: newPage || 1,
+        id: id || undefined,
       },
+    });
+  },
+  getFiltersCardsPacks(payload: ResCardsPacksType) {
+    return instance.get('cards/pack', {
+      params: { ...payload },
     });
   },
 };
@@ -51,4 +57,14 @@ type ResponseGetCardPack = {
   request: any;
   status: number;
   statusText: string;
+};
+
+export type ResCardsPacksType = {
+  packName?: string;
+  min?: number;
+  max?: number;
+  sortPacks?: string;
+  page?: number;
+  pageCount?: number;
+  user_id?: string;
 };

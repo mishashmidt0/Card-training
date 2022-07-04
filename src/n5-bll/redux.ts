@@ -8,6 +8,10 @@ import {
   CardsPacksActionsType,
 } from '../n1-main/m1-PacksList/CardsPacks/cardsPacks-reducer';
 import {
+  filterActionType,
+  FilterReducer,
+} from '../n1-main/m1-PacksList/p1-FilterComponent/filter-reducer';
+import {
   ProfileActionsType,
   profileReducer,
 } from '../n1-main/m2-Profile/profile-reducer';
@@ -28,6 +32,7 @@ const reducers = combineReducers({
   profile: profileReducer,
   app: appReducer,
   cardsPacks: cardsPacksReducer,
+  filter: FilterReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));
@@ -40,7 +45,8 @@ export type AllActionType =
   | AppActionsType
   | ForgotPasswordActionsType
   | ProfileActionsType
-  | CardsPacksActionsType;
+  | CardsPacksActionsType
+  | filterActionType;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

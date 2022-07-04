@@ -13,7 +13,7 @@ export const forgotApi = {
 
       message: `<div style='background-color: #88c9e0; padding: 15px'>
                   Password recovery link: 
-                <a href='http://localhost:3000/set-new-password/$token$'>LINK</a></div>`,
+                <a href='http://localhost:3000/#/set-new-password/$token$'>LINK</a></div>`,
     };
 
     return instance.post<ForgotPasswordParamsType, ResponseRegisterType>(

@@ -1,4 +1,5 @@
 .forgotContainer {
+  align-self:end;
   height: 100%;
   width: 50vw;
   display: flex;
