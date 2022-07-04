@@ -6,6 +6,8 @@ import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { getCardsPacksTC } from '../cardsPacks-reducer';
 
+import s from './CardsPacksPagination.module.css';
+
 export const CardsPacksPagination = (): ReturnComponentType => {
   // eslint-disable-next-line no-magic-numbers
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -40,6 +42,7 @@ export const CardsPacksPagination = (): ReturnComponentType => {
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}
       onRowsPerPageChange={handleChangeRowsPerPage}
+      className={s.paginatorContainer}
     />
   );
 };

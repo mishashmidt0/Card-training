@@ -12,6 +12,8 @@ import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector } from '../../../../n5-bll/redux';
 import { CardPackType } from '../cardsPacksAPI';
 
+import s from './CardsPacksTable.module.css';
+
 export const CardsPacksTable = (): ReturnComponentType => {
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
 
@@ -20,46 +22,47 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const userId = useAppSelector(state => state.profile.profile._id);
 
   return (
-    <div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Cards</TableCell>
-              <TableCell align="right">Last Updated</TableCell>
-              <TableCell align="right">Created by</TableCell>
-              <TableCell align="right">Actions</TableCell>
+    <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead className={s.tableHeadContainer}>
+          <TableRow className={s.tableRow}>
+            <TableCell>Name</TableCell>
+            <TableCell align="center" className={s.cardsCountText}>
+              Cards
+            </TableCell>
+            <TableCell align="center" className={s.lastUpdateText}>
+              Last Updated
+            </TableCell>
+            <TableCell align="center">Created by</TableCell>
+            <TableCell align="center">Actions</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {cardsPacksData.cardPacks.map((cardPack: CardPackType) => (
+            <TableRow
+              /* eslint-disable-next-line no-underscore-dangle */
+              key={cardPack._id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {cardPack.name}
+              </TableCell>
+              <TableCell align="center">{cardPack.cardsCount}</TableCell>
+              <TableCell align="center">{cardPack.updated}</TableCell>
+              <TableCell align="center">{cardPack.user_name}</TableCell>
+              <TableCell align="center">
+                {userId === cardPack.user_id && (
+                  <span>
+                    <button type="button">Delete</button>---
+                    <button type="button">Edit</button>---
+                  </span>
+                )}
+                <button type="button">Learn</button>
+              </TableCell>
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {cardsPacksData.cardPacks.map((cardPack: CardPackType) => (
-              <TableRow
-                /* eslint-disable-next-line no-underscore-dangle */
-                key={cardPack._id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {cardPack.name}
-                </TableCell>
-                <TableCell align="right">{cardPack.cardsCount}</TableCell>
-                <TableCell align="right">{cardPack.updated}</TableCell>
-                <TableCell align="right">{cardPack.user_name}</TableCell>
-                <TableCell align="right">
-                  {/* eslint-disable-next-line no-underscore-dangle */}
-                  {userId === cardPack._id || (
-                    <span>
-                      <button type="button">Delete</button>---
-                      <button type="button">Edit</button>---
-                    </span>
-                  )}
-                  <button type="button">Learn</button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
