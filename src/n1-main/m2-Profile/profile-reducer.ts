@@ -59,8 +59,6 @@ export const getUserProfileTC = () => async (dispatch: TypedDispatch) => {
 
     dispatch(getProfileAC(res.data));
     dispatch(login(true));
-  } catch (error: any) {
-    handleNetworkError(error, dispatch);
   } finally {
     dispatch(loading(false));
     dispatch(setGlobalLoadingAC(true));
