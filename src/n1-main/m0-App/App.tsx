@@ -20,7 +20,6 @@ export const App = (): ReturnComponentType => {
     if (!isLoggedIn) dispatch(getUserProfileTC());
   }, []);
 
-  // asdasd
   return !globalLoading ? (
     <GlobalLoadingComponent />
   ) : (
