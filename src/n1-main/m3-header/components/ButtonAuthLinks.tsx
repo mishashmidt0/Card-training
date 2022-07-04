@@ -4,8 +4,8 @@ import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { AppRootStateType, useTypedDispatch } from '../../../n10-bll/redux';
 import { ReturnComponentType } from '../../../n4-types';
+import { AppRootStateType, useTypedDispatch } from '../../../n5-bll/redux';
 import { logoutTC } from '../../m2-Profile/profile-reducer';
 import { HeaderTitle } from '../Header';
 

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Navigate } from 'react-router-dom';
 
-import { useAppSelector } from '../../n10-bll/redux';
 import { ReturnComponentType } from '../../n4-types';
+import { useAppSelector } from '../../n5-bll/redux';
 
 import { RegisterForm } from './RegisterForm/RegisterForm';
 import s from './RegisterStyle.module.css';

@@ -1,5 +1,5 @@
 import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
-import { TypedDispatch } from '../../n10-bll/redux';
+import { TypedDispatch } from '../../n5-bll/redux';
 
 import { registerApi, RegisterParamsType } from './registerApi';
 

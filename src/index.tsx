@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
 import { App } from './n1-main/m0-App/App';
-import { store } from './n10-bll/redux';
+import { store } from './n5-bll/redux';
 import reportWebVitals from './reportWebVitals';
 
 import './style.css';

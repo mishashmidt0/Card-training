@@ -1,5 +1,5 @@
 import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
-import { TypedDispatch } from '../../n10-bll/redux';
+import { TypedDispatch } from '../../n5-bll/redux';
 import { changeIsCreate } from '../a4-newPassword/newPassword-reducer';
 
 import { forgotApi } from './forgotApi';

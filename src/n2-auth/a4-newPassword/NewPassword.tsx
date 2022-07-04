@@ -4,8 +4,8 @@ import Button from '@mui/material/Button';
 import { Formik } from 'formik';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
 import { ReturnComponentType } from '../../n4-types';
+import { useAppSelector, useTypedDispatch } from '../../n5-bll/redux';
 import { SuperInput } from '../a1-login/l1-components/SuperInput';
 
 import { validate } from './helpers/util-newPassword-Form';

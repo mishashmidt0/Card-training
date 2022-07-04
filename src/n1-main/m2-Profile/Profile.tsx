@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 import ava from '../../assets/images/defaultAva.jpg';
-import { AppRootStateType, useAppSelector, useTypedDispatch } from '../../n10-bll/redux';
 import { ReturnComponentType } from '../../n4-types';
+import { AppRootStateType, useAppSelector, useTypedDispatch } from '../../n5-bll/redux';
 
 import { changeProfileTC, ProfileStateType } from './profile-reducer';
 import { ProfileInfo } from './ProfileInfo';

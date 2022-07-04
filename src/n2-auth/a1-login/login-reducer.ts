@@ -1,6 +1,6 @@
 import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
 import { getProfileAC } from '../../n1-main/m2-Profile/profile-reducer';
-import { TypedDispatch } from '../../n10-bll/redux';
+import { TypedDispatch } from '../../n5-bll/redux';
 import { handleNetworkError } from '../a5-utils/handle-error-utils';
 
 import { dataType, loginApi } from './loginApi';
