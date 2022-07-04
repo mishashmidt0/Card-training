@@ -1,0 +1,9 @@
+.packListContainer {
+  width: 90%;
+  background-color: rgb(222, 225, 232);
+  height: 90%;
+  margin: 0 auto;
+  position: relative;
+  top: 30px;
+  border-radius: 5px;
+}

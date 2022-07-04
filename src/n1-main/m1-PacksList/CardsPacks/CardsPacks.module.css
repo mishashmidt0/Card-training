@@ -1,0 +1,9 @@
+.cardsPacksContainer {
+    border-radius: 10px;
+    width: 65%;
+    position: relative;
+    top: 7vh;
+    left: 30vw;
+    background-color: rgb(222, 225, 232);
+    height: 90%;
+}
