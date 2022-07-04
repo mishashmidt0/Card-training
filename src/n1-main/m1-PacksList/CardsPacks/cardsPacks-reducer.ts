@@ -2,7 +2,7 @@ import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
 
-import { cardPackApi, CardPackDataType } from './cardPackAPI';
+import { cardsPacksAPI, CardPackDataType } from './cardsPacksAPI';
 
 // enum
 enum cardPackTypes {
@@ -40,7 +40,7 @@ const initialState: CardPackDataType = {
   tokenDeathTime: 1657482516761,
 };
 
-export const cardPackReducer = (
+export const cardsPacksReducer = (
   // eslint-disable-next-line default-param-last
   state: InitialStateType = initialState,
   action: CardsPacksActionsType,
@@ -60,7 +60,7 @@ export const getCardsPacksAC = (cardsPacksData: CardPackDataType) =>
 export const getCardsPacksTC = () => async (dispatch: TypedDispatch) => {
   dispatch(loading(true));
   try {
-    const res = await cardPackApi.getAllCardPack();
+    const res = await cardsPacksAPI.getAllCardPack();
 
     dispatch(getCardsPacksAC(res.data));
   } catch (error: any) {

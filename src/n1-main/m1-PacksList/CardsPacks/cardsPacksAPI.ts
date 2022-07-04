@@ -5,25 +5,16 @@ export const instance = axios.create({
   withCredentials: true,
 });
 
-export const cardPackApi = {
+export const cardsPacksAPI = {
   getAllCardPack() {
-    return instance.get<any, ResponseGetCardPack>('cards/pack');
+    return instance.get<null, ResponseGetCardPack>('cards/pack');
   },
 };
 
-export type GetCardPackParamsType = {
-  packName?: string; // не обязательно
-  min?: number; // не обязательно
-  max?: number; // не обязательно
-  sortPacks?: string; // не обязательно
-  page?: number; // не обязательно
-  pageCount?: number; // не обязательно
-  user_id?: string; // чьи колоды не обязательно, или прийдут все
-};
 export type CardPackType = {
   cardsCount: number;
   created: string;
-  deckCover: string;
+  deckCover: string | any;
   grade: number;
   more_id: string;
   name: string;

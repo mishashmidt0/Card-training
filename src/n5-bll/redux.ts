@@ -4,9 +4,9 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
 import {
-  cardPackReducer,
+  cardsPacksReducer,
   CardsPacksActionsType,
-} from '../n1-main/m1-PacksList/CardPack/cardPack-reducer';
+} from '../n1-main/m1-PacksList/CardsPacks/cardsPacks-reducer';
 import {
   ProfileActionsType,
   profileReducer,
@@ -27,7 +27,7 @@ const reducers = combineReducers({
   forgot: forgotReducer,
   profile: profileReducer,
   app: appReducer,
-  cardsPacks: cardPackReducer,
+  cardsPacks: cardsPacksReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));
