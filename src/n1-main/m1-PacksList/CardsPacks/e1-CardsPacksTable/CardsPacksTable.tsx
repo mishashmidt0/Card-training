@@ -7,20 +7,23 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useNavigate } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
+import { getCardsTC } from '../../Cards/cards-reducer';
 import { getCardsPacksTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
+import { CardPack } from '../e0-CardPack/CardPack';
 
 import s from './CardsPacksTable.module.css';
 
 export const CardsPacksTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  const cardsPacksData = useAppSelector(state => state.cardsPacks);
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
+  const cardsPacksData = useAppSelector(state => state.cardsPacks);
 
   const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(true);
   const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(true);
@@ -41,15 +44,11 @@ export const CardsPacksTable = (): ReturnComponentType => {
     }
     setSortCardsUpdate(!sortCardsUpdate);
   };
-
-  const cutTheString = (str: string): string => {
-    // eslint-disable-next-line no-magic-numbers
-    if (str.length >= 50) {
-      // eslint-disable-next-line no-magic-numbers
-      return `${str.slice(0, 50)}...`;
-    }
-
-    return str;
+  const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const getCards = (cardPackId: string): void => {
+    dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
+    navigate('/cards');
   };
 
   return (
@@ -91,29 +90,19 @@ export const CardsPacksTable = (): ReturnComponentType => {
         </TableHead>
         <TableBody>
           {cardsPacksData.cardPacks.map((cardPack: CardPackType) => (
-            <TableRow
+            <CardPack
               /* eslint-disable-next-line no-underscore-dangle */
               key={cardPack._id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {cutTheString(cardPack.name)}
-              </TableCell>
-              <TableCell align="center">{cardPack.cardsCount}</TableCell>
-              <TableCell align="center">
-                {new Date(cardPack.updated).toLocaleDateString()}
-              </TableCell>
-              <TableCell align="center">{cardPack.user_name}</TableCell>
-              <TableCell align="center">
-                {userId === cardPack.user_id && (
-                  <span>
-                    <button type="button">Delete</button>---
-                    <button type="button">Edit</button>---
-                  </span>
-                )}
-                <button type="button">Learn</button>
-              </TableCell>
-            </TableRow>
+              userId={userId}
+              /* eslint-disable-next-line no-underscore-dangle */
+              cardPackId={cardPack._id}
+              cardPackName={cardPack.name}
+              cardPackCardsCount={cardPack.cardsCount}
+              cardPackUpdated={cardPack.updated}
+              cardPackUserName={cardPack.user_name}
+              cardPackUserId={cardPack.user_id}
+              getCards={getCards}
+            />
           ))}
         </TableBody>
       </Table>

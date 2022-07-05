@@ -14,7 +14,9 @@ export const Cards = (): ReturnComponentType => {
 
   useEffect(() => {
     // eslint-disable-next-line no-magic-numbers
-    dispatch(getCardsTC({ cardsPack_id: cardsPackId, page: 1, pageCount: 10 }));
+    if (false) {
+      dispatch(getCardsTC({ cardsPack_id: cardsPackId, page: 1, pageCount: 10 }));
+    }
   }, [dispatch, cardsPackId]);
 
   return <div>{cards}</div>;
