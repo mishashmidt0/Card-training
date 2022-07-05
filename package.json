@@ -37,7 +37,8 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "prepare": "husky install",
-    "lint-fix": "eslint --fix"
+    "lint-fix": "eslint --fix",
+    "pr": "prettier --write ."
   },
   "lint-staged": {
     "**/*.{js,ts,jsx,tsx}": [
