@@ -23,7 +23,7 @@ export const CardsPacksPagination = (): ReturnComponentType => {
     newPage: number,
   ) => void = (event, newPage) => {
     setPage(newPage);
-    dispatch(getCardsPacksTC(pageCount, newPage + 1));
+    dispatch(getCardsPacksTC({ pageCount, page: newPage + 1 }));
   };
 
   const handleChangeRowsPerPage: (
@@ -31,7 +31,7 @@ export const CardsPacksPagination = (): ReturnComponentType => {
   ) => void = event => {
     dispatch(changePageCount(parseInt(event.target.value, 10)));
     setPage(0);
-    dispatch(getCardsPacksTC(parseInt(event.target.value, 10)));
+    dispatch(getCardsPacksTC({ pageCount: parseInt(event.target.value, 10) }));
   };
 
   return (

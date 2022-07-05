@@ -9,17 +9,39 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
 import { ReturnComponentType } from '../../../../n4-types';
-import { useAppSelector } from '../../../../n5-bll/redux';
+import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
+import { getCardsPacksTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
 
 import s from './CardsPacksTable.module.css';
 
 export const CardsPacksTable = (): ReturnComponentType => {
+  const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(false);
+  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
+  const dispatch = useTypedDispatch();
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
 
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
+
+  const sortForCardsCount: () => void = () => {
+    if (sortCardsCount) {
+      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0cardsCount' }));
+    } else {
+      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1cardsCount' }));
+    }
+    setSortCardsCount(!sortCardsCount);
+  };
+
+  const sortForCardsUpdate: () => void = () => {
+    if (sortCardsUpdate) {
+      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0updated' }));
+    } else {
+      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1updated' }));
+    }
+    setSortCardsUpdate(!sortCardsUpdate);
+  };
 
   return (
     <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
@@ -27,10 +49,18 @@ export const CardsPacksTable = (): ReturnComponentType => {
         <TableHead className={s.tableHeadContainer}>
           <TableRow className={s.tableRow}>
             <TableCell>Name</TableCell>
-            <TableCell align="center" className={s.cardsCountText}>
+            <TableCell
+              align="center"
+              className={s.cardsCountText}
+              onClick={sortForCardsCount}
+            >
               Cards
             </TableCell>
-            <TableCell align="center" className={s.lastUpdateText}>
+            <TableCell
+              align="center"
+              className={s.lastUpdateText}
+              onClick={sortForCardsUpdate}
+            >
               Last Updated
             </TableCell>
             <TableCell align="center">Created by</TableCell>

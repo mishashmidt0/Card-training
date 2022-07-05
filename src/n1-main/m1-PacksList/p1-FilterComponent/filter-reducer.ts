@@ -43,7 +43,7 @@ export const changesShowCardsTC =
   async (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     try {
-      const res = await cardsPacksAPI.getFiltersCardsPacks(payload);
+      const res = await cardsPacksAPI.getCardsPacks(payload);
 
       dispatch(getCardsPacksAC(res.data));
       dispatch(changesShowCards(value));
