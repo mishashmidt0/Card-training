@@ -4,6 +4,10 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
 import {
+  CardsActionsType,
+  cardsReducer,
+} from '../n1-main/m1-PacksList/Cards/cards-reducer';
+import {
   cardsPacksReducer,
   CardsPacksActionsType,
 } from '../n1-main/m1-PacksList/CardsPacks/cardsPacks-reducer';
@@ -32,6 +36,7 @@ const reducers = combineReducers({
   profile: profileReducer,
   app: appReducer,
   cardsPacks: cardsPacksReducer,
+  cards: cardsReducer,
   filter: FilterReducer,
 });
 
@@ -46,6 +51,7 @@ export type AllActionType =
   | ForgotPasswordActionsType
   | ProfileActionsType
   | CardsPacksActionsType
+  | CardsActionsType
   | filterActionType;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
