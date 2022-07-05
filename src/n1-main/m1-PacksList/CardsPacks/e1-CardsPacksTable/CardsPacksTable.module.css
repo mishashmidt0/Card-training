@@ -1,28 +1,27 @@
 .cardsPacksTableContainer {
-    border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
 }
 
 .tableHeadContainer {
-    background-color: #b2abd9;
+  background-color: #b2abd9;
 }
 
 .tableRow {
-
 }
 
 .cardsCountText {
-    cursor: pointer;
-    transition-duration: 500ms;
+  cursor: pointer;
+  transition-duration: 500ms;
 }
 
 .cardsCountText:hover {
-    background-color: rgba(50, 123, 255, 0.38);
+  background-color: rgba(50, 123, 255, 0.38);
 }
 
 .lastUpdateText {
-    cursor: pointer;
-    transition-duration: 500ms;
+  cursor: pointer;
+  transition-duration: 500ms;
 }
 .lastUpdateText:hover {
-    background-color: rgba(50, 123, 255, 0.38);
+  background-color: rgba(50, 123, 255, 0.38);
 }
