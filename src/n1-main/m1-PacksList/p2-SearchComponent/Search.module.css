@@ -1,5 +1,6 @@
 .containerSearchAndButton{
     display: flex;
+    grid-area: search;
 }
 
 .SearchContainer{
@@ -26,6 +27,8 @@
 
 .search::placeholder {color: rgba(255, 255, 255, 0.78);}
 .containerSearchAndButton button {
+    height: 80%;
+    max-height: 40px;
     margin: 0 20px;
     -webkit-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.33);
     -moz-box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.33);
