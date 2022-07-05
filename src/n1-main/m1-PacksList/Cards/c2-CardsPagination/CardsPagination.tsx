@@ -1,0 +1,49 @@
+import * as React from 'react';
+
+import TablePagination from '@mui/material/TablePagination';
+
+import { ReturnComponentType } from '../../../../n4-types';
+import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
+import { getCardsTC } from '../cards-reducer';
+
+import s from './CardsPagination.module.css';
+
+export const CardsPagination = (): ReturnComponentType => {
+  const [page, setPage] = React.useState(0);
+  // eslint-disable-next-line no-magic-numbers
+  const [pageCount, setPageCount] = React.useState(5);
+
+  const dispatch = useTypedDispatch();
+  const cardPacksTotalCount = useAppSelector(
+    state => state.cardsPacks.cardPacksTotalCount,
+  );
+  //  хз от куда взять id для запроса ( const cardsPackId = useAppSelector(state => state.cards.);
+
+  const handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => void = (event, newPage) => {
+    setPage(newPage);
+    dispatch(getCardsTC({ pageCount, page: newPage + 1 }));
+  };
+
+  const handleChangeRowsPerPage: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void = event => {
+    setPageCount(parseInt(event.target.value, 10));
+    setPage(0);
+    dispatch(getCardsTC({ pageCount: parseInt(event.target.value, 10) }));
+  };
+
+  return (
+    <TablePagination
+      component="div"
+      count={cardPacksTotalCount}
+      page={page}
+      onPageChange={handleChangePage}
+      rowsPerPage={pageCount}
+      onRowsPerPageChange={handleChangeRowsPerPage}
+      className={s.paginatorContainer}
+    />
+  );
+};
