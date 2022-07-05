@@ -1,3 +1,5 @@
 .cardsPacksContainer {
-  margin: 20px 0;
+    grid-area: table;
+    height: 90%;
+    margin-top: 10px;
 }

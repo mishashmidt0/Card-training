@@ -1,12 +1,16 @@
 .packListContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90vw;
-  background-color: #ffffff;
+    width: 95%;
+    height: 90%;
+    background-color: #ffffff;
+    position: absolute;
+    top: 70px;
+    padding: 5px 5px 15px 0;
+    border-radius: 5px;
+
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 8% 92%;
+    grid-template-areas: 'filter search'
+                        'filter table';
 }
-.cardsContainer {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
-}
+

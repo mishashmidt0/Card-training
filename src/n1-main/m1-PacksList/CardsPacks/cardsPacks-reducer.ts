@@ -4,7 +4,7 @@ import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
 
-import { cardsPacksAPI, CardPackDataType } from './cardsPacksAPI';
+import { cardsPacksAPI, CardPackDataType, ResCardsPacksType } from './cardsPacksAPI';
 
 // enum
 enum cardPackTypes {
@@ -47,7 +47,7 @@ export const cardsPacksReducer = (
 ): CardPackDataType => {
   switch (action.type) {
     case cardPackTypes.getCardsPacks:
-      return { ...state, ...action.cardsPacksData };
+      return { ...action.cardsPacksData };
     default:
       return state;
   }
@@ -58,10 +58,10 @@ export const getCardsPacksAC = (cardsPacksData: CardPackDataType) =>
   ({ type: cardPackTypes.getCardsPacks, cardsPacksData } as const);
 // thunks
 export const getCardsPacksTC =
-  (pageCount?: number, newPage?: number) => async (dispatch: TypedDispatch) => {
+  (payload: ResCardsPacksType) => async (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     try {
-      const res = await cardsPacksAPI.getCardsPacks(pageCount, newPage);
+      const res = await cardsPacksAPI.getCardsPacks(payload);
 
       dispatch(getCardsPacksAC(res.data));
     } catch (e) {

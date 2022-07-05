@@ -18,10 +18,8 @@ export const PecksList = (): ReturnComponentType => {
   return (
     <div className={s.packListContainer}>
       <Filter />
-      <div className={s.cardsContainer}>
-        <Search />
-        <CardsPacks />
-      </div>
+      <Search />
+      <CardsPacks />
     </div>
   );
 };
