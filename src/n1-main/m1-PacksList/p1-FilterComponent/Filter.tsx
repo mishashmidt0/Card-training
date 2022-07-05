@@ -4,6 +4,7 @@ import { ReturnComponentType } from '../../../n4-types';
 
 import { MyAllButton } from './components/MyAllButton';
 import { RangeSlider } from './components/Range';
+import { Reset } from './components/Reset';
 import style from './Filter.module.css';
 
 export const Filter = (): ReturnComponentType => {
@@ -12,6 +13,7 @@ export const Filter = (): ReturnComponentType => {
       <MyAllButton />
 
       <RangeSlider />
+      <Reset />
     </div>
   );
 };

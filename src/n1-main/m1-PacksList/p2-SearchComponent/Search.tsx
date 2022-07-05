@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
@@ -7,10 +7,15 @@ import { ReturnComponentType } from '../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
 import { ProfileStateType } from '../../m2-Profile/profile-reducer';
 import { FilterText } from '../p1-FilterComponent/components/MyAllButton';
-import { changeFilterPacksTC } from '../p1-FilterComponent/filter-reducer';
+import {
+  changeFilter,
+  changeFilterPacksTC,
+  PayloadType,
+} from '../p1-FilterComponent/filter-reducer';
 
 import style from './Search.module.css';
 
+const timeout = 600;
 const debounce = <Params extends any[]>(
   func: (...args: Params) => any,
   timeout: number,
@@ -24,26 +29,36 @@ const debounce = <Params extends any[]>(
     }, timeout);
   };
 };
-const timeout = 600;
 
 export const Search = (): ReturnComponentType => {
-  const dispatch = useTypedDispatch();
   const filter = useAppSelector(state => state.filter);
+  const dispatch = useTypedDispatch();
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
 
-  function search(event: React.ChangeEvent<HTMLInputElement>): void {
-    const { value } = event.target;
+  const search = useCallback(
+    (value: string, filterProps: PayloadType): void => {
+      const payload =
+        filterProps.isShowCards === FilterText.my
+          ? { user_id: userId, ...filterProps, packName: value }
+          : { ...filterProps, packName: value };
 
-    const payload =
-      filter.isShowCards === FilterText.my
-        ? { user_id: userId, ...filter, packName: value }
-        : { ...filter, packName: value };
-
-    dispatch(changeFilterPacksTC(payload));
-  }
+      dispatch(changeFilterPacksTC(payload));
+    },
+    [filter],
+  );
 
   const searchDebounce = debounce(search, timeout);
+
+  const changeSearch = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>, filterProps: PayloadType): void => {
+      const { value } = event.target;
+
+      dispatch(changeFilter({ packName: value }));
+      searchDebounce(value, filterProps);
+    },
+    [],
+  );
 
   return (
     <div className={style.containerSearchAndButton}>
@@ -53,7 +68,8 @@ export const Search = (): ReturnComponentType => {
           type="text"
           className={style.search}
           placeholder="Search..."
-          onChange={searchDebounce}
+          onChange={e => changeSearch(e, filter)}
+          value={filter.packName}
         />
       </div>
       <Button variant="contained">Create new pack</Button>

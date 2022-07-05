@@ -20,6 +20,7 @@ const initialState: initialStateType = {
   pageCount: initPageCount,
   min: startRange,
   max: endRange,
+  packName: '',
 };
 
 export const FilterReducer = (
@@ -94,10 +95,10 @@ type initialStateType = {
   pageCount: number;
   min: number;
   max: number;
-  packName?: string;
+  packName: string;
 };
 
-type PayloadType = {
+export type PayloadType = {
   isShowCards?: isShowCardsType;
   pageCount?: number;
   min?: number;
