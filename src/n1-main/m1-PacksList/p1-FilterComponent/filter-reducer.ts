@@ -8,8 +8,9 @@ import { cardsPacksAPI, ResCardsPacksType } from '../CardsPacks/cardsPacksAPI';
 enum ActionType {
   changeIsShowCard = 'FilterReducer/ChangeIsShowCard',
   changePageCount = 'FilterReducer/ChangePageCount',
-  changeRange = 'FilterReducer/changeRange',
+  changeFilter = 'FilterReducer/changeFilter',
 }
+
 export const startRange = 0;
 export const endRange = 20;
 export const initPageCount = 10;
@@ -31,8 +32,8 @@ export const FilterReducer = (
       return { ...state, isShowCards: action.value };
     case ActionType.changePageCount:
       return { ...state, pageCount: action.value };
-    case ActionType.changeRange:
-      return { ...state, min: action.min, max: action.max };
+    case ActionType.changeFilter:
+      return { ...state, ...action.payload };
     default:
       return state;
   }
@@ -43,9 +44,9 @@ export const changesShowCards = (value: isShowCardsType) =>
   ({ type: ActionType.changeIsShowCard, value } as const);
 export const changePageCount = (value: number) =>
   ({ type: ActionType.changePageCount, value } as const);
-export const changeRange = (min: number, max: number) =>
-  ({ type: ActionType.changeRange, min, max } as const);
 
+export const changeFilter = (payload: PayloadType) =>
+  ({ type: ActionType.changeFilter, payload } as const);
 // thunk
 export const changesShowCardsTC =
   (value: isShowCardsType, payload: ResCardsPacksType) =>
@@ -63,15 +64,14 @@ export const changesShowCardsTC =
     }
   };
 
-export const changeRangePacksTC =
-  (min: number, max: number, payload: ResCardsPacksType) =>
-  async (dispatch: TypedDispatch) => {
+export const changeFilterPacksTC =
+  (payload: ResCardsPacksType) => async (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     try {
-      const res = await cardsPacksAPI.getFiltersCardsPacks(payload);
+      const res = await cardsPacksAPI.getCardsPacks(payload);
 
       dispatch(getCardsPacksAC(res.data));
-      dispatch(changeRange(min, max));
+      dispatch(changeFilter(payload));
     } catch (err: any) {
       handleNetworkError(err, dispatch);
     } finally {
@@ -82,11 +82,11 @@ export const changeRangePacksTC =
 // type
 export type changePageCountType = ReturnType<typeof changePageCount>;
 export type changesShowCardsType = ReturnType<typeof changesShowCards>;
-export type changeRangeType = ReturnType<typeof changeRange>;
+export type changeStateType = ReturnType<typeof changeFilter>;
 export type filterActionType =
+  | changeStateType
   | changePageCountType
-  | changesShowCardsType
-  | changeRangeType;
+  | changesShowCardsType;
 
 export type isShowCardsType = 'my' | 'all';
 type initialStateType = {
@@ -94,4 +94,13 @@ type initialStateType = {
   pageCount: number;
   min: number;
   max: number;
+  packName?: string;
+};
+
+type PayloadType = {
+  isShowCards?: isShowCardsType;
+  pageCount?: number;
+  min?: number;
+  max?: number;
+  packName?: string;
 };

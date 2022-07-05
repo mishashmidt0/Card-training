@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -6,7 +7,7 @@ import Slider from '@mui/material/Slider';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { changeRangePacksTC } from '../filter-reducer';
+import { changeFilterPacksTC } from '../filter-reducer';
 import style from '../Filter.module.css';
 
 import { FilterText } from './MyAllButton';
@@ -23,15 +24,18 @@ export const RangeSlider = (): ReturnComponentType => {
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const isLoad = useAppSelector(state => state.app.loading);
 
-  const handleChange = (event: Event, newValue: number | number[]): void => {
-    const [min, max] = newValue as number[];
-    const payload =
-      filter.isShowCards === FilterText.my
-        ? { user_id: userId, ...filter, min, max }
-        : { ...filter, min, max };
+  const handleChange = useCallback(
+    (event: Event, newValue: number | number[]): void => {
+      const [min, max] = newValue as number[];
+      const payload =
+        filter.isShowCards === FilterText.my
+          ? { user_id: userId, ...filter, min, max }
+          : { ...filter, min, max };
 
-    dispatch(changeRangePacksTC(min, max, payload));
-  };
+      dispatch(changeFilterPacksTC(payload));
+    },
+    [filter],
+  );
 
   return (
     <>
