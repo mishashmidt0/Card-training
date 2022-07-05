@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 
 import SearchIcon from '@mui/icons-material/Search';
-import Button from '@mui/material/Button';
 
 import { ReturnComponentType } from '../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
@@ -12,6 +11,7 @@ import {
   changeFilterPacksTC,
   PayloadType,
 } from '../p1-FilterComponent/filter-reducer';
+import { AddPack } from '../p3-AddPack/AddPack';
 
 import style from './Search.module.css';
 
@@ -72,7 +72,7 @@ export const Search = (): ReturnComponentType => {
           value={filter.packName}
         />
       </div>
-      <Button variant="contained">Create new pack</Button>
+      <AddPack />
     </div>
   );
 };
