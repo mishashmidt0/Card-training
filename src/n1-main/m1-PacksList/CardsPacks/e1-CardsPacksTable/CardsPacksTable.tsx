@@ -17,13 +17,13 @@ import { CardPackType } from '../cardsPacksAPI';
 import s from './CardsPacksTable.module.css';
 
 export const CardsPacksTable = (): ReturnComponentType => {
-  const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(false);
-  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
   const dispatch = useTypedDispatch();
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
-
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
+
+  const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(false);
+  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
 
   const sortForCardsCount: () => void = () => {
     if (sortCardsCount) {
@@ -33,7 +33,6 @@ export const CardsPacksTable = (): ReturnComponentType => {
     }
     setSortCardsCount(!sortCardsCount);
   };
-
   const sortForCardsUpdate: () => void = () => {
     if (sortCardsUpdate) {
       dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0updated' }));
@@ -41,6 +40,16 @@ export const CardsPacksTable = (): ReturnComponentType => {
       dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1updated' }));
     }
     setSortCardsUpdate(!sortCardsUpdate);
+  };
+
+  const cutTheString = (str: string): string => {
+    // eslint-disable-next-line no-magic-numbers
+    if (str.length >= 50) {
+      // eslint-disable-next-line no-magic-numbers
+      return `${str.slice(0, 50)}...`;
+    }
+
+    return str;
   };
 
   return (
@@ -55,6 +64,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
               onClick={sortForCardsCount}
             >
               Cards
+              {sortCardsCount ? <span> ▲</span> : <span> ▼</span>}
             </TableCell>
             <TableCell
               align="center"
@@ -62,6 +72,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
               onClick={sortForCardsUpdate}
             >
               Last Updated
+              {sortCardsUpdate ? <span> ▲</span> : <span> ▼</span>}
             </TableCell>
             <TableCell align="center">Created by</TableCell>
             <TableCell align="center">Actions</TableCell>
@@ -75,7 +86,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {cardPack.name}
+                {cutTheString(cardPack.name)}
               </TableCell>
               <TableCell align="center">{cardPack.cardsCount}</TableCell>
               <TableCell align="center">{cardPack.updated}</TableCell>
