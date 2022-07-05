@@ -22,8 +22,8 @@ export const CardsPacksTable = (): ReturnComponentType => {
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
 
-  const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(false);
-  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
+  const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(true);
+  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(true);
 
   const sortForCardsCount: () => void = () => {
     if (sortCardsCount) {
@@ -54,12 +54,18 @@ export const CardsPacksTable = (): ReturnComponentType => {
 
   return (
     <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table
+        sx={{ minWidth: 650 }}
+        aria-label="simple table"
+        size="small"
+        className={s.cardsPacksTable}
+      >
         <TableHead className={s.tableHeadContainer}>
           <TableRow className={s.tableRow}>
-            <TableCell>Name</TableCell>
+            <TableCell size="small">Name</TableCell>
             <TableCell
               align="center"
+              size="small"
               className={s.cardsCountText}
               onClick={sortForCardsCount}
             >
@@ -68,14 +74,19 @@ export const CardsPacksTable = (): ReturnComponentType => {
             </TableCell>
             <TableCell
               align="center"
+              size="small"
               className={s.lastUpdateText}
               onClick={sortForCardsUpdate}
             >
               Last Updated
               {sortCardsUpdate ? <span> ▲</span> : <span> ▼</span>}
             </TableCell>
-            <TableCell align="center">Created by</TableCell>
-            <TableCell align="center">Actions</TableCell>
+            <TableCell align="center" size="small">
+              Created by
+            </TableCell>
+            <TableCell align="center" size="small">
+              Actions
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -89,7 +100,9 @@ export const CardsPacksTable = (): ReturnComponentType => {
                 {cutTheString(cardPack.name)}
               </TableCell>
               <TableCell align="center">{cardPack.cardsCount}</TableCell>
-              <TableCell align="center">{cardPack.updated}</TableCell>
+              <TableCell align="center">
+                {new Date(cardPack.updated).toLocaleDateString()}
+              </TableCell>
               <TableCell align="center">{cardPack.user_name}</TableCell>
               <TableCell align="center">
                 {userId === cardPack.user_id && (

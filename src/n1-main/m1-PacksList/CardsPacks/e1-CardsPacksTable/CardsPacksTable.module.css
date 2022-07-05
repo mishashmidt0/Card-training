@@ -1,13 +1,18 @@
 .cardsPacksTableContainer {
     border-radius: 10px 10px 0 0;
+    height: 100%;
+}
+
+.cardsPacksTable {
+ height: 100%;
 }
 
 .tableHeadContainer {
     background-color: #b2abd9;
 }
 
-.tableRow span{
-color: #1976d2;
+.tableRow span {
+    color: #1976d2;
 }
 
 .cardsCountText {
@@ -23,6 +28,7 @@ color: #1976d2;
     cursor: pointer;
     transition-duration: 500ms;
 }
+
 .lastUpdateText:hover {
     background-color: rgba(50, 123, 255, 0.38);
 }
