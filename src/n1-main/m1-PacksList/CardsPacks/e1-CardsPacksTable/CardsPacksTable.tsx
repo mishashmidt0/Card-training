@@ -15,9 +15,9 @@ import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { getCardsTC } from '../../Cards/cards-reducer';
 import { getCardsPacksTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
-import { CardPack } from '../e0-CardPack/CardPack';
 
 import s from './CardsPacksTable.module.css';
+import { CardPack } from './e0-CardPack/CardPack';
 
 export const CardsPacksTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();

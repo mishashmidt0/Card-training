@@ -2,7 +2,7 @@
   padding: 0;
   margin: 0;
   border: 0;
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Barlow', sans-serif !important;
   font-size: 14px;
   font-weight: 400;
 }
