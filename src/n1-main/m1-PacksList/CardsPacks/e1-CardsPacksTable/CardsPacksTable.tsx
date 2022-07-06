@@ -24,28 +24,47 @@ export const CardsPacksTable = (): ReturnComponentType => {
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
+  const loading = useAppSelector(state => state.app.loading);
 
   const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(true);
-  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(true);
+  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
 
   const sortForCardsCount: () => void = () => {
-    if (sortCardsCount) {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0cardsCount' }));
-    } else {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1cardsCount' }));
+    if (!loading) {
+      if (sortCardsCount) {
+        dispatch(
+          getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0cardsCount' }),
+        ).then(() => {
+          setSortCardsCount(!sortCardsCount);
+        });
+      } else {
+        dispatch(
+          getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1cardsCount' }),
+        ).then(() => {
+          setSortCardsCount(!sortCardsCount);
+        });
+      }
     }
-    setSortCardsCount(!sortCardsCount);
   };
   const sortForCardsUpdate: () => void = () => {
-    if (sortCardsUpdate) {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0updated' }));
-    } else {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1updated' }));
+    if (!loading) {
+      if (sortCardsUpdate) {
+        dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0updated' })).then(
+          () => {
+            setSortCardsUpdate(!sortCardsUpdate);
+          },
+        );
+      } else {
+        dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1updated' })).then(
+          () => {
+            setSortCardsUpdate(!sortCardsUpdate);
+          },
+        );
+      }
     }
-    setSortCardsUpdate(!sortCardsUpdate);
   };
+
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const getCards = (cardPackId: string): void => {
     dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
     navigate('/cards');

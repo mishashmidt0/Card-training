@@ -11,6 +11,7 @@ import s from './CardsPacksPagination.module.css';
 
 export const CardsPacksPagination = (): ReturnComponentType => {
   const pageCount = useAppSelector(state => state.filter.pageCount);
+  const loading = useAppSelector(state => state.app.loading);
   const [page, setPage] = React.useState(0);
 
   const dispatch = useTypedDispatch();
@@ -43,6 +44,13 @@ export const CardsPacksPagination = (): ReturnComponentType => {
       rowsPerPage={pageCount}
       onRowsPerPageChange={handleChangeRowsPerPage}
       className={s.paginatorContainer}
+      showLastButton
+      showFirstButton
+      SelectProps={{
+        disabled: loading,
+      }}
+      backIconButtonProps={{ disabled: loading }}
+      nextIconButtonProps={{ disabled: loading }}
     />
   );
 };
