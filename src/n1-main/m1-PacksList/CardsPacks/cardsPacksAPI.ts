@@ -14,6 +14,9 @@ export const cardsPacksAPI = {
   createCardsPack(payload: createCardsPackType) {
     return instance.post('cards/pack', { cardsPack: { ...payload } });
   },
+  removeCardsPack(cardPackId: string) {
+    return instance.delete('cards/pack', { params: { id: cardPackId } });
+  },
 };
 
 export type CardPackType = {

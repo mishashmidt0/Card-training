@@ -17,9 +17,13 @@ export const CardPack = ({
   cardPackUserName,
   cardPackUserId,
   getCards,
+  removeCardPack,
 }: CardPackPropsType): ReturnComponentType => {
   const onClickHandler = useCallback((): void => {
     getCards(cardPackId);
+  }, []);
+  const removeCardPackHandler = useCallback((): void => {
+    removeCardPack(cardPackId);
   }, []);
 
   const cutTheString = (str: string): string => {
@@ -46,7 +50,7 @@ export const CardPack = ({
       <TableCell align="center" className={s.buttonContainer}>
         {userId === cardPackUserId && (
           <span>
-            <Button variant="contained" color="error">
+            <Button variant="contained" color="error" onClick={removeCardPackHandler}>
               Delete
             </Button>
             <Button variant="contained">Edit</Button>
@@ -69,4 +73,5 @@ type CardPackPropsType = {
   cardPackUserName: string;
   cardPackUserId: string;
   getCards: (cardPackId: string) => void;
+  removeCardPack: (cardPackId: string) => void;
 };

@@ -13,7 +13,7 @@ import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { getCardsTC } from '../../Cards/cards-reducer';
-import { getCardsPacksTC } from '../cardsPacks-reducer';
+import { getCardsPacksTC, removeCardPackTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
 
 import s from './CardsPacksTable.module.css';
@@ -69,6 +69,9 @@ export const CardsPacksTable = (): ReturnComponentType => {
     dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
     navigate('/cards');
   };
+  const removeCardPack = (cardPackId: string): void => {
+    dispatch(removeCardPackTC(cardPackId));
+  };
 
   return (
     <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
@@ -121,6 +124,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
               cardPackUserName={cardPack.user_name}
               cardPackUserId={cardPack.user_id}
               getCards={getCards}
+              removeCardPack={removeCardPack}
             />
           ))}
         </TableBody>

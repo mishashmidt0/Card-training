@@ -8,7 +8,8 @@ import { cardsPacksAPI, CardPackDataType, ResCardsPacksType } from './cardsPacks
 
 // enum
 enum cardPackTypes {
-  getCardsPacks = 'CARD-PACK/GET-CARD-PACK',
+  getCardsPacks = 'CARD-PACK/GET-CARDS-PACKS',
+  removeCardPack = 'CARD-PACK/REMOVE-CARD-PACK',
 }
 
 // reducer
@@ -56,6 +57,8 @@ export const cardsPacksReducer = (
 // actions
 export const getCardsPacksAC = (cardsPacksData: CardPackDataType) =>
   ({ type: cardPackTypes.getCardsPacks, cardsPacksData } as const);
+export const removeCardPackAC = (cardPackID: string) =>
+  ({ type: cardPackTypes.removeCardPack, cardPackID } as const);
 // thunks
 export const getCardsPacksTC =
   (payload: ResCardsPacksType) => async (dispatch: TypedDispatch) => {
@@ -74,6 +77,25 @@ export const getCardsPacksTC =
       dispatch(loading(false));
     }
   };
-// n4-types
-export type CardsPacksActionsType = ReturnType<typeof getCardsPacksAC>;
+export const removeCardPackTC =
+  (cardPackId: string) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsPacksAPI.removeCardsPack(cardPackId);
+    } catch (e) {
+      const err = e as Error | AxiosError<{ error: string }>;
+
+      if (axios.isAxiosError(err)) {
+        handleNetworkError(err, dispatch);
+      }
+    } finally {
+      dispatch(loading(false));
+      dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
+    }
+  };
+// types
+export type CardsPacksActionsType =
+  | ReturnType<typeof getCardsPacksAC>
+  | ReturnType<typeof removeCardPackAC>;
+
 type InitialStateType = typeof initialState;
