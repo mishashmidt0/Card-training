@@ -7,6 +7,7 @@ import Slider from '@mui/material/Slider';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
+import { maxRangeValue } from '../../p5-constants/constants';
 import { changeFilterPacksTC } from '../filter-reducer';
 import style from '../Filter.module.css';
 
@@ -15,7 +16,6 @@ import { FilterText } from './MyAllButton';
 function valuetext(value: number): string {
   return `${value}`;
 }
-const maxRangeValue = 20;
 
 export const RangeSlider = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();

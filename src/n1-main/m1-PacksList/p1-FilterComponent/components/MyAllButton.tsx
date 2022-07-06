@@ -4,13 +4,10 @@ import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { ResCardsPacksType } from '../../CardsPacks/cardsPacksAPI';
+import { FilterText } from '../../p4-enums/enums';
 import { changesShowCardsTC, isShowCardsType } from '../filter-reducer';
 import style from '../Filter.module.css';
 
-export enum FilterText {
-  all = 'all',
-  my = 'my',
-}
 export const MyAllButton = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const isShow = useAppSelector(state => state.filter.isShowCards);
@@ -46,7 +43,7 @@ export const MyAllButton = (): ReturnComponentType => {
 
   return (
     <div>
-      <h2>Show packs cards</h2>
+      <h2>{FilterText.header}</h2>
       <div className={style.ShowCardsContainer}>
         {CreateButton(isShow, FilterText.my)}
         {CreateButton(isShow, FilterText.all)}

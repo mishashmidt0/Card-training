@@ -12,6 +12,7 @@ import { ProfileStateType } from '../../m2-Profile/profile-reducer';
 import { createCardsPackType } from '../CardsPacks/cardsPacksAPI';
 import { FilterText } from '../p1-FilterComponent/components/MyAllButton';
 import { createNewPackTC } from '../p1-FilterComponent/filter-reducer';
+import { AddPackTitle } from '../p4-enums/enums';
 
 import style from './ButtonPopup.module.css';
 
@@ -39,12 +40,10 @@ export const AddPack = (): ReturnComponentType => {
     setOpen(false);
     setValue('');
   };
-
   const createPack = (): void => {
     const newPack: createCardsPackType = {
       name: value,
     };
-
     const payload =
       filter.isShowCards === FilterText.my
         ? { user_id: userId, ...filter }
@@ -73,7 +72,7 @@ export const AddPack = (): ReturnComponentType => {
         <Box sx={styleBox}>
           <div className={style.modalContainer}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Add new pack
+              {AddPackTitle.header}
             </Typography>
             <TextField
               id="outlined-basic"
@@ -84,10 +83,10 @@ export const AddPack = (): ReturnComponentType => {
             />
             <div>
               <Button variant="contained" onClick={handleClose}>
-                Cancel
+                {AddPackTitle.cancel}
               </Button>
               <Button variant="contained" onClick={createPack}>
-                Save
+                {AddPackTitle.save}
               </Button>
             </div>
           </div>

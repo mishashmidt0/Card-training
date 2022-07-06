@@ -8,16 +8,9 @@ import {
   createCardsPackType,
   ResCardsPacksType,
 } from '../CardsPacks/cardsPacksAPI';
+import { ActionTypeForFilter } from '../p4-enums/enums';
+import { endRange, initPageCount, startRange } from '../p5-constants/constants';
 
-enum ActionType {
-  changeIsShowCard = 'FilterReducer/ChangeIsShowCard',
-  changePageCount = 'FilterReducer/ChangePageCount',
-  changeFilter = 'FilterReducer/changeFilter',
-}
-
-export const startRange = 0;
-export const endRange = 20;
-export const initPageCount = 10;
 // reducer
 const initialState: initialStateType = {
   isShowCards: 'all',
@@ -33,11 +26,11 @@ export const FilterReducer = (
   action: filterActionType,
 ): initialStateType => {
   switch (action.type) {
-    case ActionType.changeIsShowCard:
+    case ActionTypeForFilter.changeIsShowCard:
       return { ...state, isShowCards: action.value };
-    case ActionType.changePageCount:
+    case ActionTypeForFilter.changePageCount:
       return { ...state, pageCount: action.value };
-    case ActionType.changeFilter:
+    case ActionTypeForFilter.changeFilter:
       return { ...state, ...action.payload };
     default:
       return state;
@@ -46,12 +39,12 @@ export const FilterReducer = (
 
 // action
 export const changesShowCards = (value: isShowCardsType) =>
-  ({ type: ActionType.changeIsShowCard, value } as const);
+  ({ type: ActionTypeForFilter.changeIsShowCard, value } as const);
 export const changePageCount = (value: number) =>
-  ({ type: ActionType.changePageCount, value } as const);
+  ({ type: ActionTypeForFilter.changePageCount, value } as const);
 
 export const changeFilter = (payload: PayloadType) =>
-  ({ type: ActionType.changeFilter, payload } as const);
+  ({ type: ActionTypeForFilter.changeFilter, payload } as const);
 // thunk
 export const changesShowCardsTC =
   (value: isShowCardsType, payload: ResCardsPacksType) =>

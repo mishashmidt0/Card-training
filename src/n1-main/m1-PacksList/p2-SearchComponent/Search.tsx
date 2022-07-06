@@ -12,10 +12,10 @@ import {
   PayloadType,
 } from '../p1-FilterComponent/filter-reducer';
 import { AddPack } from '../p3-AddPack/AddPack';
+import { timeout } from '../p5-constants/constants';
 
 import style from './Search.module.css';
 
-const timeout = 600;
 const debounce = <Params extends any[]>(
   func: (...args: Params) => any,
   timeout: number,
