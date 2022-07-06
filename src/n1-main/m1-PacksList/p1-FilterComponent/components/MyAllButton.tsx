@@ -4,7 +4,7 @@ import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { ResCardsPacksType } from '../../CardsPacks/cardsPacksAPI';
-import { FilterText } from '../../p4-enums/enums';
+import { FilterText } from '../../p3-enums/enums';
 import { changesShowCardsTC, isShowCardsType } from '../filter-reducer';
 import style from '../Filter.module.css';
 

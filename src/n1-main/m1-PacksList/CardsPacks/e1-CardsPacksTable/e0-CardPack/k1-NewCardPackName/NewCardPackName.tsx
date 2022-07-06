@@ -6,14 +6,12 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import { ReturnComponentType } from '../../../n4-types';
-import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
-import { ProfileStateType } from '../../m2-Profile/profile-reducer';
-import { createCardsPackType } from '../CardsPacks/cardsPacksAPI';
-import { createNewPackTC } from '../p1-FilterComponent/filter-reducer';
-import { AddPackTitle, FilterText } from '../p4-enums/enums';
+import { ReturnComponentType } from '../../../../../../n4-types';
+import { useTypedDispatch } from '../../../../../../n5-bll/redux';
+import { NewPackTitle } from '../../../../p3-enums/enums';
+import { changeCardPackNameTC } from '../../../cardsPacks-reducer';
 
-import style from './ButtonPopup.module.css';
+import style from './NewButtonPopup.module.css';
 
 const styleBox = {
   position: 'absolute' as 'absolute',
@@ -27,11 +25,12 @@ const styleBox = {
   p: 4,
 };
 
-export const AddPack = (): ReturnComponentType => {
+export const NewCardPackName = ({
+  cardPackId,
+  loading,
+}: NewCardPackNamePropsType): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  const filter = useAppSelector(state => state.filter);
-  // eslint-disable-next-line no-underscore-dangle
-  const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
+
   const [value, setValue] = React.useState<string>('');
   const [open, setOpen] = React.useState(false);
   const handleOpen = (): void => setOpen(true);
@@ -39,16 +38,8 @@ export const AddPack = (): ReturnComponentType => {
     setOpen(false);
     setValue('');
   };
-  const createPack = (): void => {
-    const newPack: createCardsPackType = {
-      name: value,
-    };
-    const payload =
-      filter.isShowCards === FilterText.my
-        ? { user_id: userId, ...filter }
-        : { ...filter };
-
-    dispatch(createNewPackTC(newPack, payload));
+  const changeCardPackName = (): void => {
+    dispatch(changeCardPackNameTC(cardPackId, value));
     handleClose();
     setValue('');
   };
@@ -59,8 +50,8 @@ export const AddPack = (): ReturnComponentType => {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Create new pack
+      <Button variant="contained" onClick={handleOpen} disabled={loading}>
+        Edit
       </Button>
       <Modal
         open={open}
@@ -71,7 +62,7 @@ export const AddPack = (): ReturnComponentType => {
         <Box sx={styleBox}>
           <div className={style.modalContainer}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              {AddPackTitle.header}
+              {NewPackTitle.header}
             </Typography>
             <TextField
               id="outlined-basic"
@@ -82,10 +73,10 @@ export const AddPack = (): ReturnComponentType => {
             />
             <div>
               <Button variant="contained" onClick={handleClose}>
-                {AddPackTitle.cancel}
+                {NewPackTitle.cancel}
               </Button>
-              <Button variant="contained" onClick={createPack}>
-                {AddPackTitle.save}
+              <Button variant="contained" onClick={changeCardPackName}>
+                {NewPackTitle.save}
               </Button>
             </div>
           </div>
@@ -93,4 +84,9 @@ export const AddPack = (): ReturnComponentType => {
       </Modal>
     </div>
   );
+};
+
+type NewCardPackNamePropsType = {
+  cardPackId: string;
+  loading: boolean;
 };

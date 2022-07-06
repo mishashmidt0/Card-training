@@ -17,6 +17,9 @@ export const cardsPacksAPI = {
   removeCardsPack(cardPackId: string) {
     return instance.delete('cards/pack', { params: { id: cardPackId } });
   },
+  changeCardPackName(cardPackId: string, value: string) {
+    return instance.put('cards/pack', { cardsPack: { _id: cardPackId, name: value } });
+  },
 };
 
 export type CardPackType = {

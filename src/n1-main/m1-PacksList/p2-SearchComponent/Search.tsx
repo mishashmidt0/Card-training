@@ -10,10 +10,10 @@ import {
   changeFilterPacksTC,
   PayloadType,
 } from '../p1-FilterComponent/filter-reducer';
-import { AddPack } from '../p3-AddPack/AddPack';
-import { FilterText } from '../p4-enums/enums';
-import { timeout } from '../p5-constants/constants';
+import { FilterText } from '../p3-enums/enums';
+import { timeout } from '../p4-constants/constants';
 
+import { AddPack } from './p3-AddPack/AddPack';
 import style from './Search.module.css';
 
 const debounce = <Params extends any[]>(

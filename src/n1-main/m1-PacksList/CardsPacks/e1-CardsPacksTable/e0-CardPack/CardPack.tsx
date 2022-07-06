@@ -5,8 +5,11 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 import { ReturnComponentType } from '../../../../../n4-types';
+import { useAppSelector } from '../../../../../n5-bll/redux';
+import { maxLengthPackName } from '../../../p4-constants/constants';
 
 import s from './CardPack.module.css';
+import { NewCardPackName } from './k1-NewCardPackName/NewCardPackName';
 
 export const CardPack = ({
   userId,
@@ -19,6 +22,8 @@ export const CardPack = ({
   getCards,
   removeCardPack,
 }: CardPackPropsType): ReturnComponentType => {
+  const loading = useAppSelector(state => state.app.loading);
+
   const onClickHandler = useCallback((): void => {
     getCards(cardPackId);
   }, []);
@@ -27,10 +32,8 @@ export const CardPack = ({
   }, []);
 
   const cutTheString = (str: string): string => {
-    // eslint-disable-next-line no-magic-numbers
-    if (str.length >= 50) {
-      // eslint-disable-next-line no-magic-numbers
-      return `${str.slice(0, 50)}...`;
+    if (str.length >= maxLengthPackName) {
+      return `${str.slice(0, maxLengthPackName)}...`;
     }
 
     return str;
@@ -49,14 +52,19 @@ export const CardPack = ({
       <TableCell align="center">{cardPackUserName}</TableCell>
       <TableCell align="center" className={s.buttonContainer}>
         {userId === cardPackUserId && (
-          <span>
-            <Button variant="contained" color="error" onClick={removeCardPackHandler}>
+          <>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={removeCardPackHandler}
+              disabled={loading}
+            >
               Delete
             </Button>
-            <Button variant="contained">Edit</Button>
-          </span>
+            <NewCardPackName cardPackId={cardPackId} loading={loading} />
+          </>
         )}
-        <Button variant="outlined" onClick={onClickHandler}>
+        <Button variant="outlined" onClick={onClickHandler} disabled={loading}>
           Learn
         </Button>
       </TableCell>

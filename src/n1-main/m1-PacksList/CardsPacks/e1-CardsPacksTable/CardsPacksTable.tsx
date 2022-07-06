@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -65,13 +65,14 @@ export const CardsPacksTable = (): ReturnComponentType => {
   };
 
   const navigate = useNavigate();
-  const getCards = (cardPackId: string): void => {
+  const getCards = useCallback((cardPackId: string): void => {
     dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
     navigate('/cards');
-  };
-  const removeCardPack = (cardPackId: string): void => {
+  }, []);
+
+  const removeCardPack = useCallback((cardPackId: string): void => {
     dispatch(removeCardPackTC(cardPackId));
-  };
+  }, []);
 
   return (
     <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
