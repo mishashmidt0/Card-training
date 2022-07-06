@@ -3,11 +3,19 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { ReturnComponentType } from '../../../n4-types';
+import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
+import { ProfileStateType } from '../../m2-Profile/profile-reducer';
+import { createCardsPackType } from '../CardsPacks/cardsPacksAPI';
+import { FilterText } from '../p1-FilterComponent/components/MyAllButton';
+import { createNewPackTC } from '../p1-FilterComponent/filter-reducer';
 
-const style = {
+import style from './ButtonPopup.module.css';
+
+const styleBox = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -18,21 +26,42 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const styleButton = {
-  color: 'white',
-  bgcolor: '#1976d2',
-  onmouseover: '#345e8a',
-  onmouseout: '#0f3760',
-};
 
 export const AddPack = (): ReturnComponentType => {
+  const dispatch = useTypedDispatch();
+  const filter = useAppSelector(state => state.filter);
+  // eslint-disable-next-line no-underscore-dangle
+  const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
+  const [value, setValue] = React.useState<string>('');
   const [open, setOpen] = React.useState(false);
   const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
+  const handleClose = (): void => {
+    setOpen(false);
+    setValue('');
+  };
+
+  const createPack = (): void => {
+    const newPack: createCardsPackType = {
+      name: value,
+    };
+
+    const payload =
+      filter.isShowCards === FilterText.my
+        ? { user_id: userId, ...filter }
+        : { ...filter };
+
+    dispatch(createNewPackTC(newPack, payload));
+    handleClose();
+    setValue('');
+  };
+
+  const changeText = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setValue(e.target.value);
+  };
 
   return (
     <div>
-      <Button onClick={handleOpen} sx={styleButton}>
+      <Button variant="contained" onClick={handleOpen}>
         Create new pack
       </Button>
       <Modal
@@ -41,13 +70,27 @@ export const AddPack = (): ReturnComponentType => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+        <Box sx={styleBox}>
+          <div className={style.modalContainer}>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Add new pack
+            </Typography>
+            <TextField
+              id="outlined-basic"
+              label="Name pack"
+              variant="outlined"
+              value={value}
+              onChange={changeText}
+            />
+            <div>
+              <Button variant="contained" onClick={handleClose}>
+                Cancel
+              </Button>
+              <Button variant="contained" onClick={createPack}>
+                Save
+              </Button>
+            </div>
+          </div>
         </Box>
       </Modal>
     </div>

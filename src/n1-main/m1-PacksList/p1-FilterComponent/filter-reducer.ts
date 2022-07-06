@@ -2,8 +2,12 @@
 import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils';
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
-import { getCardsPacksAC } from '../CardsPacks/cardsPacks-reducer';
-import { cardsPacksAPI, ResCardsPacksType } from '../CardsPacks/cardsPacksAPI';
+import { getCardsPacksAC, getCardsPacksTC } from '../CardsPacks/cardsPacks-reducer';
+import {
+  cardsPacksAPI,
+  createCardsPackType,
+  ResCardsPacksType,
+} from '../CardsPacks/cardsPacksAPI';
 
 enum ActionType {
   changeIsShowCard = 'FilterReducer/ChangeIsShowCard',
@@ -73,6 +77,20 @@ export const changeFilterPacksTC =
 
       dispatch(getCardsPacksAC(res.data));
       dispatch(changeFilter(payload));
+    } catch (err: any) {
+      handleNetworkError(err, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+
+export const createNewPackTC =
+  (newPack: createCardsPackType, payload: ResCardsPacksType) =>
+  async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsPacksAPI.createCardsPack(newPack);
+      dispatch(getCardsPacksTC(payload));
     } catch (err: any) {
       handleNetworkError(err, dispatch);
     } finally {
