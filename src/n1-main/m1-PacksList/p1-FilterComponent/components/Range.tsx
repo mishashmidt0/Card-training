@@ -7,25 +7,39 @@ import Slider from '@mui/material/Slider';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { maxRangeValue } from '../../p5-constants/constants';
-import { changeFilterPacksTC } from '../filter-reducer';
+import { FilterText } from '../../p4-enums/enums';
+import { maxRangeValue, timeout } from '../../p5-constants/constants';
+import { changeFilter, changeFilterPacksTC } from '../filter-reducer';
 import style from '../Filter.module.css';
-
-import { FilterText } from './MyAllButton';
 
 function valuetext(value: number): string {
   return `${value}`;
 }
 
+const debounce = <Params extends any[]>(
+  func: (...arg: Params) => any,
+  timeout: number,
+): ((...arg: Params) => void) => {
+  let timer: any;
+
+  return (...arg: Params) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func(...arg);
+    }, timeout);
+  };
+};
+
 export const RangeSlider = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const filter = useAppSelector(state => state.filter);
+  const { packName, isShowCards, pageCount } = filter;
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const isLoad = useAppSelector(state => state.app.loading);
 
-  const handleChange = useCallback(
-    (event: Event, newValue: number | number[]): void => {
+  const setRange = useCallback(
+    (newValue: number | number[]): void => {
       const [min, max] = newValue as number[];
       const payload =
         filter.isShowCards === FilterText.my
@@ -37,6 +51,18 @@ export const RangeSlider = (): ReturnComponentType => {
     [filter],
   );
 
+  const debounceRange = debounce(setRange, timeout);
+
+  const changeRange = useCallback(
+    (event: Event, newValue: number | number[]): void => {
+      const [min, max] = newValue as number[];
+
+      debounceRange(newValue as number[]);
+      dispatch(changeFilter({ min, max }));
+    },
+    [packName, isShowCards, pageCount],
+  );
+
   return (
     <>
       <h2>Number of cards</h2>
@@ -46,7 +72,7 @@ export const RangeSlider = (): ReturnComponentType => {
           <Slider
             getAriaLabel={() => 'cards range'}
             value={[filter.min, filter.max]}
-            onChange={handleChange}
+            onChange={changeRange}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
             max={maxRangeValue}

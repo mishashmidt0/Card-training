@@ -5,13 +5,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import { ReturnComponentType } from '../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
 import { ProfileStateType } from '../../m2-Profile/profile-reducer';
-import { FilterText } from '../p1-FilterComponent/components/MyAllButton';
 import {
   changeFilter,
   changeFilterPacksTC,
   PayloadType,
 } from '../p1-FilterComponent/filter-reducer';
 import { AddPack } from '../p3-AddPack/AddPack';
+import { FilterText } from '../p4-enums/enums';
 import { timeout } from '../p5-constants/constants';
 
 import style from './Search.module.css';
