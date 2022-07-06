@@ -6,12 +6,12 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import { ReturnComponentType } from '../../../n4-types';
-import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
-import { ProfileStateType } from '../../m2-Profile/profile-reducer';
-import { createCardsPackType } from '../CardsPacks/cardsPacksAPI';
-import { createNewPackTC } from '../p1-FilterComponent/filter-reducer';
-import { AddPackTitle, FilterText } from '../p4-enums/enums';
+import { ReturnComponentType } from '../../../../n4-types';
+import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
+import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
+import { createCardsPackType } from '../../CardsPacks/cardsPacksAPI';
+import { createNewPackTC } from '../../p1-FilterComponent/filter-reducer';
+import { AddPackTitle, FilterText } from '../../p4-enums/enums';
 
 import style from './ButtonPopup.module.css';
 

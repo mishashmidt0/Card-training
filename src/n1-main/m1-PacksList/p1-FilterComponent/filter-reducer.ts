@@ -9,14 +9,14 @@ import {
   ResCardsPacksType,
 } from '../CardsPacks/cardsPacksAPI';
 import { ActionTypeForFilter } from '../p4-enums/enums';
-import { endRange, initPageCount, startRange } from '../p5-constants/constants';
+import { maxRangeValue, initPageCount, minRangeValue } from '../p5-constants/constants';
 
 // reducer
 const initialState: initialStateType = {
   isShowCards: 'all',
   pageCount: initPageCount,
-  min: startRange,
-  max: endRange,
+  min: minRangeValue,
+  max: maxRangeValue,
   packName: '',
 };
 
