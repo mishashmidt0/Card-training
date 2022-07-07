@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -10,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
+import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { getCardsTC } from '../cards-reducer';
 import { CardsType } from '../cardsAPI';
 
@@ -19,6 +21,9 @@ export const CardsTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const cardsData = useAppSelector(state => state.cards);
   const cardsPackId = useAppSelector(state => state.cards.cards[0].cardsPack_id);
+  const packUserId = useAppSelector(state => state.cards.packUserId);
+  // eslint-disable-next-line no-underscore-dangle
+  const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
 
   const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(true);
 
@@ -71,6 +76,13 @@ export const CardsTable = (): ReturnComponentType => {
             <TableCell align="center" size="small">
               Grade
             </TableCell>
+            {userId === packUserId && (
+              <TableCell align="center" className={s.buttonContainer}>
+                <Button variant="contained" color="secondary">
+                  Actions
+                </Button>
+              </TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -88,6 +100,18 @@ export const CardsTable = (): ReturnComponentType => {
                 {new Date(cards.updated).toLocaleDateString()}
               </TableCell>
               <TableCell align="center">{cards.grade}</TableCell>
+              {userId === packUserId && (
+                <TableCell align="center" className={s.buttonContainer}>
+                  <>
+                    <Button variant="contained" color="error">
+                      Delete
+                    </Button>
+                    <Button variant="contained" color="secondary">
+                      Edit
+                    </Button>
+                  </>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

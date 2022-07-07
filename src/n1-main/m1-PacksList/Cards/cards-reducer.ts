@@ -4,7 +4,7 @@ import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
 
-import { cardsAPI, CardsDataType, ResCardsType } from './cardsAPI';
+import { cardsAPI, CardsDataType, createCardType, ResCardsType } from './cardsAPI';
 
 // enum
 enum cardsTypes {
@@ -70,6 +70,19 @@ export const getCardsTC = (payload: ResCardsType) => async (dispatch: TypedDispa
     dispatch(loading(false));
   }
 };
+
+export const createNewCardTC =
+  (newCard: createCardType, payload: ResCardsType) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsAPI.createCard(newCard);
+      dispatch(getCardsTC(payload));
+    } catch (err: any) {
+      handleNetworkError(err, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
 // n4-types
 export type CardsActionsType = ReturnType<typeof getCardsAC>;
 type InitialStateType = typeof initialState;
