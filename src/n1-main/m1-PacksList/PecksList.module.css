@@ -1,7 +1,10 @@
 .packListContainer {
   width: 95%;
   height: 90%;
-  background-color: #ececf9;
+  background-color: rgb(255, 255, 255);
+  -webkit-box-shadow: 11px 16px 17px 6px rgba(34, 60, 80, 0.29);
+  -moz-box-shadow: 11px 16px 17px 6px rgba(34, 60, 80, 0.29);
+  box-shadow: 11px 16px 17px 6px rgba(34, 60, 80, 0.29);
   position: absolute;
   top: 70px;
   padding: 15px 15px 15px 0;

@@ -2,7 +2,9 @@
   font-size: 14px;
   font-weight: 500;
 }
-
+.addBackGround {
+  background-color: rgb(255, 234, 194);
+}
 .buttonContainer {
 }
 

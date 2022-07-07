@@ -21,15 +21,17 @@ export const CardPack = ({
   cardPackUserId,
   getCards,
   removeCardPack,
+  index,
 }: CardPackPropsType): ReturnComponentType => {
   const loading = useAppSelector(state => state.app.loading);
+  const filter = useAppSelector(state => state.filter);
 
   const onClickHandler = useCallback((): void => {
     getCards(cardPackId);
   }, []);
   const removeCardPackHandler = useCallback((): void => {
     removeCardPack(cardPackId);
-  }, []);
+  }, [filter]);
 
   const cutTheString = (str: string): string => {
     if (str.length >= maxLengthPackName) {
@@ -42,7 +44,8 @@ export const CardPack = ({
   return (
     <TableRow
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-      className={s.cardContainer}
+      /* eslint-disable-next-line no-magic-numbers */
+      className={`${s.cardContainer} ${index % 2 ? s.addBackGround : ''}`}
     >
       <TableCell scope="row">{cutTheString(cardPackName)}</TableCell>
       <TableCell align="center">{cardPackCardsCount}</TableCell>
@@ -64,7 +67,12 @@ export const CardPack = ({
             <NewCardPackNameBtn cardPackId={cardPackId} loading={loading} />
           </>
         )}
-        <Button variant="outlined" onClick={onClickHandler} disabled={loading}>
+        <Button
+          variant="outlined"
+          onClick={onClickHandler}
+          disabled={loading}
+          style={{ background: 'white' }}
+        >
           Learn
         </Button>
       </TableCell>
@@ -82,4 +90,5 @@ type CardPackPropsType = {
   cardPackUserId: string;
   getCards: (cardPackId: string) => void;
   removeCardPack: (cardPackId: string) => void;
+  index: number;
 };

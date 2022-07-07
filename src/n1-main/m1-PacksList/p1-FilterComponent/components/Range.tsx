@@ -64,7 +64,7 @@ export const RangeSlider = (): ReturnComponentType => {
   );
 
   return (
-    <>
+    <div className={style.rangeContainer}>
       <h2>Number of cards</h2>
       <div className={style.Range}>
         <span className={style.valueRange}>{filter.min}</span>
@@ -81,6 +81,6 @@ export const RangeSlider = (): ReturnComponentType => {
         </Box>
         <span className={style.valueRange}>{filter.max}</span>
       </div>
-    </>
+    </div>
   );
 };

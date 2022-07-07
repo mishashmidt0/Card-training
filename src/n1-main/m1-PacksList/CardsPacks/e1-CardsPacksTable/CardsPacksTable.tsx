@@ -14,6 +14,7 @@ import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { setCurrentCardPackIdAC } from '../../../m0-App/app-reducer';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { getCardsTC } from '../../Cards/cards-reducer';
+import { FilterText } from '../../p3-enums/enums';
 import { getCardsPacksTC, removeCardPackTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
 
@@ -26,7 +27,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
   const loading = useAppSelector(state => state.app.loading);
-  const isShow = useAppSelector(state => state.filter.isShowCards);
+  const filter = useAppSelector(state => state.filter);
 
   const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(true);
   const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
@@ -70,20 +71,19 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const getCards = useCallback((cardPackId: string): void => {
     dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
     dispatch(setCurrentCardPackIdAC(cardPackId));
-
     navigate('/cards');
   }, []);
 
   const removeCardPack = useCallback(
     (cardPackId: string): void => {
-      dispatch(removeCardPackTC(cardPackId));
-      if (isShow === 'all') {
-        dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
-      } else {
-        dispatch(getCardsPacksTC({ user_id: userId, page: 1, pageCount: 10 }));
-      }
+      const payload =
+        filter.isShowCards === FilterText.my
+          ? { user_id: userId, ...filter }
+          : { ...filter };
+
+      dispatch(removeCardPackTC(cardPackId, payload));
     },
-    [isShow],
+    [filter],
   );
 
   return (
@@ -123,8 +123,8 @@ export const CardsPacksTable = (): ReturnComponentType => {
             </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {cardsPacksData.cardPacks.map((cardPack: CardPackType) => (
+        <TableBody className={s.cardContainer}>
+          {cardsPacksData.cardPacks.map((cardPack: CardPackType, index) => (
             <CardPack
               /* eslint-disable-next-line no-underscore-dangle */
               key={cardPack._id}
@@ -138,6 +138,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
               cardPackUserId={cardPack.user_id}
               getCards={getCards}
               removeCardPack={removeCardPack}
+              index={index}
             />
           ))}
         </TableBody>

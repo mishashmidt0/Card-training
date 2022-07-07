@@ -76,7 +76,7 @@ export const getCardsPacksTC =
     }
   };
 export const removeCardPackTC =
-  (cardPackId: string) => async (dispatch: TypedDispatch) => {
+  (cardPackId: string, payload: ResCardsPacksType) => async (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     try {
       await cardsPacksAPI.removeCardsPack(cardPackId);
@@ -88,6 +88,7 @@ export const removeCardPackTC =
       }
     } finally {
       dispatch(loading(false));
+      dispatch(getCardsPacksTC(payload));
     }
   };
 export const changeCardPackNameTC =
