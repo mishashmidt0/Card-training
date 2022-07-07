@@ -11,6 +11,9 @@ export const cardsPacksAPI = {
       params: { ...payload },
     });
   },
+  createCardsPack(payload: createCardsPackType) {
+    return instance.post('cards/pack', { cardsPack: { ...payload } });
+  },
 };
 
 export type CardPackType = {
@@ -57,4 +60,9 @@ export type ResCardsPacksType = {
   page?: number;
   pageCount?: number;
   user_id?: string;
+};
+export type createCardsPackType = {
+  name: string;
+  deckCover?: string;
+  private?: boolean;
 };

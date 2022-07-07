@@ -2,18 +2,22 @@
 import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils';
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
-import { getCardsPacksAC } from '../CardsPacks/cardsPacks-reducer';
-import { cardsPacksAPI, ResCardsPacksType } from '../CardsPacks/cardsPacksAPI';
-
-enum ActionType {
-  changeIsShowCard = 'FilterReducer/ChangeIsShowCard',
-  changePageCount = 'FilterReducer/ChangePageCount',
-}
+import { getCardsPacksAC, getCardsPacksTC } from '../CardsPacks/cardsPacks-reducer';
+import {
+  cardsPacksAPI,
+  createCardsPackType,
+  ResCardsPacksType,
+} from '../CardsPacks/cardsPacksAPI';
+import { ActionTypeForFilter } from '../p4-enums/enums';
+import { maxRangeValue, initPageCount, minRangeValue } from '../p5-constants/constants';
 
 // reducer
 const initialState: initialStateType = {
   isShowCards: 'all',
-  pageCount: 10,
+  pageCount: initPageCount,
+  min: minRangeValue,
+  max: maxRangeValue,
+  packName: '',
 };
 
 export const FilterReducer = (
@@ -22,10 +26,12 @@ export const FilterReducer = (
   action: filterActionType,
 ): initialStateType => {
   switch (action.type) {
-    case ActionType.changeIsShowCard:
+    case ActionTypeForFilter.changeIsShowCard:
       return { ...state, isShowCards: action.value };
-    case ActionType.changePageCount:
+    case ActionTypeForFilter.changePageCount:
       return { ...state, pageCount: action.value };
+    case ActionTypeForFilter.changeFilter:
+      return { ...state, ...action.payload };
     default:
       return state;
   }
@@ -33,10 +39,12 @@ export const FilterReducer = (
 
 // action
 export const changesShowCards = (value: isShowCardsType) =>
-  ({ type: ActionType.changeIsShowCard, value } as const);
+  ({ type: ActionTypeForFilter.changeIsShowCard, value } as const);
 export const changePageCount = (value: number) =>
-  ({ type: ActionType.changePageCount, value } as const);
+  ({ type: ActionTypeForFilter.changePageCount, value } as const);
 
+export const changeFilter = (payload: PayloadType) =>
+  ({ type: ActionTypeForFilter.changeFilter, payload } as const);
 // thunk
 export const changesShowCardsTC =
   (value: isShowCardsType, payload: ResCardsPacksType) =>
@@ -54,13 +62,57 @@ export const changesShowCardsTC =
     }
   };
 
+export const changeFilterPacksTC =
+  (payload: ResCardsPacksType) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      const res = await cardsPacksAPI.getCardsPacks(payload);
+
+      dispatch(getCardsPacksAC(res.data));
+      dispatch(changeFilter(payload));
+    } catch (err: any) {
+      handleNetworkError(err, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+
+export const createNewPackTC =
+  (newPack: createCardsPackType, payload: ResCardsPacksType) =>
+  async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsPacksAPI.createCardsPack(newPack);
+      dispatch(getCardsPacksTC(payload));
+    } catch (err: any) {
+      handleNetworkError(err, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+
 // type
 export type changePageCountType = ReturnType<typeof changePageCount>;
 export type changesShowCardsType = ReturnType<typeof changesShowCards>;
-export type filterActionType = changePageCountType | changesShowCardsType;
+export type changeStateType = ReturnType<typeof changeFilter>;
+export type filterActionType =
+  | changeStateType
+  | changePageCountType
+  | changesShowCardsType;
 
 export type isShowCardsType = 'my' | 'all';
 type initialStateType = {
   isShowCards: isShowCardsType;
   pageCount: number;
+  min: number;
+  max: number;
+  packName: string;
+};
+
+export type PayloadType = {
+  isShowCards?: isShowCardsType;
+  pageCount?: number;
+  min?: number;
+  max?: number;
+  packName?: string;
 };
