@@ -25,7 +25,7 @@ export const CardPack = ({
   const loading = useAppSelector(state => state.app.loading);
 
   const onClickHandler = useCallback((): void => {
-    getCards(cardPackId, cardPackCardsCount);
+    getCards(cardPackId);
   }, []);
   const removeCardPackHandler = useCallback((): void => {
     removeCardPack(cardPackId);
@@ -80,6 +80,6 @@ type CardPackPropsType = {
   cardPackUpdated: string;
   cardPackUserName: string;
   cardPackUserId: string;
-  getCards: (cardPackId: string, cardCount: number) => void;
+  getCards: (cardPackId: string) => void;
   removeCardPack: (cardPackId: string) => void;
 };

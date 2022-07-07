@@ -5,7 +5,6 @@ enum ActionType {
   load = 'APP/LOADING',
   mainLoad = 'APP/MAIN-LOADING',
   setCurrentCardPackId = 'APP/SET-CURRENT-CARD-PACK-ID',
-  setCurrentCardCount = 'APP/SET-CURRENT-CARD-COUNT',
 }
 
 export enum Status {
@@ -25,7 +24,6 @@ const initialState: appStateType = {
   loading: false,
   globalLoading: false,
   cardPackId: '',
-  currentCardCount: 0,
 };
 
 export const appReducer = (
@@ -44,8 +42,6 @@ export const appReducer = (
       return { ...app, globalLoading: action.value };
     case ActionType.setCurrentCardPackId:
       return { ...app, cardPackId: action.cardPackId };
-    case ActionType.setCurrentCardCount:
-      return { ...app, currentCardCount: action.cardCount };
     default:
       return app;
   }
@@ -60,8 +56,6 @@ export const setGlobalLoadingAC = (value: boolean) =>
   ({ type: ActionType.mainLoad, value } as const);
 export const setCurrentCardPackIdAC = (cardPackId: string) =>
   ({ type: ActionType.setCurrentCardPackId, cardPackId } as const);
-export const setCurrentCardCountAC = (cardCount: number) =>
-  ({ type: ActionType.setCurrentCardCount, cardCount } as const);
 
 // type
 export type statusType = Status.warning | Status.info | Status.error | Status.success;
@@ -75,19 +69,16 @@ export type appStateType = {
   loading: boolean;
   globalLoading: boolean;
   cardPackId: string;
-  currentCardCount: number;
 };
 export type showAnswerType = ReturnType<typeof showAnswer>;
 export type closeAnswerType = ReturnType<typeof closeAnswer>;
 export type loadingType = ReturnType<typeof loading>;
 export type setMainLoadingType = ReturnType<typeof setGlobalLoadingAC>;
 export type setCurrentCardPackIdType = ReturnType<typeof setCurrentCardPackIdAC>;
-export type setCurrentCardCountType = ReturnType<typeof setCurrentCardCountAC>;
 
 export type AppActionsType =
   | showAnswerType
   | closeAnswerType
   | loadingType
   | setMainLoadingType
-  | setCurrentCardPackIdType
-  | setCurrentCardCountType;
+  | setCurrentCardPackIdType;
