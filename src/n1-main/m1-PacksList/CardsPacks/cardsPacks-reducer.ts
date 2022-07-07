@@ -4,11 +4,11 @@ import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
 
-import { cardsPacksAPI, CardPackDataType, ResCardsPacksType } from './cardsPacksAPI';
+import { CardPackDataType, cardsPacksAPI, ResCardsPacksType } from './cardsPacksAPI';
 
 // enum
 enum cardPackTypes {
-  getCardsPacks = 'CARD-PACK/GET-CARD-PACK',
+  getCardsPacks = 'CARD-PACK/GET-CARDS-PACKS',
 }
 
 // reducer
@@ -56,6 +56,7 @@ export const cardsPacksReducer = (
 // actions
 export const getCardsPacksAC = (cardsPacksData: CardPackDataType) =>
   ({ type: cardPackTypes.getCardsPacks, cardsPacksData } as const);
+
 // thunks
 export const getCardsPacksTC =
   (payload: ResCardsPacksType) => async (dispatch: TypedDispatch) => {
@@ -74,6 +75,39 @@ export const getCardsPacksTC =
       dispatch(loading(false));
     }
   };
-// n4-types
+export const removeCardPackTC =
+  (cardPackId: string) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsPacksAPI.removeCardsPack(cardPackId);
+    } catch (e) {
+      const err = e as Error | AxiosError<{ error: string }>;
+
+      if (axios.isAxiosError(err)) {
+        handleNetworkError(err, dispatch);
+      }
+    } finally {
+      dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
+      dispatch(loading(false));
+    }
+  };
+export const changeCardPackNameTC =
+  (cardPackId: string, value: string) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsPacksAPI.changeCardPackName(cardPackId, value);
+    } catch (e) {
+      const err = e as Error | AxiosError<{ error: string }>;
+
+      if (axios.isAxiosError(err)) {
+        handleNetworkError(err, dispatch);
+      }
+    } finally {
+      dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
+      dispatch(loading(false));
+    }
+  };
+// types
 export type CardsPacksActionsType = ReturnType<typeof getCardsPacksAC>;
+
 type InitialStateType = typeof initialState;

@@ -8,8 +8,8 @@ import {
   createCardsPackType,
   ResCardsPacksType,
 } from '../CardsPacks/cardsPacksAPI';
-import { ActionTypeForFilter } from '../p4-enums/enums';
-import { maxRangeValue, initPageCount, minRangeValue } from '../p5-constants/constants';
+import { ActionTypeForFilter } from '../p3-enums/enums';
+import { initPageCount, maxRangeValue, minRangeValue } from '../p4-constants/constants';
 
 // reducer
 const initialState: initialStateType = {

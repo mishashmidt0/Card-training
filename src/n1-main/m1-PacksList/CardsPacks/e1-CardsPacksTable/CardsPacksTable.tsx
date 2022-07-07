@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -7,50 +7,72 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useNavigate } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { getCardsPacksTC } from '../cardsPacks-reducer';
+import { getCardsTC } from '../../Cards/cards-reducer';
+import { getCardsPacksTC, removeCardPackTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
 
 import s from './CardsPacksTable.module.css';
+import { CardPack } from './e0-CardPack/CardPack';
 
 export const CardsPacksTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  const cardsPacksData = useAppSelector(state => state.cardsPacks);
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
+  const cardsPacksData = useAppSelector(state => state.cardsPacks);
+  const loading = useAppSelector(state => state.app.loading);
 
   const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(true);
-  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(true);
+  const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
 
   const sortForCardsCount: () => void = () => {
-    if (sortCardsCount) {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0cardsCount' }));
-    } else {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1cardsCount' }));
+    if (!loading) {
+      if (sortCardsCount) {
+        dispatch(
+          getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0cardsCount' }),
+        ).then(() => {
+          setSortCardsCount(!sortCardsCount);
+        });
+      } else {
+        dispatch(
+          getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1cardsCount' }),
+        ).then(() => {
+          setSortCardsCount(!sortCardsCount);
+        });
+      }
     }
-    setSortCardsCount(!sortCardsCount);
   };
   const sortForCardsUpdate: () => void = () => {
-    if (sortCardsUpdate) {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0updated' }));
-    } else {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1updated' }));
+    if (!loading) {
+      if (sortCardsUpdate) {
+        dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0updated' })).then(
+          () => {
+            setSortCardsUpdate(!sortCardsUpdate);
+          },
+        );
+      } else {
+        dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1updated' })).then(
+          () => {
+            setSortCardsUpdate(!sortCardsUpdate);
+          },
+        );
+      }
     }
-    setSortCardsUpdate(!sortCardsUpdate);
   };
 
-  const cutTheString = (str: string): string => {
-    // eslint-disable-next-line no-magic-numbers
-    if (str.length >= 50) {
-      // eslint-disable-next-line no-magic-numbers
-      return `${str.slice(0, 50)}...`;
-    }
+  const navigate = useNavigate();
+  const getCards = useCallback((cardPackId: string): void => {
+    dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
+    navigate('/cards');
+  }, []);
 
-    return str;
-  };
+  const removeCardPack = useCallback((cardPackId: string): void => {
+    dispatch(removeCardPackTC(cardPackId));
+  }, []);
 
   return (
     <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
@@ -91,29 +113,20 @@ export const CardsPacksTable = (): ReturnComponentType => {
         </TableHead>
         <TableBody>
           {cardsPacksData.cardPacks.map((cardPack: CardPackType) => (
-            <TableRow
+            <CardPack
               /* eslint-disable-next-line no-underscore-dangle */
               key={cardPack._id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {cutTheString(cardPack.name)}
-              </TableCell>
-              <TableCell align="center">{cardPack.cardsCount}</TableCell>
-              <TableCell align="center">
-                {new Date(cardPack.updated).toLocaleDateString()}
-              </TableCell>
-              <TableCell align="center">{cardPack.user_name}</TableCell>
-              <TableCell align="center">
-                {userId === cardPack.user_id && (
-                  <span>
-                    <button type="button">Delete</button>---
-                    <button type="button">Edit</button>---
-                  </span>
-                )}
-                <button type="button">Learn</button>
-              </TableCell>
-            </TableRow>
+              userId={userId}
+              /* eslint-disable-next-line no-underscore-dangle */
+              cardPackId={cardPack._id}
+              cardPackName={cardPack.name}
+              cardPackCardsCount={cardPack.cardsCount}
+              cardPackUpdated={cardPack.updated}
+              cardPackUserName={cardPack.user_name}
+              cardPackUserId={cardPack.user_id}
+              getCards={getCards}
+              removeCardPack={removeCardPack}
+            />
           ))}
         </TableBody>
       </Table>

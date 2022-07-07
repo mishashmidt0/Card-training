@@ -7,8 +7,10 @@
   height: 100%;
 }
 
-.tableHeadContainer {
+.tableHeadContainer th {
   background-color: #b2abd9;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .tableRow span {

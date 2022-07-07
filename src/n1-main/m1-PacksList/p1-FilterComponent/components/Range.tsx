@@ -7,8 +7,8 @@ import Slider from '@mui/material/Slider';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { FilterText } from '../../p4-enums/enums';
-import { maxRangeValue, timeout } from '../../p5-constants/constants';
+import { FilterText } from '../../p3-enums/enums';
+import { maxRangeValue, timeout } from '../../p4-constants/constants';
 import { changeFilter, changeFilterPacksTC } from '../filter-reducer';
 import style from '../Filter.module.css';
 

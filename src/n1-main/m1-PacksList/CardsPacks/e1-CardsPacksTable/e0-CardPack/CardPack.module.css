@@ -1,0 +1,12 @@
+.cardContainer td {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.buttonContainer {
+}
+
+.buttonContainer button {
+  padding: 0 5px 0 5px;
+  margin: 0 5px 0 5px;
+}

@@ -1,10 +1,10 @@
 .packListContainer {
   width: 95%;
   height: 90%;
-  background-color: #ffffff;
+  background-color: #ececf9;
   position: absolute;
   top: 70px;
-  padding: 5px 5px 15px 0;
+  padding: 15px 15px 15px 0;
   border-radius: 5px;
 
   display: grid;

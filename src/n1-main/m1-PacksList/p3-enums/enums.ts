@@ -10,6 +10,12 @@ export enum AddPackTitle {
   save = 'save',
 }
 
+export enum NewPackTitle {
+  header = 'Add new pack name',
+  cancel = 'cancel',
+  save = 'save',
+}
+
 export enum ResetTitle {
   button = ' Reset filters',
 }
