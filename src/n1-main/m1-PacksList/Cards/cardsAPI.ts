@@ -14,6 +14,12 @@ export const cardsAPI = {
   createCard(payload: createCardType) {
     return instance.post('cards/card', { card: { ...payload } });
   },
+  removeCard(cardId: string) {
+    return instance.delete('cards/card', { params: { id: cardId } });
+  },
+  changeCard(cardId: string, value: string) {
+    return instance.put('cards/card', { card: { _id: cardId, question: value } });
+  },
 };
 
 export type CardsType = {

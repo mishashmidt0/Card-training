@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -12,9 +12,10 @@ import TableRow from '@mui/material/TableRow';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { getCardsTC } from '../cards-reducer';
+import { getCardsTC, removeCardTC } from '../cards-reducer';
 import { CardsType } from '../cardsAPI';
 
+import { NewCardQuestionBtn } from './c1-NewCardQuestionBtn/NewCardQuestionBtn';
 import s from './CardsTable.module.css';
 
 export const CardsTable = (): ReturnComponentType => {
@@ -24,6 +25,7 @@ export const CardsTable = (): ReturnComponentType => {
   const packUserId = useAppSelector(state => state.cards.packUserId);
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
+  const loading = useAppSelector(state => state.app.loading);
 
   const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(true);
 
@@ -49,6 +51,14 @@ export const CardsTable = (): ReturnComponentType => {
     }
     setSortCardsUpdate(!sortCardsUpdate);
   };
+  const removeCard = useCallback(
+    (cardId: string, cardsPackId: string): void => {
+      dispatch(removeCardTC(cardId));
+
+      dispatch(getCardsTC({ cardsPack_id: cardsPackId, page: 1, pageCount: 10 }));
+    },
+    [dispatch],
+  );
 
   return (
     <TableContainer component={Paper} className={s.cardsTableContainer}>
@@ -77,10 +87,8 @@ export const CardsTable = (): ReturnComponentType => {
               Grade
             </TableCell>
             {userId === packUserId && (
-              <TableCell align="center" className={s.buttonContainer}>
-                <Button variant="contained" color="secondary">
-                  Actions
-                </Button>
+              <TableCell align="center" size="small">
+                Actions
               </TableCell>
             )}
           </TableRow>
@@ -103,12 +111,25 @@ export const CardsTable = (): ReturnComponentType => {
               {userId === packUserId && (
                 <TableCell align="center" className={s.buttonContainer}>
                   <>
-                    <Button variant="contained" color="error">
+                    {/* eslint-disable-next-line no-underscore-dangle */}
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => {
+                        // eslint-disable-next-line no-underscore-dangle
+                        removeCard(cards._id, cards.cardsPack_id);
+                      }}
+                    >
                       Delete
                     </Button>
-                    <Button variant="contained" color="secondary">
-                      Edit
-                    </Button>
+                    {/* eslint-disable-next-line no-underscore-dangle */}
+                    <NewCardQuestionBtn
+                      loading={loading}
+                      question={cards.question}
+                      answer={cards.answer}
+                      /* eslint-disable-next-line no-underscore-dangle */
+                      cardId={cards._id}
+                    />
                   </>
                 </TableCell>
               )}

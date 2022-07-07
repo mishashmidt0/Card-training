@@ -83,6 +83,35 @@ export const createNewCardTC =
       dispatch(loading(false));
     }
   };
+export const removeCardTC = (cardId: string) => async (dispatch: TypedDispatch) => {
+  dispatch(loading(true));
+  try {
+    await cardsAPI.removeCard(cardId);
+  } catch (e) {
+    const err = e as Error | AxiosError<{ error: string }>;
+
+    if (axios.isAxiosError(err)) {
+      handleNetworkError(err, dispatch);
+    }
+  } finally {
+    dispatch(loading(false));
+  }
+};
+export const changeCardTC =
+  (cardId: string, value: string) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsAPI.changeCard(cardId, value);
+    } catch (e) {
+      const err = e as Error | AxiosError<{ error: string }>;
+
+      if (axios.isAxiosError(err)) {
+        handleNetworkError(err, dispatch);
+      }
+    } finally {
+      dispatch(loading(false));
+    }
+  };
 // n4-types
 export type CardsActionsType = ReturnType<typeof getCardsAC>;
 type InitialStateType = typeof initialState;

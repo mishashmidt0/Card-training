@@ -15,14 +15,14 @@ export const CardsPagination = (): ReturnComponentType => {
 
   const dispatch = useTypedDispatch();
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount);
-  const cardsPackId = useAppSelector(state => state.cards.cards[0].cardsPack_id);
+  const cardPackId = useAppSelector(state => state.app.cardPackId);
 
   const handleChangePage: (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => void = (event, newPage) => {
     setPage(newPage);
-    dispatch(getCardsTC({ cardsPack_id: cardsPackId, pageCount, page: newPage + 1 }));
+    dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount, page: newPage + 1 }));
   };
 
   const handleChangeRowsPerPage: (
@@ -32,7 +32,7 @@ export const CardsPagination = (): ReturnComponentType => {
     setPage(0);
     dispatch(
       getCardsTC({
-        cardsPack_id: cardsPackId,
+        cardsPack_id: cardPackId,
         pageCount: parseInt(event.target.value, 10),
       }),
     );
