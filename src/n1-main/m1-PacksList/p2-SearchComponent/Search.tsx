@@ -13,7 +13,7 @@ import {
 import { FilterText } from '../p3-enums/enums';
 import { timeout } from '../p4-constants/constants';
 
-import { AddPack } from './p3-AddPack/AddPack';
+import { AddPack } from './AddPack/AddPack';
 import style from './Search.module.css';
 
 const debounce = <Params extends any[]>(
