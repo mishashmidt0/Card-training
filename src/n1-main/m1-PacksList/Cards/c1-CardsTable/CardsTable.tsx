@@ -18,14 +18,29 @@ import s from './CardsTable.module.css';
 export const CardsTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const cardsData = useAppSelector(state => state.cards);
+  const cardsPackId = useAppSelector(state => state.cards.cards[0].cardsPack_id);
 
   const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(true);
 
   const sortForCardsUpdate: () => void = () => {
     if (sortCardsUpdate) {
-      dispatch(getCardsTC({ page: 1, pageCount: 10, sortCards: '0updated' }));
+      dispatch(
+        getCardsTC({
+          cardsPack_id: cardsPackId,
+          page: 1,
+          pageCount: 10,
+          sortCards: '0updated',
+        }),
+      );
     } else {
-      dispatch(getCardsTC({ page: 1, pageCount: 10, sortCards: '1updated' }));
+      dispatch(
+        getCardsTC({
+          cardsPack_id: cardsPackId,
+          page: 1,
+          pageCount: 10,
+          sortCards: '1updated',
+        }),
+      );
     }
     setSortCardsUpdate(!sortCardsUpdate);
   };
