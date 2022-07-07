@@ -1,0 +1,10 @@
+.paginatorContainer {
+    background-color: #b2abd9;
+    border-radius: 0 0 10px 10px;
+}
+.paginatorContainer button {
+    transition-duration: 500ms;
+}
+.paginatorContainer button:hover {
+    background-color: rgba(25, 118, 210, 0.52);
+}
