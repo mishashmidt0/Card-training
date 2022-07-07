@@ -8,6 +8,8 @@ import { ResetTitle } from '../../p3-enums/enums';
 import { resetPayload } from '../../p4-constants/constants';
 import { changeFilterPacksTC } from '../filter-reducer';
 
+import s from './Reset.module.css';
+
 export const Reset = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
 
@@ -16,7 +18,7 @@ export const Reset = (): ReturnComponentType => {
   };
 
   return (
-    <div>
+    <div className={s.resetContainer}>
       <Button variant="contained" onClick={reset}>
         {ResetTitle.button}
       </Button>

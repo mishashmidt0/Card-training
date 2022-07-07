@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ReturnComponentType } from '../../../n4-types';
 
+import reactImg from './components/assets/atom_icon-icons.com_53030.svg';
 import { MyAllButton } from './components/MyAllButton';
 import { RangeSlider } from './components/Range';
 import { Reset } from './components/Reset';
@@ -14,6 +15,7 @@ export const Filter = (): ReturnComponentType => {
 
       <RangeSlider />
       <Reset />
+      <img src={reactImg} alt="icon" className={style.reactImg} />
     </div>
   );
 };

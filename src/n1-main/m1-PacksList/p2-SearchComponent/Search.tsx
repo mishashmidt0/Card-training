@@ -63,7 +63,7 @@ export const Search = (): ReturnComponentType => {
   return (
     <div className={style.containerSearchAndButton}>
       <div className={style.SearchContainer}>
-        <SearchIcon sx={{ color: 'white' }} />
+        <SearchIcon sx={{ color: 'black' }} />
         <input
           type="text"
           className={style.search}
