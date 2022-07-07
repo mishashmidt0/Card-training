@@ -25,7 +25,7 @@ const styleBox = {
   p: 4,
 };
 
-export const NewCardPackName = ({
+export const NewCardPackNameBtn = ({
   cardPackId,
   loading,
 }: NewCardPackNamePropsType): ReturnComponentType => {

@@ -4,6 +4,7 @@ enum ActionType {
   close = 'APP/CLOSE',
   load = 'APP/LOADING',
   mainLoad = 'APP/MAIN-LOADING',
+  setCurrentCardPackId = 'APP/SET-CURRENT-CARD-PACK-ID',
 }
 
 export enum Status {
@@ -22,6 +23,7 @@ const initialState: appStateType = {
   },
   loading: false,
   globalLoading: false,
+  cardPackId: '',
 };
 
 export const appReducer = (
@@ -38,6 +40,8 @@ export const appReducer = (
       return { ...app, loading: action.value };
     case ActionType.mainLoad:
       return { ...app, globalLoading: action.value };
+    case ActionType.setCurrentCardPackId:
+      return { ...app, cardPackId: action.cardPackId };
     default:
       return app;
   }
@@ -50,6 +54,8 @@ export const closeAnswer = () => ({ type: ActionType.close } as const);
 export const loading = (value: boolean) => ({ type: ActionType.load, value } as const);
 export const setGlobalLoadingAC = (value: boolean) =>
   ({ type: ActionType.mainLoad, value } as const);
+export const setCurrentCardPackIdAC = (cardPackId: string) =>
+  ({ type: ActionType.setCurrentCardPackId, cardPackId } as const);
 
 // type
 export type statusType = Status.warning | Status.info | Status.error | Status.success;
@@ -62,14 +68,17 @@ export type appStateType = {
   snackbar: snackbarType;
   loading: boolean;
   globalLoading: boolean;
+  cardPackId: string;
 };
 export type showAnswerType = ReturnType<typeof showAnswer>;
 export type closeAnswerType = ReturnType<typeof closeAnswer>;
 export type loadingType = ReturnType<typeof loading>;
 export type setMainLoadingType = ReturnType<typeof setGlobalLoadingAC>;
+export type setCurrentCardPackIdType = ReturnType<typeof setCurrentCardPackIdAC>;
 
 export type AppActionsType =
   | showAnswerType
   | closeAnswerType
   | loadingType
-  | setMainLoadingType;
+  | setMainLoadingType
+  | setCurrentCardPackIdType;

@@ -9,7 +9,7 @@ import { useAppSelector } from '../../../../../n5-bll/redux';
 import { maxLengthPackName } from '../../../p4-constants/constants';
 
 import s from './CardPack.module.css';
-import { NewCardPackName } from './k1-NewCardPackName/NewCardPackName';
+import { NewCardPackNameBtn } from './k1-NewCardPackName/NewCardPackNameBtn';
 
 export const CardPack = ({
   userId,
@@ -61,7 +61,7 @@ export const CardPack = ({
             >
               Delete
             </Button>
-            <NewCardPackName cardPackId={cardPackId} loading={loading} />
+            <NewCardPackNameBtn cardPackId={cardPackId} loading={loading} />
           </>
         )}
         <Button variant="outlined" onClick={onClickHandler} disabled={loading}>

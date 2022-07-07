@@ -87,7 +87,6 @@ export const removeCardPackTC =
         handleNetworkError(err, dispatch);
       }
     } finally {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
       dispatch(loading(false));
     }
   };

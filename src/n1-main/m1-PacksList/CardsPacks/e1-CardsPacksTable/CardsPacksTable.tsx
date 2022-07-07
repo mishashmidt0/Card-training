@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
+import { setCurrentCardPackIdAC } from '../../../m0-App/app-reducer';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { getCardsTC } from '../../Cards/cards-reducer';
 import { getCardsPacksTC, removeCardPackTC } from '../cardsPacks-reducer';
@@ -25,6 +26,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
   const loading = useAppSelector(state => state.app.loading);
+  const isShow = useAppSelector(state => state.filter.isShowCards);
 
   const [sortCardsCount, setSortCardsCount] = React.useState<boolean>(true);
   const [sortCardsUpdate, setSortCardsUpdate] = React.useState<boolean>(false);
@@ -67,12 +69,22 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const navigate = useNavigate();
   const getCards = useCallback((cardPackId: string): void => {
     dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
+    dispatch(setCurrentCardPackIdAC(cardPackId));
+
     navigate('/cards');
   }, []);
 
-  const removeCardPack = useCallback((cardPackId: string): void => {
-    dispatch(removeCardPackTC(cardPackId));
-  }, []);
+  const removeCardPack = useCallback(
+    (cardPackId: string): void => {
+      dispatch(removeCardPackTC(cardPackId));
+      if (isShow === 'all') {
+        dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
+      } else {
+        dispatch(getCardsPacksTC({ user_id: userId, page: 1, pageCount: 10 }));
+      }
+    },
+    [isShow],
+  );
 
   return (
     <TableContainer component={Paper} className={s.cardsPacksTableContainer}>
