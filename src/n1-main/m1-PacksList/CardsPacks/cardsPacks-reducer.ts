@@ -92,7 +92,8 @@ export const removeCardPackTC =
     }
   };
 export const changeCardPackNameTC =
-  (cardPackId: string, value: string) => async (dispatch: TypedDispatch) => {
+  (cardPackId: string, value: string, payload: ResCardsPacksType) =>
+  async (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     try {
       await cardsPacksAPI.changeCardPackName(cardPackId, value);
@@ -103,7 +104,7 @@ export const changeCardPackNameTC =
         handleNetworkError(err, dispatch);
       }
     } finally {
-      dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
+      dispatch(getCardsPacksTC(payload));
       dispatch(loading(false));
     }
   };

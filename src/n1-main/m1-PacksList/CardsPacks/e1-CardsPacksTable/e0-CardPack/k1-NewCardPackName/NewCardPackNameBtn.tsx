@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,8 +8,9 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import { ReturnComponentType } from '../../../../../../n4-types';
-import { useTypedDispatch } from '../../../../../../n5-bll/redux';
-import { NewPackTitle } from '../../../../p3-enums/enums';
+import { useAppSelector, useTypedDispatch } from '../../../../../../n5-bll/redux';
+import { ProfileStateType } from '../../../../../m2-Profile/profile-reducer';
+import { FilterText, NewPackTitle } from '../../../../p3-enums/enums';
 import { changeCardPackNameTC } from '../../../cardsPacks-reducer';
 
 import style from './NewButtonPopup.module.css';
@@ -30,6 +32,9 @@ export const NewCardPackNameBtn = ({
   loading,
 }: NewCardPackNamePropsType): ReturnComponentType => {
   const dispatch = useTypedDispatch();
+  const filter = useAppSelector(state => state.filter);
+  // eslint-disable-next-line no-underscore-dangle
+  const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
 
   const [value, setValue] = React.useState<string>('');
   const [open, setOpen] = React.useState(false);
@@ -38,11 +43,16 @@ export const NewCardPackNameBtn = ({
     setOpen(false);
     setValue('');
   };
-  const changeCardPackName = (): void => {
-    dispatch(changeCardPackNameTC(cardPackId, value));
+  const changeCardPackName = useCallback((): void => {
+    const payload =
+      filter.isShowCards === FilterText.my
+        ? { user_id: userId, ...filter }
+        : { ...filter };
+
+    dispatch(changeCardPackNameTC(cardPackId, value, payload));
     handleClose();
     setValue('');
-  };
+  }, [cardPackId, filter, userId, value]);
 
   const changeText = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);

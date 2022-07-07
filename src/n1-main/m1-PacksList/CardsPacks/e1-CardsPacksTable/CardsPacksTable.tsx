@@ -35,15 +35,21 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const sortForCardsCount: () => void = () => {
     if (!loading) {
       if (sortCardsCount) {
-        dispatch(
-          getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0cardsCount' }),
-        ).then(() => {
+        const payload =
+          filter.isShowCards === FilterText.my
+            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '0cardsCount' }
+            : { page: 1, pageCount: 10, sortPacks: '0cardsCount' };
+
+        dispatch(getCardsPacksTC(payload)).then(() => {
           setSortCardsCount(!sortCardsCount);
         });
       } else {
-        dispatch(
-          getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1cardsCount' }),
-        ).then(() => {
+        const payload =
+          filter.isShowCards === FilterText.my
+            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '1cardsCount' }
+            : { page: 1, pageCount: 10, sortPacks: '1cardsCount' };
+
+        dispatch(getCardsPacksTC(payload)).then(() => {
           setSortCardsCount(!sortCardsCount);
         });
       }
@@ -52,17 +58,23 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const sortForCardsUpdate: () => void = () => {
     if (!loading) {
       if (sortCardsUpdate) {
-        dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '0updated' })).then(
-          () => {
-            setSortCardsUpdate(!sortCardsUpdate);
-          },
-        );
+        const payload =
+          filter.isShowCards === FilterText.my
+            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '0updated' }
+            : { page: 1, pageCount: 10, sortPacks: '0updated' };
+
+        dispatch(getCardsPacksTC(payload)).then(() => {
+          setSortCardsUpdate(!sortCardsUpdate);
+        });
       } else {
-        dispatch(getCardsPacksTC({ page: 1, pageCount: 10, sortPacks: '1updated' })).then(
-          () => {
-            setSortCardsUpdate(!sortCardsUpdate);
-          },
-        );
+        const payload =
+          filter.isShowCards === FilterText.my
+            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '1updated' }
+            : { page: 1, pageCount: 10, sortPacks: '1updated' };
+
+        dispatch(getCardsPacksTC(payload)).then(() => {
+          setSortCardsUpdate(!sortCardsUpdate);
+        });
       }
     }
   };
@@ -83,7 +95,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
 
       dispatch(removeCardPackTC(cardPackId, payload));
     },
-    [filter],
+    [filter, userId],
   );
 
   return (

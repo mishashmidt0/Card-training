@@ -28,7 +28,7 @@ export const CardPack = ({
 
   const onClickHandler = useCallback((): void => {
     getCards(cardPackId);
-  }, []);
+  }, [cardPackId]);
   const removeCardPackHandler = useCallback((): void => {
     removeCardPack(cardPackId);
   }, [filter]);

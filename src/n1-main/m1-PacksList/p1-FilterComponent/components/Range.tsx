@@ -48,7 +48,7 @@ export const RangeSlider = (): ReturnComponentType => {
 
       dispatch(changeFilterPacksTC(payload));
     },
-    [filter],
+    [filter, userId],
   );
 
   const debounceRange = debounce(setRange, timeout);
