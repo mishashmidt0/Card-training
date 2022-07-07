@@ -16,7 +16,7 @@
   margin: 20px 0;
 }
 .reactImg {
- margin-top: 60px;
+  margin-top: 60px;
   width: 250px;
   height: 250px;
 }
@@ -44,7 +44,7 @@
 }
 
 .rangeContainer {
-margin-top: 60px;
+  margin-top: 60px;
 }
 
 .Range {
@@ -54,14 +54,14 @@ margin-top: 60px;
   justify-content: space-between;
 }
 
-.Range span:nth-child(2){
+.Range span:nth-child(2) {
   background-color: #ffc445;
   border: 1px solid #ffc445;
 }
-.Range span:nth-child(4){
+.Range span:nth-child(4) {
   background-color: #ffc445;
 }
-.Range span:nth-child(3){
+.Range span:nth-child(3) {
   background-color: #ffc445;
 }
 
