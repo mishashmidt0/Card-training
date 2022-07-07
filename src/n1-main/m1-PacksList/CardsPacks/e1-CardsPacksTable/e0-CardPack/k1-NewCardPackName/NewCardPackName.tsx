@@ -49,7 +49,7 @@ export const NewCardPackName = ({
   };
 
   return (
-    <div>
+    <span>
       <Button variant="contained" onClick={handleOpen} disabled={loading}>
         Edit
       </Button>
@@ -82,7 +82,7 @@ export const NewCardPackName = ({
           </div>
         </Box>
       </Modal>
-    </div>
+    </span>
   );
 };
 
