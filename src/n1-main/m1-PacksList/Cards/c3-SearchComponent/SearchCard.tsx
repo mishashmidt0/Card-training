@@ -57,7 +57,7 @@ export const SearchCard = (): ReturnComponentType => {
   return (
     <div className={s.containerSearchAndButton}>
       <div className={s.SearchContainer}>
-        <SearchIcon sx={{ color: 'black' }} />
+        <SearchIcon sx={{ color: 'black', margin: '0 5px' }} />
         <input
           type="text"
           className={s.search}

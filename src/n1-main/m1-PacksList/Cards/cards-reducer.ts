@@ -59,7 +59,6 @@ export const getCardsTC = (payload: ResCardsType) => async (dispatch: TypedDispa
   try {
     const res = await cardsAPI.getCards(payload);
 
-    console.log(res);
     dispatch(getCardsAC(res.data));
   } catch (e) {
     const err = e as Error | AxiosError<{ error: string }>;

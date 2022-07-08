@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 import { ReturnComponentType } from '../../../n4-types';
 import { useTypedDispatch } from '../../../n5-bll/redux';
+import { resetPayload } from '../p4-constants/constants';
 
 import { getCardsPacksTC } from './cardsPacks-reducer';
 import s from './CardsPacks.module.css';
@@ -12,8 +13,7 @@ export const CardsPacks = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
 
   useEffect(() => {
-    // eslint-disable-next-line no-magic-numbers
-    dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
+    dispatch(getCardsPacksTC(resetPayload));
   }, []);
 
   return (

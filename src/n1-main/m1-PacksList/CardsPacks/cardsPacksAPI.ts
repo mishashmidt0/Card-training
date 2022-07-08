@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+import { baseUrl } from '../p4-constants/constants';
+
 export const instance = axios.create({
-  baseURL: 'http://localhost:7542/2.0/',
+  baseURL: baseUrl,
   withCredentials: true,
 });
 

@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+import { baseUrlAuth } from '../a5-constants/constants';
+
 const instace = axios.create({
-  baseURL: 'http://localhost:7542/2.0/',
+  baseURL: baseUrlAuth,
   withCredentials: true,
 });
 

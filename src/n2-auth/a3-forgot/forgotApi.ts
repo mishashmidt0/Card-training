@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+import { baseUrlAuth } from '../a5-constants/constants';
+
 export const instance = axios.create({
-  baseURL: 'https://neko-back.herokuapp.com/2.0/',
+  baseURL: baseUrlAuth,
   withCredentials: true,
 });
 

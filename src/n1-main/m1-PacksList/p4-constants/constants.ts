@@ -1,3 +1,6 @@
+import { baseUrlAuth } from '../../../n2-auth/a5-constants/constants';
+
+export const baseUrl = baseUrlAuth;
 export const minRangeValue = 0;
 export const maxRangeValue = 110;
 export const initPageCount = 10;
