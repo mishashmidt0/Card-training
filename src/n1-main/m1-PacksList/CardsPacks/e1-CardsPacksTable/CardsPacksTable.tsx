@@ -83,7 +83,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const getCards = useCallback((cardPackId: string): void => {
     dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
     dispatch(setCurrentCardPackIdAC(cardPackId));
-    navigate('/cards');
+    navigate(`/cards/${cardPackId}`);
   }, []);
 
   const removeCardPack = useCallback(

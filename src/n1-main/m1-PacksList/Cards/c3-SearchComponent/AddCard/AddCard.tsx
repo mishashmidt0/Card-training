@@ -5,11 +5,12 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useParams } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../../n4-types';
-import { useAppSelector, useTypedDispatch } from '../../../../../n5-bll/redux';
+import { useTypedDispatch } from '../../../../../n5-bll/redux';
 import { AddPackTitle } from '../../../p3-enums/enums';
-import { createNewCardTC } from '../../cards-reducer';
+import { createNewCardTC, getCardsTC } from '../../cards-reducer';
 import { createCardType } from '../../cardsAPI';
 
 import s from './AddCard.module.css';
@@ -28,7 +29,7 @@ const styleBox = {
 
 export const AddCard = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  const cardPackId = useAppSelector(state => state.app.cardPackId);
+  const { cardPackId } = useParams();
   const [questionValue, setQuestionValue] = React.useState<string>('');
   const [answerValue, setAnswerValue] = React.useState<string>('');
   const [open, setOpen] = React.useState(false);
@@ -47,6 +48,7 @@ export const AddCard = (): ReturnComponentType => {
     const payload = { cardsPack_id: cardPackId };
 
     dispatch(createNewCardTC(newPack, payload));
+    dispatch(getCardsTC(payload));
 
     handleClose();
     setQuestionValue('');
