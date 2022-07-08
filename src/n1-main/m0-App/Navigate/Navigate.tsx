@@ -21,7 +21,7 @@ enum PATH {
   forgot = '/forgot',
   newPassword = '/set-new-password/:token',
   error = '/*',
-  cards = '/cards',
+  cards = '/cards/:cardPackId',
 }
 
 export const Navigate = (): ReturnComponentType => {
