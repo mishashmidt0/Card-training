@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/Card-training/static/css/main.2bb7d528.css",
-    "main.js": "/Card-training/static/js/main.e9723f03.js",
+    "main.css": "/Card-training/static/css/main.796cb9e5.css",
+    "main.js": "/Card-training/static/js/main.b3b7ef92.js",
     "static/js/787.28cb0dcd.chunk.js": "/Card-training/static/js/787.28cb0dcd.chunk.js",
     "static/media/ZSix.gif": "/Card-training/static/media/ZSix.6be24ee38dc1629b1c3c.gif",
+    "static/media/atom_icon-icons.com_53030.svg": "/Card-training/static/media/atom_icon-icons.com_53030.57270fa3685245d179eb8436fc1cc772.svg",
     "static/media/defaultAva.jpg": "/Card-training/static/media/defaultAva.9437550eec4e54627029.jpg",
     "static/media/404.png": "/Card-training/static/media/404.1062f5e41ef989b5973a.png",
     "index.html": "/Card-training/index.html",
-    "main.2bb7d528.css.map": "/Card-training/static/css/main.2bb7d528.css.map",
-    "main.e9723f03.js.map": "/Card-training/static/js/main.e9723f03.js.map",
+    "main.796cb9e5.css.map": "/Card-training/static/css/main.796cb9e5.css.map",
+    "main.b3b7ef92.js.map": "/Card-training/static/js/main.b3b7ef92.js.map",
     "787.28cb0dcd.chunk.js.map": "/Card-training/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2bb7d528.css",
-    "static/js/main.e9723f03.js"
+    "static/css/main.796cb9e5.css",
+    "static/js/main.b3b7ef92.js"
   ]
 }
