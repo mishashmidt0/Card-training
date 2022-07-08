@@ -1,21 +1,21 @@
 .paginatorContainer {
-    background-color: #ac41d0;
-    border-radius: 0 0 10px 10px;
+  background-color: #ac41d0;
+  border-radius: 0 0 10px 10px;
 }
 
 .paginatorContainer p {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .paginatorContainer div {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .paginatorContainer button {
-    transition-duration: 500ms;
+  transition-duration: 500ms;
 }
 .paginatorContainer button:hover {
-    background-color: rgb(172, 65, 208);
+  background-color: rgb(172, 65, 208);
 }
