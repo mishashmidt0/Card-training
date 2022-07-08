@@ -8,7 +8,7 @@
 }
 
 .tableHeadContainer th {
-  background-color: #ffc445;
+  background-color: #6da5de;
   font-size: 16px;
   font-weight: 600;
 }
@@ -23,7 +23,7 @@
 }
 
 .cardsCountText:hover {
-  background-color: rgb(255, 150, 36);
+  background-color: #9dccf6;
 }
 
 .lastUpdateText {
@@ -32,8 +32,6 @@
 }
 
 .lastUpdateText:hover {
-  background-color: rgb(255, 150, 36);
+  background-color: #9dccf6;
 }
-.cardContainer div table tbody:nth-child(even) {
-  background-color: #3b61df !important;
-}
+

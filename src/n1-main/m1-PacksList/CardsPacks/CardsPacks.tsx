@@ -14,7 +14,7 @@ export const CardsPacks = (): ReturnComponentType => {
   useEffect(() => {
     // eslint-disable-next-line no-magic-numbers
     dispatch(getCardsPacksTC({ page: 1, pageCount: 10 }));
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className={s.cardsPacksContainer}>

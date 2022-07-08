@@ -65,7 +65,7 @@ export const AddCard = (): ReturnComponentType => {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen} color="secondary">
+      <Button variant="contained" onClick={handleOpen}>
         Create new card
       </Button>
       <Modal

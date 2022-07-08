@@ -33,7 +33,12 @@ export const SearchCard = (): ReturnComponentType => {
 
   const search = useCallback(
     (value: string): void => {
-      const payload = { cardsPack_id: cardPackId, cardQuestion: value };
+      const payload = {
+        cardsPack_id: cardPackId,
+        cardQuestion: value,
+        page: 1,
+        pageCount: 10,
+      };
 
       dispatch(getCardsTC(payload));
     },
@@ -52,7 +57,7 @@ export const SearchCard = (): ReturnComponentType => {
   return (
     <div className={s.containerSearchAndButton}>
       <div className={s.SearchContainer}>
-        <SearchIcon sx={{ color: 'white' }} />
+        <SearchIcon sx={{ color: 'black' }} />
         <input
           type="text"
           className={s.search}

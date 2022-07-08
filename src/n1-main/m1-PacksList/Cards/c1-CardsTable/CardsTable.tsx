@@ -103,7 +103,7 @@ export const CardsTable = (): ReturnComponentType => {
               /* eslint-disable-next-line no-magic-numbers */
               className={`${s.cardContainer} ${index % 2 ? s.addBackGround : ''}`}
             >
-              <TableCell component="th" scope="row">
+              <TableCell component="th" scope="row" className={s.questionText}>
                 {cards.question}
               </TableCell>
               <TableCell align="center">{cards.answer}</TableCell>
