@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import TablePagination from '@mui/material/TablePagination';
+import { useParams } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
@@ -15,7 +16,7 @@ export const CardsPagination = (): ReturnComponentType => {
 
   const dispatch = useTypedDispatch();
   const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount);
-  const cardPackId = useAppSelector(state => state.app.cardPackId);
+  const { cardPackId } = useParams();
 
   const handleChangePage: (
     event: React.MouseEvent<HTMLButtonElement> | null,

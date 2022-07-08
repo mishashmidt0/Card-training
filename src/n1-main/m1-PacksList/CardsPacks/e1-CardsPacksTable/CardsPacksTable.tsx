@@ -11,9 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
-import { setCurrentCardPackIdAC } from '../../../m0-App/app-reducer';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { getCardsTC } from '../../Cards/cards-reducer';
 import { FilterText } from '../../p3-enums/enums';
 import { getCardsPacksTC, removeCardPackTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
@@ -81,8 +79,6 @@ export const CardsPacksTable = (): ReturnComponentType => {
 
   const navigate = useNavigate();
   const getCards = useCallback((cardPackId: string): void => {
-    dispatch(getCardsTC({ cardsPack_id: cardPackId, page: 1, pageCount: 10 }));
-    dispatch(setCurrentCardPackIdAC(cardPackId));
     navigate(`/cards/${cardPackId}`);
   }, []);
 

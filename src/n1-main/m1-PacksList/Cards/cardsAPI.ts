@@ -7,7 +7,7 @@ export const instance = axios.create({
 
 export const cardsAPI = {
   getCards(payload: ResCardsType) {
-    return instance.get('cards/card', {
+    return instance.get<any, ResponseCards>('cards/card', {
       params: { ...payload },
     });
   },
@@ -47,14 +47,14 @@ export type CardsDataType = {
   pageCount: number;
   packUserId: string;
 };
-// type ResponseCardsPack = {
-//   config: any;
-//   data: CardsDataType;
-//   headers: any;
-//   request: any;
-//   status: number;
-//   statusText: string;
-// };
+type ResponseCards = {
+  config: any;
+  data: CardsDataType;
+  headers: any;
+  request: any;
+  status: number;
+  statusText: string;
+};
 export type ResCardsType = {
   cardAnswer?: string;
   cardQuestion?: string;

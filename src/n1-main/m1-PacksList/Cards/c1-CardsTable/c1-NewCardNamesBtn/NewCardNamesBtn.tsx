@@ -5,9 +5,10 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useParams } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../../n4-types';
-import { useAppSelector, useTypedDispatch } from '../../../../../n5-bll/redux';
+import { useTypedDispatch } from '../../../../../n5-bll/redux';
 import { NewPackTitle } from '../../../p3-enums/enums';
 import { changeCardTC, getCardsTC } from '../../cards-reducer';
 
@@ -32,7 +33,7 @@ export const NewCardNamesBtn = ({
   loading,
 }: NewCardPackNamePropsType): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  const cardPackId = useAppSelector(state => state.app.cardPackId);
+  const { cardPackId } = useParams();
 
   const [questionValue, setQuestionValue] = React.useState<string>(question);
   const [answerValue, setAnswerValue] = React.useState<string>(answer);

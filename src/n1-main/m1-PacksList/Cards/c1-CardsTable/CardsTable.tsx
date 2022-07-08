@@ -8,6 +8,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useParams } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
@@ -21,7 +22,7 @@ import s from './CardsTable.module.css';
 export const CardsTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const cardsData = useAppSelector(state => state.cards);
-  const cardsPackId = useAppSelector(state => state.app.cardPackId);
+  const { cardPackId } = useParams();
   const packUserId = useAppSelector(state => state.cards.packUserId);
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
@@ -33,7 +34,7 @@ export const CardsTable = (): ReturnComponentType => {
     if (sortCardsUpdate) {
       dispatch(
         getCardsTC({
-          cardsPack_id: cardsPackId,
+          cardsPack_id: cardPackId,
           page: 1,
           pageCount: 10,
           sortCards: '0updated',
@@ -42,7 +43,7 @@ export const CardsTable = (): ReturnComponentType => {
     } else {
       dispatch(
         getCardsTC({
-          cardsPack_id: cardsPackId,
+          cardsPack_id: cardPackId,
           page: 1,
           pageCount: 10,
           sortCards: '1updated',
@@ -57,7 +58,7 @@ export const CardsTable = (): ReturnComponentType => {
 
       dispatch(getCardsTC({ cardsPack_id: cardsPackId, page: 1, pageCount: 10 }));
     },
-    [dispatch],
+    [cardPackId],
   );
 
   return (

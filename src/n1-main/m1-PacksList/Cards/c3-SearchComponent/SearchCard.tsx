@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
 
 import SearchIcon from '@mui/icons-material/Search';
+import { useParams } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
-import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
+import { useTypedDispatch } from '../../../../n5-bll/redux';
 import { timeout } from '../../p4-constants/constants';
 import { getCardsTC } from '../cards-reducer';
 
@@ -26,15 +27,18 @@ const debounce = <Params extends any[]>(
 
 export const SearchCard = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  const cardPackId = useAppSelector(state => state.app.cardPackId);
+  const { cardPackId } = useParams();
 
   const [searchValue, setSearchValue] = useState('');
 
-  const search = useCallback((value: string): void => {
-    const payload = { cardsPack_id: cardPackId, cardQuestion: value };
+  const search = useCallback(
+    (value: string): void => {
+      const payload = { cardsPack_id: cardPackId, cardQuestion: value };
 
-    dispatch(getCardsTC(payload));
-  }, []);
+      dispatch(getCardsTC(payload));
+    },
+    [cardPackId],
+  );
 
   const searchDebounce = debounce(search, timeout);
 

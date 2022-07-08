@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { ReturnComponentType } from '../../../../../n4-types';
 import { useTypedDispatch } from '../../../../../n5-bll/redux';
 import { AddPackTitle } from '../../../p3-enums/enums';
-import { createNewCardTC, getCardsTC } from '../../cards-reducer';
+import { createNewCardTC } from '../../cards-reducer';
 import { createCardType } from '../../cardsAPI';
 
 import s from './AddCard.module.css';
@@ -39,16 +39,16 @@ export const AddCard = (): ReturnComponentType => {
     setQuestionValue('');
     setAnswerValue('');
   };
+
   const createPack = (): void => {
     const newPack: createCardType = {
       cardsPack_id: cardPackId,
       question: questionValue,
       answer: answerValue,
     };
-    const payload = { cardsPack_id: cardPackId };
+    const payload = { cardsPack_id: cardPackId, page: 1, pageCount: 10 };
 
     dispatch(createNewCardTC(newPack, payload));
-    dispatch(getCardsTC(payload));
 
     handleClose();
     setQuestionValue('');
