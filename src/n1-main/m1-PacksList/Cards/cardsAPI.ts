@@ -17,8 +17,10 @@ export const cardsAPI = {
   removeCard(cardId: string) {
     return instance.delete('cards/card', { params: { id: cardId } });
   },
-  changeCard(cardId: string, value: string) {
-    return instance.put('cards/card', { card: { _id: cardId, question: value } });
+  changeCard(cardId: string, questionValue: string, answerValue: string) {
+    return instance.put('cards/card', {
+      card: { _id: cardId, question: questionValue, answer: answerValue },
+    });
   },
 };
 

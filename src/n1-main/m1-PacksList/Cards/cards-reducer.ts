@@ -98,10 +98,11 @@ export const removeCardTC = (cardId: string) => async (dispatch: TypedDispatch) 
   }
 };
 export const changeCardTC =
-  (cardId: string, value: string) => async (dispatch: TypedDispatch) => {
+  (cardId: string, questionValue: string, answerValue: string) =>
+  async (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     try {
-      await cardsAPI.changeCard(cardId, value);
+      await cardsAPI.changeCard(cardId, questionValue, answerValue);
     } catch (e) {
       const err = e as Error | AxiosError<{ error: string }>;
 

@@ -15,13 +15,13 @@ import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { getCardsTC, removeCardTC } from '../cards-reducer';
 import { CardsType } from '../cardsAPI';
 
-import { NewCardQuestionBtn } from './c1-NewCardQuestionBtn/NewCardQuestionBtn';
+import { NewCardNamesBtn } from './c1-NewCardNamesBtn/NewCardNamesBtn';
 import s from './CardsTable.module.css';
 
 export const CardsTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const cardsData = useAppSelector(state => state.cards);
-  const cardsPackId = useAppSelector(state => state.cards.cards[0].cardsPack_id);
+  const cardsPackId = useAppSelector(state => state.app.cardPackId);
   const packUserId = useAppSelector(state => state.cards.packUserId);
   // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
@@ -94,11 +94,13 @@ export const CardsTable = (): ReturnComponentType => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {cardsData.cards.map((cards: CardsType) => (
+          {cardsData.cards.map((cards: CardsType, index) => (
             <TableRow
               /* eslint-disable-next-line no-underscore-dangle */
               key={cards._id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              /* eslint-disable-next-line no-magic-numbers */
+              className={`${s.cardContainer} ${index % 2 ? s.addBackGround : ''}`}
             >
               <TableCell component="th" scope="row">
                 {cards.question}
@@ -115,6 +117,7 @@ export const CardsTable = (): ReturnComponentType => {
                     <Button
                       variant="contained"
                       color="error"
+                      disabled={loading}
                       onClick={() => {
                         // eslint-disable-next-line no-underscore-dangle
                         removeCard(cards._id, cards.cardsPack_id);
@@ -123,7 +126,7 @@ export const CardsTable = (): ReturnComponentType => {
                       Delete
                     </Button>
                     {/* eslint-disable-next-line no-underscore-dangle */}
-                    <NewCardQuestionBtn
+                    <NewCardNamesBtn
                       loading={loading}
                       question={cards.question}
                       answer={cards.answer}

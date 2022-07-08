@@ -7,8 +7,10 @@
   height: 100%;
 }
 
-.tableHeadContainer {
-  background-color: #b2abd9;
+.tableHeadContainer th {
+  background-color: #ac41d0;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .tableRow span {
@@ -21,7 +23,7 @@
 }
 
 .cardsCountText:hover {
-  background-color: rgba(50, 123, 255, 0.38);
+  background-color: rgb(172, 65, 208);
 }
 
 .lastUpdateText {
@@ -30,5 +32,23 @@
 }
 
 .lastUpdateText:hover {
-  background-color: rgba(50, 123, 255, 0.38);
+  background-color: rgb(172, 65, 208);
+}
+.cardContainer div table tbody:nth-child(even) {
+  background-color: #3b61df !important;
+}
+
+.cardContainer td {
+  font-size: 14px;
+  font-weight: 500;
+}
+.addBackGround {
+  background-color: rgb(231, 194, 255);
+}
+.buttonContainer {
+}
+
+.buttonContainer button {
+  padding: 0 5px 0 5px;
+  margin: 0 5px 0 5px;
 }

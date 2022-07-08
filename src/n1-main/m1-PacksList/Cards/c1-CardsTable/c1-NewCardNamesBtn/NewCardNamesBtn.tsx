@@ -11,7 +11,7 @@ import { useAppSelector, useTypedDispatch } from '../../../../../n5-bll/redux';
 import { NewPackTitle } from '../../../p3-enums/enums';
 import { changeCardTC, getCardsTC } from '../../cards-reducer';
 
-import style from './NewCardQuestionBtn.module.css';
+import style from './NewCardNamesBtn.module.css';
 
 const styleBox = {
   position: 'absolute' as 'absolute',
@@ -25,7 +25,7 @@ const styleBox = {
   p: 4,
 };
 
-export const NewCardQuestionBtn = ({
+export const NewCardNamesBtn = ({
   question,
   answer,
   cardId,
@@ -35,28 +35,29 @@ export const NewCardQuestionBtn = ({
   const cardPackId = useAppSelector(state => state.app.cardPackId);
 
   const [questionValue, setQuestionValue] = React.useState<string>(question);
-  // const [answerValue, setAnswerValue] = React.useState<string>(answer);
+  const [answerValue, setAnswerValue] = React.useState<string>(answer);
   const [open, setOpen] = React.useState(false);
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => {
     setOpen(false);
-    setQuestionValue('');
   };
   const changeCardPackName = (): void => {
-    dispatch(changeCardTC(cardId, questionValue));
+    dispatch(changeCardTC(cardId, questionValue, answerValue));
     handleClose();
-    setQuestionValue('');
     dispatch(getCardsTC({ cardsPack_id: cardPackId }));
   };
 
-  const changeText = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const changeQuestion = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setQuestionValue(e.target.value);
+  };
+  const changeAnswer = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setAnswerValue(e.target.value);
   };
 
   return (
     <span>
       <Button variant="contained" onClick={handleOpen} disabled={loading}>
-        {answer}
+        Edit
       </Button>
       <Modal
         open={open}
@@ -74,7 +75,14 @@ export const NewCardQuestionBtn = ({
               label="Question"
               variant="outlined"
               value={questionValue}
-              onChange={changeText}
+              onChange={changeQuestion}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Answer"
+              variant="outlined"
+              value={answerValue}
+              onChange={changeAnswer}
             />
             <div>
               <Button variant="contained" onClick={handleClose}>
