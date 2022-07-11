@@ -81,6 +81,9 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const getCards = useCallback((cardPackId: string): void => {
     navigate(`/cards/${cardPackId}`);
   }, []);
+  const learnCards = useCallback((cardPackId: string, cardPackName: string): void => {
+    navigate(`/learn/${cardPackName}/${cardPackId}`);
+  }, []);
 
   const removeCardPack = useCallback(
     (cardPackId: string): void => {
@@ -146,6 +149,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
               cardPackUserId={cardPack.user_id}
               getCards={getCards}
               removeCardPack={removeCardPack}
+              learnCards={learnCards}
               index={index}
             />
           ))}

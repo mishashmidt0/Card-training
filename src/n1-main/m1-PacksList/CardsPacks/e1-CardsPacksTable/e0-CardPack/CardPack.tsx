@@ -21,6 +21,7 @@ export const CardPack = ({
   cardPackUserId,
   getCards,
   removeCardPack,
+  learnCards,
   index,
 }: CardPackPropsType): ReturnComponentType => {
   const loading = useAppSelector(state => state.app.loading);
@@ -28,10 +29,13 @@ export const CardPack = ({
 
   const onClickHandler = useCallback((): void => {
     getCards(cardPackId);
-  }, [cardPackId]);
+  }, [cardPackId, getCards]);
   const removeCardPackHandler = useCallback((): void => {
     removeCardPack(cardPackId);
-  }, [filter]);
+  }, [cardPackId, removeCardPack, filter]);
+  const learnCardPackHandler = useCallback((): void => {
+    learnCards(cardPackId, cardPackName);
+  }, [cardPackId, learnCards]);
 
   const cutTheString = (str: string): string => {
     if (str.length >= maxLengthPackName) {
@@ -47,7 +51,11 @@ export const CardPack = ({
       /* eslint-disable-next-line no-magic-numbers */
       className={`${s.cardContainer} ${index % 2 ? s.addBackGround : ''}`}
     >
-      <TableCell scope="row">{cutTheString(cardPackName)}</TableCell>
+      <TableCell scope="row" className={s.cardPackName}>
+        <button onClick={onClickHandler} type="button">
+          {cutTheString(cardPackName)}
+        </button>
+      </TableCell>
       <TableCell align="center">{cardPackCardsCount}</TableCell>
       <TableCell align="center">
         {new Date(cardPackUpdated).toLocaleDateString()}
@@ -69,9 +77,9 @@ export const CardPack = ({
         )}
         <Button
           variant="outlined"
-          onClick={onClickHandler}
-          disabled={loading}
+          disabled={cardPackCardsCount === 0 || loading}
           style={{ background: 'white' }}
+          onClick={learnCardPackHandler}
         >
           Learn
         </Button>
@@ -90,5 +98,6 @@ type CardPackPropsType = {
   cardPackUserId: string;
   getCards: (cardPackId: string) => void;
   removeCardPack: (cardPackId: string) => void;
+  learnCards: (cardPackId: string, cardPackName: string) => void;
   index: number;
 };

@@ -12,3 +12,15 @@
   padding: 0 5px 0 5px;
   margin: 0 5px 0 5px;
 }
+
+.cardPackName button{
+  cursor: pointer;
+  transition-duration: 300ms;
+  padding: 5px;
+  background-color: transparent;
+}
+.cardPackName button:hover {
+  color: #0058ab;
+  background-color: #9dccf6;
+  border-radius: 5px;
+}

@@ -9,6 +9,7 @@ import { NewPassword } from '../../../n2-auth/a3-forgot/NewPassword/NewPassword'
 import { Error } from '../../../n3-error/Error';
 import { ReturnComponentType } from '../../../n4-types';
 import { Cards } from '../../m1-PacksList/Cards/Cards';
+import { LearnCards } from '../../m1-PacksList/LearnCards/LearnCards';
 import { PecksList } from '../../m1-PacksList/PecksList';
 import { Profile } from '../../m2-Profile/Profile';
 
@@ -22,6 +23,7 @@ enum PATH {
   newPassword = '/set-new-password/:token',
   error = '/*',
   cards = '/cards/:cardPackId',
+  learn = '/learn/:cardPackName/:cardPackId',
 }
 
 export const Navigate = (): ReturnComponentType => {
@@ -36,6 +38,7 @@ export const Navigate = (): ReturnComponentType => {
       <Route path={PATH.newPassword} element={<NewPassword />} />
       <Route path={PATH.error} element={<Error />} />
       <Route path={PATH.cards} element={<Cards />} />
+      <Route path={PATH.learn} element={<LearnCards />} />
     </Routes>
   );
 };
