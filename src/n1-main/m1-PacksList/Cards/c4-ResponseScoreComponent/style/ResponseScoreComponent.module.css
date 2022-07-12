@@ -1,0 +1,71 @@
+
+.ResponseScoreContainer {
+    width: 600px;
+    height: 1000px;
+    background-color: #fff;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input.star1,
+input.star2,
+input.star3,
+input.star4,
+input.star5 {
+    display: none;
+}
+
+label.star:before {
+    content: '\f006';
+    font-family: FontAwesome;
+    transition: all .55s;
+}
+
+.cont {
+    text-align: center;
+    margin: 4% auto;
+    padding: 30px 0;
+    overflow: hidden;
+}
+
+.stars {
+    display: inline-block;
+}
+
+label.star {
+    padding: 10px;
+    font-size: 36px;
+    color: #444;
+    transition: all .2s;
+}
+
+
+label.starAllChecked:before {
+    content: '\f005';
+    color: #fcd55e;
+    transition: all .25s;
+    text-shadow: 0 0 20px #952;
+}
+
+label.starMiddleChecked:before {
+    content: '\f005';
+    color: #fbd62f;
+    transition: all .25s;
+    text-shadow: 0 0 10px #952;
+}
+
+label.starDownChecked:before {
+    content: '\f005';
+    color: #F62;
+    text-shadow: 0 0 5px #952;
+}
+
+label.star:hover {
+    transform: rotate(-15deg) scale(1.3);
+}
+
+
+

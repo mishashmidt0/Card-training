@@ -17,7 +17,9 @@ export const MyAllButton = (): ReturnComponentType => {
 
   const ChangeCards = (value: isShowCardsType): void => {
     const payload: ResCardsPacksType =
-      value === FilterText.my ? { user_id: userId, ...filter } : { ...filter };
+      value === FilterText.my
+        ? { user_id: userId, ...filter }
+        : { user_id: '', ...filter };
 
     dispatch(changesShowCardsTC(value, payload));
   };
