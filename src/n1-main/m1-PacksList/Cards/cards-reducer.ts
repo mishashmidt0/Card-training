@@ -83,20 +83,22 @@ export const createNewCardTC =
       dispatch(loading(false));
     }
   };
-export const removeCardTC = (cardId: string) => async (dispatch: TypedDispatch) => {
-  dispatch(loading(true));
-  try {
-    await cardsAPI.removeCard(cardId);
-  } catch (e) {
-    const err = e as Error | AxiosError<{ error: string }>;
+export const removeCardTC =
+  (cardId: string, payload: ResCardsType) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await cardsAPI.removeCard(cardId);
+      dispatch(getCardsTC(payload));
+    } catch (e) {
+      const err = e as Error | AxiosError<{ error: string }>;
 
-    if (axios.isAxiosError(err)) {
-      handleNetworkError(err, dispatch);
+      if (axios.isAxiosError(err)) {
+        handleNetworkError(err, dispatch);
+      }
+    } finally {
+      dispatch(loading(false));
     }
-  } finally {
-    dispatch(loading(false));
-  }
-};
+  };
 export const changeCardTC =
   (cardId: string, questionValue: string, answerValue: string) =>
   async (dispatch: TypedDispatch) => {

@@ -54,9 +54,9 @@ export const CardsTable = (): ReturnComponentType => {
   };
   const removeCard = useCallback(
     (cardId: string, cardsPackId: string): void => {
-      dispatch(removeCardTC(cardId));
+      const payload = { cardsPack_id: cardsPackId, page: 1, pageCount: 10 };
 
-      dispatch(getCardsTC({ cardsPack_id: cardsPackId, page: 1, pageCount: 10 }));
+      dispatch(removeCardTC(cardId, payload));
     },
     [cardPackId],
   );
