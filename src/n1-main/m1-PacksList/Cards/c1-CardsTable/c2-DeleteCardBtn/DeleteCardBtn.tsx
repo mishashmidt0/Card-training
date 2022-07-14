@@ -34,7 +34,13 @@ export const DeleteCardBtn: FC<PropsType> = ({ cardId }): ReturnComponentType =>
   };
 
   return (
-    <GlobalModal color="error" title="Delete" open={open} setOpen={setOpen}>
+    <GlobalModal
+      variant="contained"
+      color="error"
+      title="Delete"
+      open={open}
+      setOpen={setOpen}
+    >
       <div className={s.modalContainer}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Delete card
