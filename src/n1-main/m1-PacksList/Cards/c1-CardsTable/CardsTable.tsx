@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
-import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,10 +12,12 @@ import { useParams } from 'react-router-dom';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { getCardsTC, removeCardTC } from '../cards-reducer';
+import { getCardsTC } from '../cards-reducer';
 import { CardsType } from '../cardsAPI';
+import { CardRating } from '../Rating/CardRating';
 
 import { NewCardNamesBtn } from './c1-NewCardNamesBtn/NewCardNamesBtn';
+import { DeleteCardBtn } from './c2-DeleteCardBtn/DeleteCardBtn';
 import s from './CardsTable.module.css';
 
 export const CardsTable = (): ReturnComponentType => {
@@ -52,14 +53,14 @@ export const CardsTable = (): ReturnComponentType => {
     }
     setSortCardsUpdate(!sortCardsUpdate);
   };
-  const removeCard = useCallback(
-    (cardId: string, cardsPackId: string): void => {
-      dispatch(removeCardTC(cardId));
-
-      dispatch(getCardsTC({ cardsPack_id: cardsPackId, page: 1, pageCount: 10 }));
-    },
-    [cardPackId],
-  );
+  // const removeCard = useCallback(
+  //   (cardId: string, cardsPackId: string): void => {
+  //     const payload = { cardsPack_id: cardsPackId, page: 1, pageCount: 10 };
+  //
+  //     dispatch(removeCardTC(cardId, payload));
+  //   },
+  //   [cardPackId],
+  // );
 
   return (
     <TableContainer component={Paper} className={s.cardsTableContainer}>
@@ -110,22 +111,14 @@ export const CardsTable = (): ReturnComponentType => {
               <TableCell align="center">
                 {new Date(cards.updated).toLocaleDateString()}
               </TableCell>
-              <TableCell align="center">{cards.grade}</TableCell>
+              <TableCell align="center">
+                <CardRating grade={cards.grade} />
+              </TableCell>
               {userId === packUserId && (
                 <TableCell align="center" className={s.buttonContainer}>
                   <>
                     {/* eslint-disable-next-line no-underscore-dangle */}
-                    <Button
-                      variant="contained"
-                      color="error"
-                      disabled={loading}
-                      onClick={() => {
-                        // eslint-disable-next-line no-underscore-dangle
-                        removeCard(cards._id, cards.cardsPack_id);
-                      }}
-                    >
-                      Delete
-                    </Button>
+                    <DeleteCardBtn cardId={cards._id} />
                     {/* eslint-disable-next-line no-underscore-dangle */}
                     <NewCardNamesBtn
                       loading={loading}

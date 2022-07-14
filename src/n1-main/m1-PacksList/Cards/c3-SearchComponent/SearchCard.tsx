@@ -8,7 +8,7 @@ import { useTypedDispatch } from '../../../../n5-bll/redux';
 import { timeout } from '../../p4-constants/constants';
 import { getCardsTC } from '../cards-reducer';
 
-import { AddCard } from './AddCard/AddCard';
+import { AddCardWithChildren } from './AddCard/AddCardWithChildren';
 import s from './SearchCard.module.css';
 
 const debounce = <Params extends any[]>(
@@ -66,7 +66,7 @@ export const SearchCard = (): ReturnComponentType => {
           value={searchValue}
         />
       </div>
-      <AddCard />
+      <AddCardWithChildren />
     </div>
   );
 };
