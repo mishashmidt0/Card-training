@@ -6,7 +6,7 @@ import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { Star } from '../../p3-enums/enums';
 
-import { changeStyleStars } from './reducer/responce-reducer';
+import { changeStyleStars, sendGradeTC } from './reducer/responce-reducer';
 import style from './style/ResponseScoreComponent.module.css';
 
 export const ResponseScoreComponent = (): ReturnComponentType => {
@@ -29,6 +29,9 @@ export const ResponseScoreComponent = (): ReturnComponentType => {
       default:
         break;
     }
+  };
+  const sendGrade = (): void => {
+    dispatch(sendGradeTC());
   };
 
   return (
@@ -62,7 +65,7 @@ export const ResponseScoreComponent = (): ReturnComponentType => {
             </form>
           </div>
         </div>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" onClick={sendGrade}>
           grade
         </Button>
       </div>
