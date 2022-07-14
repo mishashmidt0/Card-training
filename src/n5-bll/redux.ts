@@ -4,6 +4,10 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
 import {
+  ResActionType,
+  ResponseReducer,
+} from '../n1-main/m1-PacksList/Cards/c4-ResponseScoreComponent/reducer/responce-reducer';
+import {
   CardsActionsType,
   cardsReducer,
 } from '../n1-main/m1-PacksList/Cards/cards-reducer';
@@ -38,6 +42,7 @@ const reducers = combineReducers({
   cardsPacks: cardsPacksReducer,
   cards: cardsReducer,
   filter: FilterReducer,
+  response: ResponseReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));
@@ -52,6 +57,7 @@ export type AllActionType =
   | ProfileActionsType
   | CardsPacksActionsType
   | CardsActionsType
+  | ResActionType
   | filterActionType;
 
 export type AppThunk<ReturnType = void> = ThunkAction<

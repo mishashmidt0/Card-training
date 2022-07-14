@@ -25,3 +25,12 @@ export enum FilterText {
   my = 'my',
   header = 'Show packs cards',
 }
+
+export enum Star {
+  star0,
+  star1,
+  star2,
+  star3,
+  star4,
+  star5,
+}
