@@ -14,13 +14,19 @@ export const cardsPacksAPI = {
     });
   },
   createCardsPack(payload: createCardsPackType) {
-    return instance.post('cards/pack', { cardsPack: { ...payload } });
+    return instance.post('cards/pack', { cardsPack: payload });
   },
   removeCardsPack(cardPackId: string) {
     return instance.delete('cards/pack', { params: { id: cardPackId } });
   },
   changeCardPackName(cardPackId: string, value: string) {
     return instance.put('cards/pack', { cardsPack: { _id: cardPackId, name: value } });
+  },
+  sendGrade(payloadGrade: payloadGrade) {
+    return instance.put<any, resChangeCardGrade, payloadGrade>(
+      'cards/grade',
+      payloadGrade,
+    );
   },
 };
 
@@ -73,4 +79,18 @@ export type createCardsPackType = {
   name: string;
   deckCover?: string;
   private?: boolean;
+};
+export type payloadGrade = {
+  grade: number;
+  card_id: string;
+};
+export type resChangeCardGrade = {
+  updatedGrade: {
+    _id: string;
+    cardsPack_id: string;
+    card_id: string;
+    user_id: string;
+    grade: number;
+    shots: number;
+  };
 };

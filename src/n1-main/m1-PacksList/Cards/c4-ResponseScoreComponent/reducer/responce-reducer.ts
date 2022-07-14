@@ -1,7 +1,12 @@
 // reducer
 import { v4 as uuidv4 } from 'uuid';
 
+import { handleNetworkError } from '../../../../../n2-auth/a4-utils/handle-error-utils';
+import { TypedDispatch } from '../../../../../n5-bll/redux';
+import { loading } from '../../../../m0-App/app-reducer';
+import { cardsPacksAPI, payloadGrade } from '../../../CardsPacks/cardsPacksAPI';
 import { Star } from '../../../p3-enums/enums';
+import { changeGradeAC } from '../../cards-reducer';
 import style from '../style/ResponseScoreComponent.module.css';
 
 enum ActionTypeForResponse {
@@ -16,6 +21,10 @@ const initialState: initialStateType = {
     { id: uuidv4(), class: style[`star${Star.star4}`], activeStyle: '', num: Star.star4 },
     { id: uuidv4(), class: style[`star${Star.star5}`], activeStyle: '', num: Star.star5 },
   ],
+  cardDate: {
+    grade: 1,
+    card_id: '',
+  },
 };
 
 export const ResponseReducer = (
@@ -45,20 +54,22 @@ export const changeStyleStars = (index: number, style: string) =>
 
 // thunk
 
-// export const changeFilterPacksTC =
-//   (payload: ResCardsPacksType) => async (dispatch: TypedDispatch) => {
-//     dispatch(loading(true));
-//     try {
-//       const res = await cardsPacksAPI.getCardsPacks(payload);
-//
-//       dispatch(getCardsPacksAC(res.data));
-//       dispatch(changeFilter(payload));
-//     } catch (err: any) {
-//       handleNetworkError(err, dispatch);
-//     } finally {
-//       dispatch(loading(false));
-//     }
-//   };
+export const sendGradeTC = () => async (dispatch: TypedDispatch) => {
+  dispatch(loading(true));
+  try {
+    const payload = {
+      grade: 1,
+      card_id: '',
+    };
+    const res = await cardsPacksAPI.sendGrade(payload);
+
+    dispatch(changeGradeAC(res));
+  } catch (err: any) {
+    handleNetworkError(err, dispatch);
+  } finally {
+    dispatch(loading(false));
+  }
+};
 
 // type
 export type changeStyleStarsType = ReturnType<typeof changeStyleStars>;
@@ -73,4 +84,5 @@ type stars = {
 };
 type initialStateType = {
   starsArr: stars[];
+  cardDate: payloadGrade;
 };
