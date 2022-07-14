@@ -1,13 +1,11 @@
 import * as React from 'react';
+import { FC, ReactNode } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 
-import { ReturnComponentType } from '../../../n4-types';
-
-const style = {
+const styleBox = {
   position: 'absolute' as 'absolute',
   top: '50%',
   left: '50%',
@@ -19,28 +17,39 @@ const style = {
   p: 4,
 };
 
-export const GlobalModal = (): ReturnComponentType => {
-  const [open, setOpen] = React.useState(false);
+type PropsType = {
+  children: ReactNode;
+  title: string;
+  open: boolean;
+  setOpen: (value: boolean) => void;
+  variant?: 'text' | 'outlined' | 'contained';
+  // eslint-disable-next-line react/no-unused-prop-types
+  color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+};
+
+export const GlobalModal: FC<PropsType> = ({
+  color,
+  variant,
+  setOpen,
+  open,
+  children,
+  title,
+}) => {
   const handleOpen = (): void => setOpen(true);
   const handleClose = (): void => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      <Button color={color} variant={variant} onClick={handleOpen}>
+        {title}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
+        <Box sx={styleBox}>{children}</Box>
       </Modal>
     </div>
   );
