@@ -33,7 +33,6 @@ const debounce = <Params extends any[]>(
 export const Search = (): ReturnComponentType => {
   const filter = useAppSelector(state => state.filter);
   const dispatch = useTypedDispatch();
-  // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
 
   const search = useCallback(

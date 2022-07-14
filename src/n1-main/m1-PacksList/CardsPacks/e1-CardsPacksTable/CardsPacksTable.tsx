@@ -21,7 +21,6 @@ import { CardPack } from './e0-CardPack/CardPack';
 
 export const CardsPacksTable = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
-  // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const cardsPacksData = useAppSelector(state => state.cardsPacks);
   const loading = useAppSelector(state => state.app.loading);

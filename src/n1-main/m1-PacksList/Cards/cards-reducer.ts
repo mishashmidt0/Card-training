@@ -3,14 +3,12 @@ import axios, { AxiosError } from 'axios';
 import { handleNetworkError } from '../../../n2-auth/a4-utils/handle-error-utils';
 import { TypedDispatch } from '../../../n5-bll/redux';
 import { loading } from '../../m0-App/app-reducer';
-import { resChangeCardGrade } from '../CardsPacks/cardsPacksAPI';
 
 import { cardsAPI, CardsDataType, createCardType, ResCardsType } from './cardsAPI';
 
 // enum
 enum cardsTypes {
   getCards = 'CARDS/GET-CARDS',
-  changeGrade = 'CARDS/CHANGE-GRADE',
 }
 
 // reducer
@@ -47,17 +45,6 @@ export const cardsReducer = (
   switch (action.type) {
     case cardsTypes.getCards:
       return { ...action.cardsData };
-    case cardsTypes.changeGrade:
-      return {
-        ...state,
-        cards: state.cards.map(pack =>
-          pack.cardsPack_id === action.card.updatedGrade.cardsPack_id &&
-          // eslint-disable-next-line no-underscore-dangle
-          pack._id === action.card.updatedGrade.card_id
-            ? { ...pack, grade: action.card.updatedGrade.grade }
-            : pack,
-        ),
-      };
     default:
       return state;
   }
@@ -66,9 +53,6 @@ export const cardsReducer = (
 // actions
 export const getCardsAC = (cardsData: CardsDataType) =>
   ({ type: cardsTypes.getCards, cardsData } as const);
-
-export const changeGradeAC = (card: resChangeCardGrade) =>
-  ({ type: cardsTypes.changeGrade, card } as const);
 
 // thunks
 export const getCardsTC = (payload: ResCardsType) => async (dispatch: TypedDispatch) => {
@@ -117,11 +101,12 @@ export const removeCardTC =
     }
   };
 export const changeCardTC =
-  (cardId: string, questionValue: string, answerValue: string) =>
+  (cardId: string, questionValue: string, answerValue: string, cardPackId: string) =>
   async (dispatch: TypedDispatch) => {
     dispatch(loading(true));
     try {
       await cardsAPI.changeCard(cardId, questionValue, answerValue);
+      dispatch(getCardsTC({ cardsPack_id: cardPackId }));
     } catch (e) {
       const err = e as Error | AxiosError<{ error: string }>;
 
@@ -133,8 +118,7 @@ export const changeCardTC =
     }
   };
 // n4-types
-type changeGradeACType = ReturnType<typeof changeGradeAC>;
 type getCardsACType = ReturnType<typeof getCardsAC>;
-export type CardsActionsType = getCardsACType | changeGradeACType;
+export type CardsActionsType = getCardsACType;
 
 type InitialStateType = typeof initialState;

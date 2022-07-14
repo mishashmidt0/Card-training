@@ -5,8 +5,8 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AppActionsType, appReducer } from '../n1-main/m0-App/app-reducer';
 import {
   ResActionType,
-  ResponseReducer,
-} from '../n1-main/m1-PacksList/Cards/c4-ResponseScoreComponent/reducer/responce-reducer';
+  GradeReducer,
+} from '../n1-main/m1-PacksList/Cards/c4-GradeComponent/reducer/grade-reducer';
 import {
   CardsActionsType,
   cardsReducer,
@@ -42,7 +42,7 @@ const reducers = combineReducers({
   cardsPacks: cardsPacksReducer,
   cards: cardsReducer,
   filter: FilterReducer,
-  response: ResponseReducer,
+  response: GradeReducer,
 });
 
 export const store = createStore(reducers, applyMiddleware(thunk));

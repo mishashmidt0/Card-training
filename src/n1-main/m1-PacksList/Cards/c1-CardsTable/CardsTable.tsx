@@ -25,7 +25,6 @@ export const CardsTable = (): ReturnComponentType => {
   const cardsData = useAppSelector(state => state.cards);
   const { cardPackId } = useParams();
   const packUserId = useAppSelector(state => state.cards.packUserId);
-  // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const loading = useAppSelector(state => state.app.loading);
 
@@ -53,14 +52,6 @@ export const CardsTable = (): ReturnComponentType => {
     }
     setSortCardsUpdate(!sortCardsUpdate);
   };
-  // const removeCard = useCallback(
-  //   (cardId: string, cardsPackId: string): void => {
-  //     const payload = { cardsPack_id: cardsPackId, page: 1, pageCount: 10 };
-  //
-  //     dispatch(removeCardTC(cardId, payload));
-  //   },
-  //   [cardPackId],
-  // );
 
   return (
     <TableContainer component={Paper} className={s.cardsTableContainer}>
@@ -117,14 +108,11 @@ export const CardsTable = (): ReturnComponentType => {
               {userId === packUserId && (
                 <TableCell align="center" className={s.buttonContainer}>
                   <>
-                    {/* eslint-disable-next-line no-underscore-dangle */}
                     <DeleteCardBtn cardId={cards._id} />
-                    {/* eslint-disable-next-line no-underscore-dangle */}
                     <NewCardNamesBtn
                       loading={loading}
                       question={cards.question}
                       answer={cards.answer}
-                      /* eslint-disable-next-line no-underscore-dangle */
                       cardId={cards._id}
                     />
                   </>

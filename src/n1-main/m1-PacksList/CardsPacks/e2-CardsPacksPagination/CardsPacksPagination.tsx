@@ -12,7 +12,6 @@ import { getCardsPacksTC } from '../cardsPacks-reducer';
 import s from './CardsPacksPagination.module.css';
 
 export const CardsPacksPagination = (): ReturnComponentType => {
-  // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const filter = useAppSelector(state => state.filter);
   const loading = useAppSelector(state => state.app.loading);

@@ -7,7 +7,7 @@ import { ReturnComponentType } from '../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
 import { getCardsTC } from '../Cards/cards-reducer';
 import { CardsType } from '../Cards/cardsAPI';
-import { forGetRandomCard } from '../p4-constants/constants';
+import { forGetRandomCard, initPageCount } from '../p4-constants/constants';
 
 import s from './LearnCards.module.css';
 
@@ -18,9 +18,10 @@ export const LearnCards = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
 
   useEffect(() => {
-    // eslint-disable-next-line no-magic-numbers
-    dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: 1000 }));
-  }, [cardPackId]);
+    if (cards[0]._id === '5ebbd48876810f1ad0e7ece3') {
+      dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: initPageCount }));
+    }
+  }, []);
 
   const getRandomCard = (cards: CardsType[]): CardsType => {
     const sum = cards.reduce(
@@ -57,7 +58,6 @@ export const LearnCards = (): ReturnComponentType => {
         </Button>
         <Button variant="contained">
           <Link
-            /* eslint-disable-next-line no-underscore-dangle */
             to={`/grade/${cardPackName}/${cardPackId}/${card._id}`}
             className={s.btnShowAnswer}
           >

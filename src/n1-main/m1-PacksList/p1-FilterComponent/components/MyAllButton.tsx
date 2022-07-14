@@ -11,15 +11,14 @@ import style from '../Filter.module.css';
 export const MyAllButton = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const isShow = useAppSelector(state => state.filter.isShowCards);
-  // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const filter = useAppSelector(state => state.filter);
 
   const ChangeCards = (value: isShowCardsType): void => {
     const payload: ResCardsPacksType =
       value === FilterText.my
-        ? { user_id: userId, ...filter }
-        : { user_id: '', ...filter };
+        ? { ...filter, user_id: userId }
+        : { ...filter, user_id: '' };
 
     dispatch(changesShowCardsTC(value, payload));
   };

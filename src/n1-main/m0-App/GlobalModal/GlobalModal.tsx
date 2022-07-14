@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
+import style from './GlobalModal.module.css';
+
 const styleBox = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -23,7 +25,6 @@ type PropsType = {
   open: boolean;
   setOpen: (value: boolean) => void;
   variant?: 'text' | 'outlined' | 'contained';
-  // eslint-disable-next-line react/no-unused-prop-types
   color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
 };
 
@@ -40,6 +41,7 @@ export const GlobalModal: FC<PropsType> = ({
 
   return (
     <div>
+      <div className={style.Closed} />
       <Button color={color} variant={variant} onClick={handleOpen}>
         {title}
       </Button>

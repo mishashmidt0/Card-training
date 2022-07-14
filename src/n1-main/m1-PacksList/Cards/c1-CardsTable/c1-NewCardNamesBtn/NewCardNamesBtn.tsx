@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import { ReturnComponentType } from '../../../../../n4-types';
 import { useTypedDispatch } from '../../../../../n5-bll/redux';
 import { NewPackTitle } from '../../../p3-enums/enums';
-import { changeCardTC, getCardsTC } from '../../cards-reducer';
+import { changeCardTC } from '../../cards-reducer';
 
 import style from './NewCardNamesBtn.module.css';
 
@@ -43,9 +43,8 @@ export const NewCardNamesBtn = ({
     setOpen(false);
   };
   const changeCardPackName = (): void => {
-    dispatch(changeCardTC(cardId, questionValue, answerValue));
+    dispatch(changeCardTC(cardId, questionValue, answerValue, cardPackId!));
     handleClose();
-    dispatch(getCardsTC({ cardsPack_id: cardPackId }));
   };
 
   const changeQuestion = (e: React.ChangeEvent<HTMLInputElement>): void => {
