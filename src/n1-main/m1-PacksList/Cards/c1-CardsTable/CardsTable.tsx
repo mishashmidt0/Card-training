@@ -14,6 +14,7 @@ import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { getCardsTC } from '../cards-reducer';
 import { CardsType } from '../cardsAPI';
+import { CardRating } from '../Rating/CardRating';
 
 import { NewCardNamesBtn } from './c1-NewCardNamesBtn/NewCardNamesBtn';
 import { DeleteCardBtn } from './c2-DeleteCardBtn/DeleteCardBtn';
@@ -110,7 +111,9 @@ export const CardsTable = (): ReturnComponentType => {
               <TableCell align="center">
                 {new Date(cards.updated).toLocaleDateString()}
               </TableCell>
-              <TableCell align="center">{cards.grade}</TableCell>
+              <TableCell align="center">
+                <CardRating grade={cards.grade} />
+              </TableCell>
               {userId === packUserId && (
                 <TableCell align="center" className={s.buttonContainer}>
                   <>
