@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import Button from '@mui/material/Button';
+import Button from '@mui/material/Button/Button';
+import { Link, useParams } from 'react-router-dom';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { Star } from '../../p3-enums/enums';
+import { getCardsTC } from '../cards-reducer';
 
 import { changeStyleStars } from './reducer/responce-reducer';
 import style from './style/ResponseScoreComponent.module.css';
 
 export const ResponseScoreComponent = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
+  const { cardPackId } = useParams();
+  const { cardId } = useParams();
+  const { cardPackName } = useParams();
   const stars = useAppSelector(state => state.response.starsArr);
+  const cards = useAppSelector(state => state.cards.cards);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-magic-numbers
+    dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: 1000 }));
+  }, [cardPackId]);
 
   const isChecked = (index: number): void => {
     switch (index) {
@@ -31,12 +42,14 @@ export const ResponseScoreComponent = (): ReturnComponentType => {
     }
   };
 
+  // eslint-disable-next-line no-underscore-dangle
+  const card = cards.filter(c => c._id === cardId);
+
   return (
     <div className={style.ResponseScoreContainer}>
       <div>
-        <h2>: ReturnComponentType</h2>
-        <p>Question: How works in JavaScript?</p>
-        <p>Answer: his is how works in JavaScript</p>
+        <p>Question: {card[0].question}</p>
+        <p>Answer: {card[0].answer}</p>
         <p>Rate yourself:</p>
 
         <div className={style.cont}>
@@ -62,8 +75,15 @@ export const ResponseScoreComponent = (): ReturnComponentType => {
             </form>
           </div>
         </div>
-        <Button variant="contained" type="submit">
-          grade
+        <Button variant="contained">
+          <Link to="/list" style={{ color: 'white' }}>
+            Cancel
+          </Link>
+        </Button>
+        <Button variant="contained">
+          <Link to={`/learn/${cardPackName}/${cardPackId}`} style={{ color: 'white' }}>
+            Next question
+          </Link>
         </Button>
       </div>
     </div>

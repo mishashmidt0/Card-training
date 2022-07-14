@@ -55,12 +55,14 @@ export const LearnCards = (): ReturnComponentType => {
         >
           <Link to="/list">Cancel</Link>
         </Button>
-        <Button
-          variant="outlined"
-          style={{ background: 'white' }}
-          className={s.btnShowAnswer}
-        >
-          Show answer
+        <Button variant="contained">
+          <Link
+            /* eslint-disable-next-line no-underscore-dangle */
+            to={`/grade/${cardPackName}/${cardPackId}/${card._id}`}
+            className={s.btnShowAnswer}
+          >
+            Show answer
+          </Link>
         </Button>
       </div>
     </div>

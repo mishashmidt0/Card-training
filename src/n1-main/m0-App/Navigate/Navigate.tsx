@@ -25,7 +25,7 @@ enum PATH {
   error = '/*',
   cards = '/cards/:cardPackId',
   learn = '/learn/:cardPackName/:cardPackId',
-  grade = '/grade',
+  grade = '/grade/:cardPackName/:cardPackId/:cardId',
 }
 
 export const Navigate = (): ReturnComponentType => {

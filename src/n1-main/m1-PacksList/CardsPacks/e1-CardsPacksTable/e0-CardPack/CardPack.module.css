@@ -13,7 +13,7 @@
   margin: 0 5px 0 5px;
 }
 
-.cardPackName button{
+.cardPackName button {
   cursor: pointer;
   transition-duration: 300ms;
   padding: 5px;
