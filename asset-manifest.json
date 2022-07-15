@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Card-training/static/css/main.fe4d19da.css",
-    "main.js": "/Card-training/static/js/main.b3747324.js",
+    "main.js": "/Card-training/static/js/main.df6691ad.js",
     "static/js/787.28cb0dcd.chunk.js": "/Card-training/static/js/787.28cb0dcd.chunk.js",
     "static/media/ZSix.gif": "/Card-training/static/media/ZSix.6be24ee38dc1629b1c3c.gif",
     "static/media/atom_icon-icons.com_53030.svg": "/Card-training/static/media/atom_icon-icons.com_53030.57270fa3685245d179eb8436fc1cc772.svg",
@@ -9,11 +9,11 @@
     "static/media/404.png": "/Card-training/static/media/404.1062f5e41ef989b5973a.png",
     "index.html": "/Card-training/index.html",
     "main.fe4d19da.css.map": "/Card-training/static/css/main.fe4d19da.css.map",
-    "main.b3747324.js.map": "/Card-training/static/js/main.b3747324.js.map",
+    "main.df6691ad.js.map": "/Card-training/static/js/main.df6691ad.js.map",
     "787.28cb0dcd.chunk.js.map": "/Card-training/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fe4d19da.css",
-    "static/js/main.b3747324.js"
+    "static/js/main.df6691ad.js"
   ]
 }
