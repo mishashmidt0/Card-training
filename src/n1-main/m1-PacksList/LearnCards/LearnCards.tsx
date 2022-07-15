@@ -19,8 +19,22 @@ export const LearnCards = (): ReturnComponentType => {
 
   useEffect(() => {
     if (cards[0]._id === '5ebbd48876810f1ad0e7ece3') {
+      console.log(cardPackId);
       dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: initPageCount }));
     }
+    const func = (): (() => void) => {
+      let packId: string = '';
+
+      return () => {
+        if (packId === cardPackId) {
+          dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: initPageCount }));
+        } else {
+          packId = cardPackId!;
+        }
+      };
+    };
+
+    func();
   }, []);
 
   const getRandomCard = (cards: CardsType[]): CardsType => {

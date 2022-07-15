@@ -30,9 +30,11 @@ export const CardPack = ({
   const onClickHandler = useCallback((): void => {
     getCards(cardPackId);
   }, [cardPackId, getCards]);
+
   const removeCardPackHandler = useCallback((): void => {
     removeCardPack(cardPackId);
   }, [cardPackId, removeCardPack, filter]);
+
   const learnCardPackHandler = useCallback((): void => {
     learnCards(cardPackId, cardPackName);
   }, [cardPackId, learnCards]);
