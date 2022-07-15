@@ -7,7 +7,6 @@ import Slider from '@mui/material/Slider';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { FilterText } from '../../p3-enums/enums';
 import { maxRangeValue, timeout } from '../../p4-constants/constants';
 import { changeFilter, changeFilterPacksTC } from '../filter-reducer';
 import style from '../Filter.module.css';
@@ -34,17 +33,13 @@ export const RangeSlider = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const filter = useAppSelector(state => state.filter);
   const { packName, isShowCards, pageCount } = filter;
-  // eslint-disable-next-line no-underscore-dangle
   const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const isLoad = useAppSelector(state => state.app.loading);
 
   const setRange = useCallback(
     (newValue: number | number[]): void => {
       const [min, max] = newValue as number[];
-      const payload =
-        filter.isShowCards === FilterText.my
-          ? { user_id: userId, ...filter, min, max }
-          : { ...filter, min, max };
+      const payload = { ...filter, min, max };
 
       dispatch(changeFilterPacksTC(payload));
     },

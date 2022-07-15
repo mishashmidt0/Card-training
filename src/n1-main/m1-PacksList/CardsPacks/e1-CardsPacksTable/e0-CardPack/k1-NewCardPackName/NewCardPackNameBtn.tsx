@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { ReturnComponentType } from '../../../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../../../m2-Profile/profile-reducer';
-import { FilterText, NewPackTitle } from '../../../../p3-enums/enums';
+import { NewPackTitle } from '../../../../p3-enums/enums';
 import { changeCardPackNameTC } from '../../../cardsPacks-reducer';
 
 import style from './NewButtonPopup.module.css';
@@ -44,12 +44,7 @@ export const NewCardPackNameBtn = ({
     setValue('');
   };
   const changeCardPackName = useCallback((): void => {
-    const payload =
-      filter.isShowCards === FilterText.my
-        ? { user_id: userId, ...filter }
-        : { ...filter };
-
-    dispatch(changeCardPackNameTC(cardPackId, value, payload));
+    dispatch(changeCardPackNameTC(cardPackId, value, filter));
     handleClose();
     setValue('');
   }, [cardPackId, filter, userId, value]);

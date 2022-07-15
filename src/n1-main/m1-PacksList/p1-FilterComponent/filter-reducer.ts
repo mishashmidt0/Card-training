@@ -18,6 +18,7 @@ const initialState: initialStateType = {
   min: minRangeValue,
   max: maxRangeValue,
   packName: '',
+  user_id: '',
 };
 
 export const FilterReducer = (
@@ -54,6 +55,7 @@ export const changesShowCardsTC =
       const res = await cardsPacksAPI.getCardsPacks(payload);
 
       dispatch(getCardsPacksAC(res.data));
+      dispatch(changeFilter(payload));
       dispatch(changesShowCards(value));
     } catch (err: any) {
       handleNetworkError(err, dispatch);
@@ -107,6 +109,7 @@ type initialStateType = {
   min: number;
   max: number;
   packName: string;
+  user_id: string;
 };
 
 export type PayloadType = {

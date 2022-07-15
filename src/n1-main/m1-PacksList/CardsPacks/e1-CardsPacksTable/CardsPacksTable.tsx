@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
-import { FilterText } from '../../p3-enums/enums';
 import { getCardsPacksTC, removeCardPackTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
 
@@ -32,19 +31,13 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const sortForCardsCount: () => void = () => {
     if (!loading) {
       if (sortCardsCount) {
-        const payload =
-          filter.isShowCards === FilterText.my
-            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '0cardsCount' }
-            : { page: 1, pageCount: 10, sortPacks: '0cardsCount' };
+        const payload = { ...filter, sortPacks: '0cardsCount' };
 
         dispatch(getCardsPacksTC(payload)).then(() => {
           setSortCardsCount(!sortCardsCount);
         });
       } else {
-        const payload =
-          filter.isShowCards === FilterText.my
-            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '1cardsCount' }
-            : { page: 1, pageCount: 10, sortPacks: '1cardsCount' };
+        const payload = { ...filter, sortPacks: '1cardsCount' };
 
         dispatch(getCardsPacksTC(payload)).then(() => {
           setSortCardsCount(!sortCardsCount);
@@ -55,19 +48,13 @@ export const CardsPacksTable = (): ReturnComponentType => {
   const sortForCardsUpdate: () => void = () => {
     if (!loading) {
       if (sortCardsUpdate) {
-        const payload =
-          filter.isShowCards === FilterText.my
-            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '0updated' }
-            : { page: 1, pageCount: 10, sortPacks: '0updated' };
+        const payload = { ...filter, sortPacks: '0cardsCount' };
 
         dispatch(getCardsPacksTC(payload)).then(() => {
           setSortCardsUpdate(!sortCardsUpdate);
         });
       } else {
-        const payload =
-          filter.isShowCards === FilterText.my
-            ? { user_id: userId, page: 1, pageCount: 10, sortPacks: '1updated' }
-            : { page: 1, pageCount: 10, sortPacks: '1updated' };
+        const payload = { ...filter, sortPacks: '1cardsCount' };
 
         dispatch(getCardsPacksTC(payload)).then(() => {
           setSortCardsUpdate(!sortCardsUpdate);
@@ -86,12 +73,7 @@ export const CardsPacksTable = (): ReturnComponentType => {
 
   const removeCardPack = useCallback(
     (cardPackId: string): void => {
-      const payload =
-        filter.isShowCards === FilterText.my
-          ? { user_id: userId, ...filter }
-          : { ...filter };
-
-      dispatch(removeCardPackTC(cardPackId, payload));
+      dispatch(removeCardPackTC(cardPackId, filter));
     },
     [filter, userId],
   );
@@ -136,10 +118,8 @@ export const CardsPacksTable = (): ReturnComponentType => {
         <TableBody className={s.cardContainer}>
           {cardsPacksData.cardPacks.map((cardPack: CardPackType, index) => (
             <CardPack
-              /* eslint-disable-next-line no-underscore-dangle */
               key={cardPack._id}
               userId={userId}
-              /* eslint-disable-next-line no-underscore-dangle */
               cardPackId={cardPack._id}
               cardPackName={cardPack.name}
               cardPackCardsCount={cardPack.cardsCount}

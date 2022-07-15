@@ -8,10 +8,9 @@ import Typography from '@mui/material/Typography';
 
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
-import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
 import { createCardsPackType } from '../../CardsPacks/cardsPacksAPI';
 import { createNewPackTC } from '../../p1-FilterComponent/filter-reducer';
-import { AddPackTitle, FilterText } from '../../p3-enums/enums';
+import { AddPackTitle } from '../../p3-enums/enums';
 
 import style from './ButtonPopup.module.css';
 
@@ -30,8 +29,6 @@ const styleBox = {
 export const AddPack = (): ReturnComponentType => {
   const dispatch = useTypedDispatch();
   const filter = useAppSelector(state => state.filter);
-  // eslint-disable-next-line no-underscore-dangle
-  const userId = useAppSelector(state => (state.profile.profile as ProfileStateType)._id);
   const [value, setValue] = React.useState<string>('');
   const [open, setOpen] = React.useState(false);
   const handleOpen = (): void => setOpen(true);
@@ -43,12 +40,8 @@ export const AddPack = (): ReturnComponentType => {
     const newPack: createCardsPackType = {
       name: value,
     };
-    const payload =
-      filter.isShowCards === FilterText.my
-        ? { user_id: userId, ...filter }
-        : { ...filter };
 
-    dispatch(createNewPackTC(newPack, payload));
+    dispatch(createNewPackTC(newPack, filter));
     handleClose();
     setValue('');
   };
