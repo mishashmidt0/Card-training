@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { ReturnComponentType } from '../../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../../n5-bll/redux';
 import { ProfileStateType } from '../../../m2-Profile/profile-reducer';
+import { getCardsTC } from '../../Cards/cards-reducer';
+import { maxPageCount } from '../../p4-constants/constants';
 import { getCardsPacksTC, removeCardPackTC } from '../cardsPacks-reducer';
 import { CardPackType } from '../cardsPacksAPI';
 
@@ -68,7 +70,11 @@ export const CardsPacksTable = (): ReturnComponentType => {
     navigate(`/cards/${cardPackId}`);
   }, []);
   const learnCards = useCallback((cardPackId: string, cardPackName: string): void => {
-    navigate(`/learn/${cardPackName}/${cardPackId}`);
+    dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: maxPageCount })).then(
+      () => {
+        return navigate(`/learn/${cardPackName}/${cardPackId}`);
+      },
+    );
   }, []);
 
   const removeCardPack = useCallback(

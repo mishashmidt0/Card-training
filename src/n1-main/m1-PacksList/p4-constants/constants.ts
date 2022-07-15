@@ -14,3 +14,4 @@ export const resetPayload = {
   max: maxRangeValue,
   packName: '',
 };
+export const maxPageCount = 1000;

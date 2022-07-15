@@ -7,7 +7,7 @@ import { ReturnComponentType } from '../../../n4-types';
 import { useAppSelector, useTypedDispatch } from '../../../n5-bll/redux';
 import { getCardsTC } from '../Cards/cards-reducer';
 import { CardsType } from '../Cards/cardsAPI';
-import { forGetRandomCard, initPageCount } from '../p4-constants/constants';
+import { forGetRandomCard, maxPageCount } from '../p4-constants/constants';
 
 import s from './LearnCards.module.css';
 
@@ -19,22 +19,8 @@ export const LearnCards = (): ReturnComponentType => {
 
   useEffect(() => {
     if (cards[0]._id === '5ebbd48876810f1ad0e7ece3') {
-      console.log(cardPackId);
-      dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: initPageCount }));
+      dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: maxPageCount }));
     }
-    const func = (): (() => void) => {
-      let packId: string = '';
-
-      return () => {
-        if (packId === cardPackId) {
-          dispatch(getCardsTC({ cardsPack_id: cardPackId, pageCount: initPageCount }));
-        } else {
-          packId = cardPackId!;
-        }
-      };
-    };
-
-    func();
   }, []);
 
   const getRandomCard = (cards: CardsType[]): CardsType => {
