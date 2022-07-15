@@ -5,8 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 
-import style from './GlobalModal.module.css';
-
+// import style from './GlobalModal.module.css';
 const styleBox = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -41,7 +40,7 @@ export const GlobalModal: FC<PropsType> = ({
 
   return (
     <div>
-      <div className={style.Closed} />
+      {/* <div className={style.Closed} /> */}
       <Button color={color} variant={variant} onClick={handleOpen}>
         {title}
       </Button>
