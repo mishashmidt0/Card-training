@@ -1,0 +1,5 @@
+.cardsPacksContainer {
+  grid-area: table;
+  height: 90%;
+  margin-top: 10px;
+}

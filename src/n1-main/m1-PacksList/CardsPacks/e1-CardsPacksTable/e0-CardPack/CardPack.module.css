@@ -1,0 +1,26 @@
+.cardContainer td {
+  font-size: 14px;
+  font-weight: 500;
+}
+.addBackGround {
+  background-color: #d0e5ff;
+}
+.buttonContainer {
+}
+
+.buttonContainer button {
+  padding: 0 5px 0 5px;
+  margin: 0 5px 0 5px;
+}
+
+.cardPackName button {
+  cursor: pointer;
+  transition-duration: 300ms;
+  padding: 5px;
+  background-color: transparent;
+}
+.cardPackName button:hover {
+  color: #0058ab;
+  background-color: #9dccf6;
+  border-radius: 5px;
+}

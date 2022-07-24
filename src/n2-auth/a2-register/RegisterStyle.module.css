@@ -1,0 +1,48 @@
+.registerContainer {
+  align-self: end;
+  height: 100%;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.registerContainer h1 {
+  letter-spacing: 5px;
+  font-size: 20px;
+  margin: 10px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  margin: 0 auto;
+  padding: 10px 0 10px 0;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.link {
+  margin: 0 auto;
+}
+
+.link a {
+  font-weight: 600;
+  color: #1976d2;
+  margin: 0 auto;
+}
+
+.formContainer .button {
+  margin: 10px 0;
+  width: 100px;
+  align-self: end;
+}
+
+.formContainer .button:hover {
+  background-color: rgba(39, 144, 237, 0.87);
+  transition: 0.6s;
+}

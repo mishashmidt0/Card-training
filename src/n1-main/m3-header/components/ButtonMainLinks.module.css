@@ -1,0 +1,28 @@
+.buttonMainLinksContainer {
+}
+
+.profileBtn a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transition: 400ms;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.profileBtn a:hover {
+  background-color: #9dccf6;
+}
+
+.packsListBtn a {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transition: 400ms;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.packsListBtn a:hover {
+  background-color: #9dccf6;
+}

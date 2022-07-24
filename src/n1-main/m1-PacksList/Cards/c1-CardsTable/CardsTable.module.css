@@ -1,0 +1,51 @@
+.cardsTableContainer {
+  border-radius: 10px 10px 0 0;
+  height: 93%;
+}
+
+.cardsTable {
+  height: 100%;
+}
+
+.tableHeadContainer th {
+  background-color: #6da5de;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.tableRow span {
+  color: #1976d2;
+}
+
+.lastUpdateText {
+  cursor: pointer;
+  transition-duration: 500ms;
+}
+
+.lastUpdateText:hover {
+  background-color: #9dccf6;
+}
+
+.cardContainer div table tbody:nth-child(even) {
+  background-color: #3b61df !important;
+}
+
+.cardContainer td {
+  font-size: 14px;
+  font-weight: 500;
+}
+.addBackGround {
+  background-color: #d0e5ff;
+}
+.buttonContainer {
+}
+
+.buttonContainer button {
+  padding: 0 5px 0 5px;
+  margin: 0 5px 0 5px;
+}
+.questionText {
+  font-family: 'Barlow', sans-serif !important;
+  font-size: 14px;
+  font-weight: 500;
+}

@@ -1,18 +1,20 @@
-import axios from "axios"
+import axios from 'axios';
+
+import { baseUrlAuth } from '../a5-constants/constants';
 
 const instace = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0"
-})
+  baseURL: baseUrlAuth,
+  withCredentials: true,
+});
 
 export type dataType = {
-    email: string,
-    password: string,
-    rememberMe: boolean
-}
+  email: string;
+  password: string;
+  rememberMe: boolean;
+};
 
 export const loginApi = {
-    async login(data: dataType) {
-        const res = instace.post("/auth/login", data)
-        return res
-    }
-}
+  login(data: dataType) {
+    return instace.post('auth/login', data);
+  },
+};

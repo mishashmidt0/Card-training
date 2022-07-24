@@ -1,0 +1,41 @@
+.learnCardsContainer {
+  position: relative;
+  background-color: white;
+  width: 40%;
+  height: 50%;
+  border-radius: 10px;
+  padding: 10px;
+  -webkit-box-shadow: 23px 23px 18px 1px rgba(34, 60, 80, 0.43);
+  -moz-box-shadow: 23px 23px 18px 1px rgba(34, 60, 80, 0.43);
+  box-shadow: 23px 23px 18px 3px rgba(34, 60, 80, 0.43);
+}
+
+.cardPackName {
+  display: flex;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.questionText {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: 30%;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.btnContainer {
+  position: relative;
+  top: 70%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.btnCancel {
+}
+
+.btnShowAnswer {
+  color: white;
+}

@@ -1,38 +1,47 @@
-import {Dispatch} from "redux";
+import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
+import { TypedDispatch } from '../../n5-bll/redux';
+import { handleNetworkError } from '../a4-utils/handle-error-utils';
 
+import { registerApi, RegisterParamsType } from './registerApi';
 
-const initialState = {}
-
-
-export const registerReducer = (state: loginStateType = initialState, action: any) => {
-    switch (action.type) {
-        case "auth":
-            return {...state, isAuth: action.value}
-        default:
-            return state
-    }
+// enum
+enum registerTypes {
+  setIsRegistered = 'register/SET-IS-REGISTERED',
 }
 
-// action
-// const login = (value: boolean) => ({
-//     type: "auth",
-//     value
-// } as const)
+// reducer
+const initialState = { isRegistered: false };
 
-// thunk
+export const registerReducer = (
+  // eslint-disable-next-line default-param-last
+  state: InitialStateType = initialState,
+  action: RegisterActionsType,
+): InitialStateType => {
+  switch (action.type) {
+    case registerTypes.setIsRegistered:
+      return { ...state, isRegistered: action.value };
+    default:
+      return state;
+  }
+};
 
-// export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
-//     loginApi.login(data).then(res => {
-//         try {
-//             console.log(res)
-//             dispatch(login(res.data.value))
-//         } catch (e: any) {
-//             const err = e.responce ? e.responce.data.error : (e.message + "more details in the console")
-//         }
-//     })
-// }
-
-// type
-export
-type loginStateType = {}
-// type actionType = ReturnType<typeof login>
+// actions
+export const setIsRegisteredAC = (value: boolean) =>
+  ({ type: registerTypes.setIsRegistered, value } as const);
+// thunks
+export const registerTC =
+  (data: RegisterParamsType) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await registerApi.registerUser(data);
+      dispatch(setIsRegisteredAC(true));
+      dispatch(showAnswer('You have been successfully registered', Status.success));
+    } catch (error: any) {
+      handleNetworkError(error, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+// n4-types
+export type RegisterActionsType = ReturnType<typeof setIsRegisteredAC>;
+type InitialStateType = typeof initialState;

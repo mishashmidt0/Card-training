@@ -1,38 +1,79 @@
-import {Dispatch} from "redux";
+import { loading, showAnswer, Status } from '../../n1-main/m0-App/app-reducer';
+import { TypedDispatch } from '../../n5-bll/redux';
+import { handleNetworkError } from '../a4-utils/handle-error-utils';
 
+import { forgotApi, newPasswordType } from './forgotApi';
 
-const initialState = {}
-
-
-export const forgotReducer = (state: loginStateType = initialState, action: any) => {
-    switch (action.type) {
-        case "auth":
-            return {...state, isAuth: action.value}
-        default:
-            return state
-    }
+// enum
+enum forgotTypes {
+  setIsSendMessage = 'FORGOT/SET-IS-SEND-MESSAGE',
+  newPass = 'FORGOT/CREATE-NEW-PASS',
 }
 
-// action
-// const login = (value: boolean) => ({
-//     type: "auth",
-//     value
-// } as const)
+// reducer
+const initialState = {
+  isSendMessageToEmail: false,
+  isCreate: false,
+};
 
-// thunk
+export const forgotReducer = (
+  // eslint-disable-next-line default-param-last
+  state: InitialStateType = initialState,
+  action: ForgotPasswordActionsType,
+): InitialStateType => {
+  switch (action.type) {
+    case forgotTypes.setIsSendMessage:
+      return { ...state, isSendMessageToEmail: action.value };
+    case forgotTypes.newPass:
+      return { ...state, isCreate: action.value };
+    default:
+      return state;
+  }
+};
 
-// export const loginTC = (data: dataType) => (dispatch: Dispatch<any>) => {
-//     loginApi.login(data).then(res => {
-//         try {
-//             console.log(res)
-//             dispatch(login(res.data.value))
-//         } catch (e: any) {
-//             const err = e.responce ? e.responce.data.error : (e.message + "more details in the console")
-//         }
-//     })
-// }
+// actions
+export const setIsForgotPasswordAC = (value: boolean) =>
+  ({ type: forgotTypes.setIsSendMessage, value } as const);
 
-// type
-export
-type loginStateType = {}
-// type actionType = ReturnType<typeof login>
+export const changeIsCreate = (value: boolean) =>
+  ({ type: forgotTypes.newPass, value } as const);
+
+// thunks
+export const sendMessageForMailTC =
+  (email: string) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await forgotApi.forgotPassword(email);
+      dispatch(setIsForgotPasswordAC(true));
+      dispatch(showAnswer(`Check email: ${email}`, Status.success));
+      dispatch(changeIsCreate(false));
+    } catch (error: any) {
+      handleNetworkError(error, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+
+export const createNewPassword =
+  (data: newPasswordType) => async (dispatch: TypedDispatch) => {
+    dispatch(loading(true));
+    try {
+      await forgotApi.createNewPassword(data);
+      dispatch(changeIsCreate(true));
+      dispatch(showAnswer('created new password!', Status.success));
+    } catch (error: any) {
+      handleNetworkError(error, dispatch);
+    } finally {
+      dispatch(loading(false));
+    }
+  };
+
+// n3-types
+export type SetIsForgotPasswordActionsType = ReturnType<typeof setIsForgotPasswordAC>;
+export type CreateNewPasswordActionsType = ReturnType<typeof changeIsCreate>;
+
+export type ForgotPasswordActionsType =
+  | SetIsForgotPasswordActionsType
+  | CreateNewPasswordActionsType;
+
+type InitialStateType = typeof initialState;
